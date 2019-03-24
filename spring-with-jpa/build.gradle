@@ -1,13 +1,7 @@
-plugins {
-    id 'java'
-}
-
-group = 'study.huhao.name'
-version = '1.0'
-sourceCompatibility = '11'
-targetCompatibility = '11'
-
 allprojects {
+
+    apply plugin: 'java'
+
     repositories {
         mavenCentral()
         jcenter()
@@ -18,8 +12,19 @@ allprojects {
             jcenter()
         }
     }
+
+    group = 'study.huhao.name'
+    version = '1.0'
+    sourceCompatibility = '11'
+    targetCompatibility = '11'
 }
 
 subprojects {
-    version = '1.0'
+    ext {
+        mockito_core = '2.+'
+        assertj_core = '3.11.1'
+        rest_assured = '3.3.0'
+        junit_jupiter = '5.4.1'
+        junit_platform_launcher = '1.4.1'
+    }
 }

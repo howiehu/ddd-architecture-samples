@@ -1,9 +1,12 @@
 plugins {
-    id 'java'
     id 'org.springframework.boot' version '2.1.3.RELEASE'
 }
 
 apply plugin: 'io.spring.dependency-management'
+
+configurations {
+    compile.exclude module: 'junit'
+}
 
 dependencies {
     implementation project(':application')
@@ -12,4 +15,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // just use to show how to use REST Assured to improve test
+    // should place rest-assured before the JUnit dependency declaration in order to make sure
+    // that the correct version of Hamcrest is used
+    testImplementation "io.rest-assured:rest-assured:$rest_assured"
+    testImplementation "io.rest-assured:spring-mock-mvc:$rest_assured"
+
+    testImplementation "org.junit.jupiter:junit-jupiter:$junit_jupiter"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher:$junit_platform_launcher"
 }
