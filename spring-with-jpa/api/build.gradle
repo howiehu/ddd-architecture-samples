@@ -16,6 +16,11 @@ dependencies {
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'mysql:mysql-connector-java'
+
+    testImplementation "org.flywaydb.flyway-test-extensions:flyway-spring-test:$flyway_spring_test"
+
     // just use to show how to use REST Assured to improve test
     // should place rest-assured before the JUnit dependency declaration in order to make sure
     // that the correct version of Hamcrest is used
