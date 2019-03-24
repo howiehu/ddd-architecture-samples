@@ -13,6 +13,8 @@ dependencies {
     implementation project(':migration')
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.flywaydb:flyway-core'
+    testImplementation "org.flywaydb.flyway-test-extensions:flyway-spring-test:$flyway_spring_test"
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'mysql:mysql-connector-java'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

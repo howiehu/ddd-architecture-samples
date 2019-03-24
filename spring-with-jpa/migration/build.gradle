@@ -1,9 +1,9 @@
-plugins {
-    id 'org.springframework.boot' version '2.1.3.RELEASE'
+buildscript {
+    dependencies {
+        classpath 'mysql:mysql-connector-java:8.0.12'
+    }
 }
 
-apply plugin: 'io.spring.dependency-management'
-
-dependencies {
-    implementation 'org.flywaydb:flyway-core'
+plugins {
+    id "org.flywaydb.flyway" version "5.2.4"
 }

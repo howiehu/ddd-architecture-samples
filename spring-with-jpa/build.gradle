@@ -26,5 +26,6 @@ subprojects {
         rest_assured = '3.3.0'
         junit_jupiter = '5.4.1'
         junit_platform_launcher = '1.4.1'
+        flyway_spring_test = '5.2.0'
     }
 }
