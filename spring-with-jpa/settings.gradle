@@ -5,4 +5,5 @@ pluginManagement {
 }
 rootProject.name = 'spring-with-jpa'
 
-include "api"
+include 'api'
+include 'domain'
