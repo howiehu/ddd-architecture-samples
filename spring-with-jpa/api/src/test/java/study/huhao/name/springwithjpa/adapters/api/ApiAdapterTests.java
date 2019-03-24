@@ -1,4 +1,4 @@
-package study.huhao.name.springwithjpa;
+package study.huhao.name.springwithjpa.adapters.api;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SpringWithJpaApplicationTests {
+public class ApiAdapterTests {
 
     @Test
     public void contextLoads() {
