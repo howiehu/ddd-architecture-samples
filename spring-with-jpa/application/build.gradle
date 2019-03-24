@@ -6,10 +6,8 @@ plugins {
 apply plugin: 'io.spring.dependency-management'
 
 dependencies {
-    implementation project(':application')
     implementation project(':domain')
-
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+    
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

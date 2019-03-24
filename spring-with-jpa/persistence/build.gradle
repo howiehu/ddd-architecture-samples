@@ -6,10 +6,11 @@ plugins {
 apply plugin: 'io.spring.dependency-management'
 
 dependencies {
-    implementation project(':application')
     implementation project(':domain')
+    implementation project(':migration')
 
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'mysql:mysql-connector-java'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
