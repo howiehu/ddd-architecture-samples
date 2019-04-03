@@ -5,14 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
 import study.huhao.name.springwithjpa.domain.models.base.AggregateRoot;
-import study.huhao.name.springwithjpa.domain.models.base.Publishable;
 import study.huhao.name.springwithjpa.domain.models.user.UserId;
 
 import java.time.Instant;
 
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class Blog implements AggregateRoot, Publishable {
+public class Blog implements AggregateRoot {
     @NonNull
     private BlogId id;
     private String title;
@@ -35,7 +34,6 @@ public class Blog implements AggregateRoot, Publishable {
         saveDraft(title, body, this.createdAt);
     }
 
-    @Override
     public void publish() {
         // TODO: when draft is null, throw NoNeedToPublishException.
         this.title = this.draft.getTitle();
@@ -51,5 +49,11 @@ public class Blog implements AggregateRoot, Publishable {
 
     private void saveDraft(String title, String body, Instant savedAt) {
         this.draft = new BlogDraft(this.id, title, body, savedAt);
+    }
+
+    public static enum PublishStatus {
+        Draft,
+        Published,
+        Hiddened
     }
 }

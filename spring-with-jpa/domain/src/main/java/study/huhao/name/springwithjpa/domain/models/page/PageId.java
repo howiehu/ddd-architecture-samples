@@ -1,6 +1,7 @@
 package study.huhao.name.springwithjpa.domain.models.page;
 
 import lombok.*;
+import study.huhao.name.springwithjpa.domain.models.base.EntityId;
 import study.huhao.name.springwithjpa.domain.models.base.ValueObject;
 
 import java.util.UUID;
@@ -8,7 +9,7 @@ import java.util.UUID;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Value
 @Getter(AccessLevel.NONE)
-public class PageId implements ValueObject {
+public class PageId implements EntityId {
 
     private UUID id;
 
