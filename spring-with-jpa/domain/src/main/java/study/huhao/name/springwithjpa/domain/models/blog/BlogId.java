@@ -10,6 +10,7 @@ import java.util.UUID;
 @Getter(AccessLevel.NONE)
 public class BlogId implements EntityId {
 
+    @NonNull
     private UUID id;
 
     protected BlogId() {

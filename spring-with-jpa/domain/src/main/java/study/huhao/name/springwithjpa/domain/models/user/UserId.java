@@ -9,6 +9,7 @@ import java.util.UUID;
 @Value
 @Getter(AccessLevel.NONE)
 public class UserId implements EntityId {
+    @NonNull
     private UUID id;
 
     protected UserId() {
