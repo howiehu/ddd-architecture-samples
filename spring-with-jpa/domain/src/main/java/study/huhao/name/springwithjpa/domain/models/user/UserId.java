@@ -1,6 +1,9 @@
 package study.huhao.name.springwithjpa.domain.models.user;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Value;
 import study.huhao.name.springwithjpa.domain.models.base.EntityId;
 
 import java.util.UUID;
@@ -9,14 +12,13 @@ import java.util.UUID;
 @Value
 @Getter(AccessLevel.NONE)
 public class UserId implements EntityId {
-    @NonNull
     private UUID id;
 
-    public UserId() {
+    protected UserId() {
         id = UUID.randomUUID();
     }
 
-    public static UserId of(@NonNull String id) {
+    public static UserId of(String id) {
         return new UserId(UUID.fromString(id));
     }
 

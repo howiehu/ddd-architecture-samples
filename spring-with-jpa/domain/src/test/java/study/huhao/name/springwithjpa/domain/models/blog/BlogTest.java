@@ -9,6 +9,7 @@ import study.huhao.name.springwithjpa.domain.models.blog.exceptions.TitleHasNoCo
 import study.huhao.name.springwithjpa.domain.models.user.UserId;
 
 import java.time.Instant;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -20,7 +21,7 @@ class BlogTest {
 
         @Test
         void should_initialize_correctly() {
-            var author = new UserId();
+            var author = UserId.of(UUID.randomUUID().toString());
 
             var blog = new Blog("Test Blog", "Something...", author);
 
@@ -43,10 +44,10 @@ class BlogTest {
 
         @Test
         void should_throw_TitleHasNoContentException_when_title_is_null_or_no_content() {
-            assertThatThrownBy(() -> new Blog(null, "Something...", new UserId()))
+            assertThatThrownBy(() -> new Blog(null, "Something...", UserId.of(UUID.randomUUID().toString())))
                     .isInstanceOf(TitleHasNoContentException.class)
                     .hasMessage("the title cannot be null or no content");
-            assertThatThrownBy(() -> new Blog("   ", "Something...", new UserId()))
+            assertThatThrownBy(() -> new Blog("   ", "Something...", UserId.of(UUID.randomUUID().toString())))
                     .isInstanceOf(TitleHasNoContentException.class)
                     .hasMessage("the title cannot be null or no content");
         }
@@ -67,7 +68,7 @@ class BlogTest {
 
         @BeforeEach
         void setUp() {
-            blog = new Blog("Test Blog", "Something...", new UserId());
+            blog = new Blog("Test Blog", "Something...", UserId.of(UUID.randomUUID().toString()));
             pastSavedAt = blog.getDraft().getSavedAt();
         }
 
@@ -117,7 +118,7 @@ class BlogTest {
 
         @BeforeEach
         void setUp() {
-            blog = new Blog("Test Blog", "Something...", new UserId());
+            blog = new Blog("Test Blog", "Something...", UserId.of(UUID.randomUUID().toString()));
             pastId = blog.getId();
             pastAuthor = blog.getAuthor();
             pastCreatedAt = blog.getCreatedAt();

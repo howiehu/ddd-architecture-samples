@@ -2,7 +2,6 @@ package study.huhao.name.springwithjpa.domain.models.blog;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.NonNull;
 import lombok.Value;
 import study.huhao.name.springwithjpa.domain.models.base.ValueObject;
 
