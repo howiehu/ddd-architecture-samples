@@ -10,8 +10,8 @@ configurations {
 
 dependencies {
     implementation project(':domain')
+    implementation project(':persistence')
 
-    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     testImplementation "org.junit.jupiter:junit-jupiter:$junit_jupiter"
