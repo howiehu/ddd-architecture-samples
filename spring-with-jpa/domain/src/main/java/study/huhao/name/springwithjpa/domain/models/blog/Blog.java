@@ -3,8 +3,9 @@ package study.huhao.name.springwithjpa.domain.models.blog;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NonNull;
 import study.huhao.name.springwithjpa.domain.models.base.AggregateRoot;
+import study.huhao.name.springwithjpa.domain.models.blog.exceptions.AuthorIsNullException;
+import study.huhao.name.springwithjpa.domain.models.blog.exceptions.TitleHasNoContentException;
 import study.huhao.name.springwithjpa.domain.models.user.UserId;
 
 import java.time.Instant;
@@ -12,26 +13,39 @@ import java.time.Instant;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Blog implements AggregateRoot {
-    @NonNull
     private BlogId id;
     private String title;
     private String body;
-    @NonNull
     private UserId author;
-    @NonNull
     private PublishStatus status;
-    @NonNull
     private Instant createdAt;
     private Instant publishedAt;
     private Instant lastModifiedAt;
     private BlogDraft draft;
 
     public Blog(String title, String body, UserId author) {
+
+        validateTitle(title);
+        validateAuthor(author);
+
         this.id = new BlogId();
         this.author = author;
         this.status = PublishStatus.Draft;
         this.createdAt = Instant.now();
+
         saveDraft(title, body, this.createdAt);
+    }
+
+    private void validateAuthor(UserId author) {
+        if (author == null) {
+            throw new AuthorIsNullException();
+        }
+    }
+
+    private void validateTitle(String title) {
+        if (title == null || title.isBlank()) {
+            throw new TitleHasNoContentException();
+        }
     }
 
     public void publish() {
@@ -47,13 +61,14 @@ public class Blog implements AggregateRoot {
         saveDraft(title, body, Instant.now());
     }
 
+
     private void saveDraft(String title, String body, Instant savedAt) {
         this.draft = new BlogDraft(this.id, title, body, savedAt);
     }
 
-    public static enum PublishStatus {
+    public enum PublishStatus {
         Draft,
         Published,
-        Hiddened
+        Hiddened;
     }
 }

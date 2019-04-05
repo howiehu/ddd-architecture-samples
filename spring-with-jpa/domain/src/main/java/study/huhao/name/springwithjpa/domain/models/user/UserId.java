@@ -12,7 +12,7 @@ public class UserId implements EntityId {
     @NonNull
     private UUID id;
 
-    protected UserId() {
+    public UserId() {
         id = UUID.randomUUID();
     }
 

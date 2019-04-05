@@ -11,11 +11,8 @@ import java.time.Instant;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Value
 public class BlogDraft implements ValueObject {
-    @NonNull
     private BlogId blogId;
-    @NonNull
     private String title;
     private String body;
-    @NonNull
     private Instant savedAt;
 }
