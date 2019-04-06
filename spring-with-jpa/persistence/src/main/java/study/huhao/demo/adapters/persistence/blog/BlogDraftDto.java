@@ -1,18 +1,15 @@
-package study.huhao.demo.adapters.persistence.dtos;
+package study.huhao.demo.adapters.persistence.blog;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import study.huhao.demo.domain.models.blog.BlogDraft;
 
 import javax.persistence.Embeddable;
 import java.time.Instant;
 
 @Embeddable
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 public class BlogDraftDto {
     private String draftTitle;

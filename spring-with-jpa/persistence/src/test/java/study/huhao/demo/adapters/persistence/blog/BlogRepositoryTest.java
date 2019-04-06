@@ -1,4 +1,4 @@
-package study.huhao.demo.adapters.persistence.repositories;
+package study.huhao.demo.adapters.persistence.blog;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import study.huhao.demo.adapters.persistence.dtos.BlogDto;
 import study.huhao.demo.domain.models.blog.Blog;
 import study.huhao.demo.domain.models.blog.BlogRepository;
 import study.huhao.demo.domain.models.user.UserId;

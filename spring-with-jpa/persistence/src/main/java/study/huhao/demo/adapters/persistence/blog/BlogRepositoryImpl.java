@@ -1,9 +1,7 @@
-package study.huhao.demo.adapters.persistence.repositories;
+package study.huhao.demo.adapters.persistence.blog;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import study.huhao.demo.adapters.persistence.dtos.BlogDto;
-import study.huhao.demo.adapters.persistence.jparepositories.BlogJpaRepository;
 import study.huhao.demo.domain.models.blog.Blog;
 import study.huhao.demo.domain.models.blog.BlogRepository;
 

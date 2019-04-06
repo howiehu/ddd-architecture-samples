@@ -1,9 +1,6 @@
-package study.huhao.demo.adapters.persistence.dtos;
+package study.huhao.demo.adapters.persistence.blog;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import study.huhao.demo.domain.models.blog.Blog;
 import study.huhao.demo.domain.models.blog.BlogId;
 import study.huhao.demo.domain.models.user.UserId;
@@ -15,9 +12,9 @@ import javax.persistence.Id;
 import java.time.Instant;
 
 @Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 public class BlogDto {
 
