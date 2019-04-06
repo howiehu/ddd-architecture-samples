@@ -8,6 +8,11 @@ dependencies {
 
     compile "org.springframework.boot:spring-boot-starter-data-jpa:$spring_boot"
     testImplementation "org.springframework.boot:spring-boot-starter-test:$spring_boot"
+    compileOnly "org.projectlombok:lombok:$lombok"
+    annotationProcessor "org.projectlombok:lombok:$lombok"
+
+    runtimeOnly "mysql:mysql-connector-java:$mysql_connector_java"
+    testRuntimeOnly "com.h2database:h2:$h2"
 
     testImplementation "org.junit.jupiter:junit-jupiter:$junit_jupiter"
     testRuntimeOnly "org.junit.platform:junit-platform-launcher:$junit_platform_launcher"

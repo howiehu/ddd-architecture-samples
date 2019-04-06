@@ -1,6 +1,5 @@
 package study.huhao.name.springwithjpa.domain.models.blog;
 
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import study.huhao.name.springwithjpa.domain.models.base.AggregateRoot;
@@ -11,7 +10,7 @@ import study.huhao.name.springwithjpa.domain.models.user.UserId;
 
 import java.time.Instant;
 
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Getter
 public class Blog implements AggregateRoot {
     private BlogId id;
@@ -85,7 +84,7 @@ public class Blog implements AggregateRoot {
     }
 
     private void saveDraft(String title, String body, Instant savedAt) {
-        this.draft = new BlogDraft(this.id, title, body, savedAt);
+        this.draft = new BlogDraft(title, body, savedAt);
     }
 
     public enum PublishStatus {

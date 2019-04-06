@@ -4,6 +4,6 @@ import study.huhao.name.springwithjpa.domain.models.base.excpetions.AggregateExc
 
 public class TitleHasNoContentException extends AggregateException {
     public TitleHasNoContentException() {
-        super("the title cannot be null or no content");
+        super("the draftTitle cannot be null or no content");
     }
 }

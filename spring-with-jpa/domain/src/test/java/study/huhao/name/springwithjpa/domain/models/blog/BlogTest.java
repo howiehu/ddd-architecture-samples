@@ -36,7 +36,6 @@ class BlogTest {
 
             var draft = blog.getDraft();
             assertThat(draft).isNotNull();
-            assertThat(draft.getBlogId()).isEqualTo(blog.getId());
             assertThat(draft.getTitle()).isEqualTo("Test Blog");
             assertThat(draft.getBody()).isEqualTo("Something...");
             assertThat(draft.getSavedAt()).isEqualTo(blog.getCreatedAt());
@@ -46,10 +45,10 @@ class BlogTest {
         void should_throw_TitleHasNoContentException_when_title_is_null_or_no_content() {
             assertThatThrownBy(() -> new Blog(null, "Something...", UserId.of(UUID.randomUUID().toString())))
                     .isInstanceOf(TitleHasNoContentException.class)
-                    .hasMessage("the title cannot be null or no content");
+                    .hasMessage("the draftTitle cannot be null or no content");
             assertThatThrownBy(() -> new Blog("   ", "Something...", UserId.of(UUID.randomUUID().toString())))
                     .isInstanceOf(TitleHasNoContentException.class)
-                    .hasMessage("the title cannot be null or no content");
+                    .hasMessage("the draftTitle cannot be null or no content");
         }
 
         @Test
@@ -93,10 +92,10 @@ class BlogTest {
         void should_throw_TitleHasNoContentException_when_title_is_null_or_no_content() {
             assertThatThrownBy(() -> blog.save(null, "Updated..."))
                     .isInstanceOf(TitleHasNoContentException.class)
-                    .hasMessage("the title cannot be null or no content");
+                    .hasMessage("the draftTitle cannot be null or no content");
             assertThatThrownBy(() -> blog.save("   ", "Updated..."))
                     .isInstanceOf(TitleHasNoContentException.class)
-                    .hasMessage("the title cannot be null or no content");
+                    .hasMessage("the draftTitle cannot be null or no content");
         }
 
         private void assertSaveSuccess() {

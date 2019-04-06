@@ -1,6 +1,6 @@
 dependencies {
-    compileOnly 'org.projectlombok:lombok:1.18.6'
-    annotationProcessor 'org.projectlombok:lombok:1.18.6'
+    compileOnly "org.projectlombok:lombok:$lombok"
+    annotationProcessor "org.projectlombok:lombok:$lombok"
 
     testImplementation "org.mockito:mockito-core:$mockito_core"
     testImplementation "org.assertj:assertj-core:$assertj_core"
