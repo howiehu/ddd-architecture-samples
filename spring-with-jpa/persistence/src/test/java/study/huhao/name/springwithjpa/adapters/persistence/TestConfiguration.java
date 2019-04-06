@@ -8,6 +8,6 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootConfiguration
 @EnableAutoConfiguration
 @ComponentScan("study.huhao.name.springwithjpa.adapters.persistence")
-public class JpaConfiguration {
+public class TestConfiguration {
 
 }
