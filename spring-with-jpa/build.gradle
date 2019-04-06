@@ -21,6 +21,7 @@ allprojects {
 
 subprojects {
     ext {
+        spring_boot = '2.1.4.RELEASE'
         mockito_core = '2.+'
         assertj_core = '3.11.1'
         rest_assured = '3.3.0'
