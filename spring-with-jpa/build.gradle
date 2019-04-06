@@ -13,7 +13,7 @@ allprojects {
         }
     }
 
-    group = 'study.huhao.name'
+    group = 'study.huhao.demo'
     version = '1.0'
     sourceCompatibility = '11'
     targetCompatibility = '11'
