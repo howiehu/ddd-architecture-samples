@@ -1,13 +1,14 @@
 package study.huhao.demo.adapters.persistence;
 
 
-import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
-@SpringBootConfiguration
+
+@Configuration
 @EnableAutoConfiguration
-@ComponentScan(basePackages = "study.huhao.demo.adapters.persistence")
-public class TestConfiguration {
+@ComponentScan("study.huhao.demo.adapters.persistence")
+public class JpaConfiguration {
 
 }
