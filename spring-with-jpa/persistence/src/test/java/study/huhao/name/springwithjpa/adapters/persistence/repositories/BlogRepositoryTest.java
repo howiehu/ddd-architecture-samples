@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import study.huhao.name.springwithjpa.adapters.persistence.dtos.BlogDto;
 import study.huhao.name.springwithjpa.domain.models.blog.Blog;
+import study.huhao.name.springwithjpa.domain.models.blog.BlogRepository;
 import study.huhao.name.springwithjpa.domain.models.user.UserId;
 
 import java.util.UUID;
@@ -22,7 +23,7 @@ class BlogRepositoryTest {
     private TestEntityManager entityManager;
 
     @Autowired
-    private BlogRepositoryImpl blogRepository;
+    private BlogRepository blogRepository;
 
     @Test
     void save() {

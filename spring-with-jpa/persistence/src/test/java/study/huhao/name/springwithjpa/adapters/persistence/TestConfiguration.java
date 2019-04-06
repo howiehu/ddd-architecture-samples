@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootConfiguration
 @EnableAutoConfiguration
-@ComponentScan("study.huhao.name.springwithjpa.adapters.persistence")
+@ComponentScan(basePackages = "study.huhao.name.springwithjpa.adapters.persistence")
 public class TestConfiguration {
 
 }
