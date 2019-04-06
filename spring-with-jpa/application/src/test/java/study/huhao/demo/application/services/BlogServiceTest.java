@@ -1,5 +1,6 @@
 package study.huhao.demo.application.services;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,6 +19,16 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(SpringExtension.class)
 class BlogServiceTest {
 
+    @MockBean
+    private BlogRepository blogRepository;
+
+    private BlogService blogService;
+
+    @BeforeEach
+    void setUp() {
+        blogService = new BlogService(blogRepository);
+    }
+
     @Nested
     class createBlog {
 
@@ -26,8 +37,6 @@ class BlogServiceTest {
 
         @Test
         void should_create_correctly() {
-            var blogService = new BlogService(blogRepository);
-
             var createdUser = blogService
                     .createBlog("Test Blog", "Something...", UserId.of(UUID.randomUUID().toString()));
 
