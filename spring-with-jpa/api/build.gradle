@@ -14,6 +14,7 @@ configurations {
 dependencies {
     implementation project(':application')
     implementation project(':domain')
+    implementation project(':migration')
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
@@ -21,7 +22,7 @@ dependencies {
     compileOnly "org.projectlombok:lombok:$lombok"
     annotationProcessor "org.projectlombok:lombok:$lombok"
 
-    testImplementation "org.flywaydb.flyway-test-extensions:flyway-spring-test:$flyway_spring_test"
+//    testImplementation "org.flywaydb.flyway-test-extensions:flyway-spring-test:$flyway_spring_test"
 
     // just use to show how to use REST Assured to improve test
     // should place rest-assured before the JUnit dependency declaration in order to make sure

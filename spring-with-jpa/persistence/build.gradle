@@ -12,7 +12,6 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:$lombok"
 
     runtimeOnly "mysql:mysql-connector-java:$mysql_connector_java"
-    testRuntimeOnly "com.h2database:h2:$h2"
 
     testImplementation "org.junit.jupiter:junit-jupiter:$junit_jupiter"
     testRuntimeOnly "org.junit.platform:junit-platform-launcher:$junit_platform_launcher"
