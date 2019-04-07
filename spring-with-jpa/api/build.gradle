@@ -14,7 +14,6 @@ configurations {
 dependencies {
     implementation project(':application')
     implementation project(':domain')
-    implementation project(':migration')
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'

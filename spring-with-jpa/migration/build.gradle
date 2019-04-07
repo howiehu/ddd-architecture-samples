@@ -1,20 +1,20 @@
-buildscript {
-    dependencies {
-        classpath "mysql:mysql-connector-java:$mysql_connector_java"
-    }
-}
-
-plugins {
-    id "org.flywaydb.flyway" version "5.2.4"
-}
-
+//buildscript {
+//    dependencies {
+//        classpath "mysql:mysql-connector-java:$mysql_connector_java"
+//    }
+//}
+//
+//plugins {
+//    id "org.flywaydb.flyway" version "5.2.4"
+//}
+//
 //dependencies {
 //    compile "org.flywaydb:flyway-core:5.2.4"
 //}
-
-flyway {
-    url = "jdbc:mysql://localhost:3306?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false"
-    user = "root"
-    password = "password"
-    schemas = ['hexagonal_architecture']
-}
+//
+////flyway {
+////    url = "jdbc:mysql://localhost:3306?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false"
+////    user = "root"
+////    password = "password"
+////    schemas = ['hexagonal_architecture']
+////}
