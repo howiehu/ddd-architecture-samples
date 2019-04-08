@@ -12,4 +12,5 @@ CREATE TABLE `blog`
     `draft_body`       TEXT,
     `draft_saved_at`   TIMESTAMP(6)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4
+  COLLATE utf8mb4_bin;
