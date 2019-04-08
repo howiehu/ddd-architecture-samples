@@ -1,4 +1,4 @@
-package study.huhao.demo.domain.models.base;
+package study.huhao.demo.domain.core;
 
 public interface EntityId extends ValueObject {
 }

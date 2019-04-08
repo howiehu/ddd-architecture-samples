@@ -1,6 +1,6 @@
 package study.huhao.demo.domain.models.blog.exceptions;
 
-import study.huhao.demo.domain.models.base.excpetions.AggregateException;
+import study.huhao.demo.domain.core.excpetions.AggregateException;
 
 public class TitleHasNoContentException extends AggregateException {
     public TitleHasNoContentException() {

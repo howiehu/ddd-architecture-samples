@@ -2,7 +2,7 @@ package study.huhao.demo.domain.models.blog;
 
 import lombok.AllArgsConstructor;
 import lombok.Value;
-import study.huhao.demo.domain.models.base.ValueObject;
+import study.huhao.demo.domain.core.ValueObject;
 
 import java.time.Instant;
 

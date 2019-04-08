@@ -1,7 +1,7 @@
 package study.huhao.demo.adapters.persistence.blog;
 
 import lombok.*;
-import study.huhao.demo.adapters.persistence.base.Dto;
+import study.huhao.demo.adapters.persistence.Dto;
 import study.huhao.demo.domain.models.blog.Blog;
 import study.huhao.demo.domain.models.blog.BlogId;
 import study.huhao.demo.domain.models.user.UserId;

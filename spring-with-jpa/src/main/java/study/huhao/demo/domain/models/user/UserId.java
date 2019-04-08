@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Value;
-import study.huhao.demo.domain.models.base.EntityId;
+import study.huhao.demo.domain.core.EntityId;
 
 import java.util.UUID;
 

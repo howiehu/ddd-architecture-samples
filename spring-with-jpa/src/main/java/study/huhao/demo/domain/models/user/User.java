@@ -3,7 +3,7 @@ package study.huhao.demo.domain.models.user;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import study.huhao.demo.domain.models.base.AggregateRoot;
+import study.huhao.demo.domain.core.AggregateRoot;
 
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter

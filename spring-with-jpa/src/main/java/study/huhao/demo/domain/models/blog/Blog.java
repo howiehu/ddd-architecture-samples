@@ -2,7 +2,7 @@ package study.huhao.demo.domain.models.blog;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import study.huhao.demo.domain.models.base.AggregateRoot;
+import study.huhao.demo.domain.core.AggregateRoot;
 import study.huhao.demo.domain.models.blog.exceptions.AuthorIsNullException;
 import study.huhao.demo.domain.models.blog.exceptions.NoNeedToPublishException;
 import study.huhao.demo.domain.models.blog.exceptions.TitleHasNoContentException;

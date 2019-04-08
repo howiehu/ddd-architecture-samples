@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import org.springframework.boot.jackson.JsonComponent;
-import study.huhao.demo.domain.models.base.EntityId;
+import study.huhao.demo.domain.core.EntityId;
 
 import java.io.IOException;
 
