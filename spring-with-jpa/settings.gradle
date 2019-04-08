@@ -4,9 +4,3 @@ pluginManagement {
     }
 }
 rootProject.name = 'spring-with-jpa'
-
-include 'api'
-include 'application'
-include 'domain'
-include 'persistence'
-include 'migration'

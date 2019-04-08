@@ -1,36 +1,63 @@
-allprojects {
-
-    apply plugin: 'java'
-
+buildscript {
     repositories {
         mavenCentral()
         jcenter()
     }
-    buildscript {
-        repositories {
-            mavenCentral()
-            jcenter()
-        }
+    dependencies {
+        classpath "mysql:mysql-connector-java:8.0.15"
     }
-
-    group = 'study.huhao.demo'
-    version = '1.0'
-    sourceCompatibility = '11'
-    targetCompatibility = '11'
 }
 
-subprojects {
-    ext {
-        spring_boot = '2.1.4.RELEASE'
-        mysql_connector_java = '8.0.15'
-        h2 = '1.4.199'
-        lombok = '1.18.6'
-        mockito_core = '2.+'
-        assertj_core = '3.11.1'
-        rest_assured = '3.3.0'
-        junit_jupiter = '5.4.1'
-        junit_platform_launcher = '1.4.1'
-        flyway_core = '5.2.4'
-        flyway_spring_test = '5.2.0'
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.1.4.RELEASE'
+    id 'org.flywaydb.flyway' version '5.2.4'
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'study.huhao.demo'
+version = '1.0'
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+configurations {
+    compile.exclude module: 'junit'
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+    runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    compileOnly "org.projectlombok:lombok:1.18.6"
+    annotationProcessor "org.projectlombok:lombok:1.18.6"
+
+    runtimeOnly "mysql:mysql-connector-java:8.0.15"
+
+    implementation "org.flywaydb:flyway-core:5.2.4"
+    testImplementation "org.flywaydb.flyway-test-extensions:flyway-spring-test:5.2.0"
+
+    // just use to show how to use REST Assured to improve test
+    // should place rest-assured before the JUnit dependency declaration in order to make sure
+    // that the correct version of Hamcrest is used
+    testImplementation "io.rest-assured:rest-assured:3.3.0"
+    testImplementation "io.rest-assured:spring-mock-mvc:3.3.0"
+
+    testImplementation "org.mockito:mockito-core:2.+"
+    testImplementation "org.assertj:assertj-core:3.11.1"
+    testImplementation "org.junit.jupiter:junit-jupiter:5.4.1"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher:1.4.1"
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
     }
 }
