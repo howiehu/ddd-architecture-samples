@@ -20,7 +20,7 @@ dependencies {
     compileOnly "org.projectlombok:lombok:$lombok"
     annotationProcessor "org.projectlombok:lombok:$lombok"
 
-    implementation "org.flywaydb:flyway-core:5.2.4"
+    implementation "org.flywaydb:flyway-core:$flyway_core"
     testImplementation "org.flywaydb.flyway-test-extensions:flyway-spring-test:$flyway_spring_test"
 
     runtimeOnly "mysql:mysql-connector-java:$mysql_connector_java"
