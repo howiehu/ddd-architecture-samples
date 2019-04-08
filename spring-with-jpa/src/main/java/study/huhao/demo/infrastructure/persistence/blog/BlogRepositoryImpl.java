@@ -1,4 +1,4 @@
-package study.huhao.demo.adapters.persistence.blog;
+package study.huhao.demo.infrastructure.persistence.blog;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

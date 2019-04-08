@@ -1,7 +1,7 @@
-package study.huhao.demo.adapters.persistence.blog;
+package study.huhao.demo.infrastructure.persistence.blog;
 
 import lombok.*;
-import study.huhao.demo.adapters.persistence.Dto;
+import study.huhao.demo.infrastructure.persistence.Dto;
 import study.huhao.demo.domain.models.blog.BlogDraft;
 
 import javax.persistence.Embeddable;
