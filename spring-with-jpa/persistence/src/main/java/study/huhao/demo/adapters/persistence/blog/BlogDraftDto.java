@@ -1,6 +1,7 @@
 package study.huhao.demo.adapters.persistence.blog;
 
 import lombok.*;
+import study.huhao.demo.adapters.persistence.base.Dto;
 import study.huhao.demo.domain.models.blog.BlogDraft;
 
 import javax.persistence.Embeddable;
@@ -11,12 +12,13 @@ import java.time.Instant;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class BlogDraftDto {
+public class BlogDraftDto implements Dto<BlogDraft> {
     private String draftTitle;
     private String draftBody;
     private Instant draftSavedAt;
 
-    public BlogDraft toEntity() {
+    @Override
+    public BlogDraft toDomainModel() {
         return new BlogDraft(draftTitle, draftBody, draftSavedAt);
     }
 

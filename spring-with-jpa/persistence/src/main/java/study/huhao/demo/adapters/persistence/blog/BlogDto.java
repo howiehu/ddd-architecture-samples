@@ -1,6 +1,7 @@
 package study.huhao.demo.adapters.persistence.blog;
 
 import lombok.*;
+import study.huhao.demo.adapters.persistence.base.Dto;
 import study.huhao.demo.domain.models.blog.Blog;
 import study.huhao.demo.domain.models.blog.BlogId;
 import study.huhao.demo.domain.models.user.UserId;
@@ -14,7 +15,7 @@ import java.time.Instant;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class BlogDto {
+public class BlogDto implements Dto<Blog> {
 
     @Id
     private String id;
@@ -28,7 +29,8 @@ public class BlogDto {
     private Instant lastModifiedAt;
     private BlogDraftDto draft;
 
-    public Blog toEntity() {
+    @Override
+    public Blog toDomainModel() {
 
         return new Blog(
                 BlogId.of(id),
@@ -39,7 +41,7 @@ public class BlogDto {
                 createdAt,
                 publishedAt,
                 lastModifiedAt,
-                new BlogDraftDto(draft.getDraftTitle(), draft.getDraftBody(), draft.getDraftSavedAt()).toEntity()
+                new BlogDraftDto(draft.getDraftTitle(), draft.getDraftBody(), draft.getDraftSavedAt()).toDomainModel()
         );
     }
 
