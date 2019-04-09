@@ -6,21 +6,20 @@ import org.springframework.transaction.annotation.Transactional;
 import study.huhao.demo.domain.models.blog.Blog;
 import study.huhao.demo.domain.models.blog.BlogRepository;
 import study.huhao.demo.domain.models.user.UserId;
+import study.huhao.demo.domain.services.BlogDomainService;
 
 @Service
 @Transactional
 public class BlogService {
 
-    private final BlogRepository blogRepository;
+    private final BlogDomainService blogDomainService;
 
     @Autowired
     public BlogService(BlogRepository blogRepository) {
-        this.blogRepository = blogRepository;
+        blogDomainService = new BlogDomainService(blogRepository);
     }
 
     public Blog createBlog(String title, String body, UserId author) {
-        var blog = new Blog(title, body, author);
-        blogRepository.save(blog);
-        return blog;
+        return blogDomainService.createBlog(title, body, author);
     }
 }
