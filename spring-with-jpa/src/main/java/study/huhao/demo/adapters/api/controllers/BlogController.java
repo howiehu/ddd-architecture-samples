@@ -23,6 +23,6 @@ public class BlogController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public Blog createBlog(@RequestBody BlogCreateRequest data) {
-        return blogService.createBlog(data.getTitle(), data.getBody(), UserId.of(data.getAuthorId()));
+        return blogService.createBlog(data.title, data.body, UserId.of(data.authorId));
     }
 }
