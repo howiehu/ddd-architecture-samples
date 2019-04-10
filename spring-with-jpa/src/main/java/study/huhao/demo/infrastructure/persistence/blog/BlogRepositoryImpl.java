@@ -18,7 +18,7 @@ public class BlogRepositoryImpl implements BlogRepository {
 
     @Override
     public void save(Blog blog) {
-        blogJpaRepository.save(BlogDto.of(blog));
+        blogJpaRepository.save(BlogPO.of(blog));
     }
 }
 

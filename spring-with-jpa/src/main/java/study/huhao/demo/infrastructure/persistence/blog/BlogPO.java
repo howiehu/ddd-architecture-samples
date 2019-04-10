@@ -4,7 +4,7 @@ import lombok.*;
 import study.huhao.demo.domain.models.blog.Blog;
 import study.huhao.demo.domain.models.blog.BlogId;
 import study.huhao.demo.domain.models.user.UserId;
-import study.huhao.demo.infrastructure.persistence.Dto;
+import study.huhao.demo.infrastructure.persistence.PersistenceObject;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -15,7 +15,7 @@ import java.time.Instant;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class BlogDto implements Dto<Blog> {
+public class BlogPO implements PersistenceObject<Blog> {
 
     @Id
     private String id;
@@ -26,11 +26,11 @@ public class BlogDto implements Dto<Blog> {
     private Blog.PublishStatus status;
     private Instant createdAt;
     private Instant savedAt;
-    private PublishedBlogDto published;
+    private PublishedBlogPO published;
 
-    public static BlogDto of(Blog blog) {
+    public static BlogPO of(Blog blog) {
 
-        return BlogDto.builder()
+        return BlogPO.builder()
                 .id(blog.getId().toString())
                 .title(blog.getTitle())
                 .body(blog.getBody())
@@ -38,7 +38,7 @@ public class BlogDto implements Dto<Blog> {
                 .status(blog.getStatus())
                 .createdAt(blog.getCreatedAt())
                 .savedAt(blog.getSavedAt())
-                .published(blog.getPublished() == null ? null : PublishedBlogDto.of(blog.getPublished()))
+                .published(blog.getPublished() == null ? null : PublishedBlogPO.of(blog.getPublished()))
                 .build();
     }
 
@@ -52,7 +52,7 @@ public class BlogDto implements Dto<Blog> {
                 status,
                 createdAt,
                 savedAt,
-                new PublishedBlogDto(
+                new PublishedBlogPO(
                         published.getPublishedTitle(),
                         published.getPublishedBody(),
                         published.getPublishedAt()
