@@ -1,10 +1,10 @@
 package study.huhao.demo.infrastructure.persistence.blog;
 
 import lombok.*;
-import study.huhao.demo.infrastructure.persistence.Dto;
 import study.huhao.demo.domain.models.blog.Blog;
 import study.huhao.demo.domain.models.blog.BlogId;
 import study.huhao.demo.domain.models.user.UserId;
+import study.huhao.demo.infrastructure.persistence.Dto;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -25,9 +25,8 @@ public class BlogDto implements Dto<Blog> {
     @Enumerated(EnumType.STRING)
     private Blog.PublishStatus status;
     private Instant createdAt;
-    private Instant publishedAt;
-    private Instant lastModifiedAt;
-    private BlogDraftDto draft;
+    private Instant savedAt;
+    private PublishedBlogDto published;
 
     public static BlogDto of(Blog blog) {
 
@@ -38,15 +37,13 @@ public class BlogDto implements Dto<Blog> {
                 .author(blog.getAuthor().toString())
                 .status(blog.getStatus())
                 .createdAt(blog.getCreatedAt())
-                .publishedAt(blog.getPublishedAt())
-                .lastModifiedAt(blog.getLastModifiedAt())
-                .draft(BlogDraftDto.of(blog.getDraft()))
+                .savedAt(blog.getSavedAt())
+                .published(blog.getPublished() == null ? null : PublishedBlogDto.of(blog.getPublished()))
                 .build();
     }
 
     @Override
     public Blog toDomainModel() {
-
         return new Blog(
                 BlogId.of(id),
                 title,
@@ -54,9 +51,12 @@ public class BlogDto implements Dto<Blog> {
                 UserId.of(author),
                 status,
                 createdAt,
-                publishedAt,
-                lastModifiedAt,
-                new BlogDraftDto(draft.getDraftTitle(), draft.getDraftBody(), draft.getDraftSavedAt()).toDomainModel()
+                savedAt,
+                new PublishedBlogDto(
+                        published.getPublishedTitle(),
+                        published.getPublishedBody(),
+                        published.getPublishedAt()
+                ).toDomainModel()
         );
     }
 }

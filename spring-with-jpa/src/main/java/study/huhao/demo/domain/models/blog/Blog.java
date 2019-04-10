@@ -19,42 +19,35 @@ public class Blog implements AggregateRoot {
     private UserId author;
     private PublishStatus status;
     private Instant createdAt;
-    private Instant publishedAt;
-    private Instant lastModifiedAt;
-    private BlogDraft draft;
+    private Instant savedAt;
+    private PublishedBlog published;
 
     public Blog(String title, String body, UserId author) {
-
         validateTitle(title);
         validateAuthor(author);
 
         this.id = new BlogId();
+        this.title = title;
+        this.body = body;
         this.author = author;
         this.status = PublishStatus.Draft;
         this.createdAt = Instant.now();
-
-        saveDraft(title, body, this.createdAt);
+        this.savedAt = this.createdAt;
     }
 
     public void publish() {
-
         validateIsNeedToPublish();
 
-        this.title = this.draft.getTitle();
-        this.body = this.draft.getBody();
-        this.draft = null;
+        this.published = new PublishedBlog(this.title, this.body, Instant.now());
         this.status = PublishStatus.Published;
-
-        if (this.publishedAt == null) {
-            this.publishedAt = Instant.now();
-        } else {
-            this.lastModifiedAt = Instant.now();
-        }
     }
 
     public void save(String title, String body) {
         validateTitle(title);
-        saveDraft(title, body, Instant.now());
+
+        this.title = title;
+        this.body = body;
+        this.savedAt = Instant.now();
     }
 
     private void validateAuthor(UserId author) {
@@ -70,21 +63,13 @@ public class Blog implements AggregateRoot {
     }
 
     private void validateIsNeedToPublish() {
-        if (this.draft == null) {
-            throw new NoNeedToPublishException();
-        }
-
         if (this.status == PublishStatus.Published) {
             boolean noChange =
-                    this.title.equals(this.draft.getTitle()) && this.body.equals(this.draft.getBody());
+                    this.title.equals(this.published.getTitle()) && this.body.equals(this.published.getBody());
             if (noChange) {
                 throw new NoNeedToPublishException();
             }
         }
-    }
-
-    private void saveDraft(String title, String body, Instant savedAt) {
-        this.draft = new BlogDraft(title, body, savedAt);
     }
 
     public enum PublishStatus {
