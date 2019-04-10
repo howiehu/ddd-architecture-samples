@@ -40,8 +40,8 @@ class BlogRepositoryTest {
 
         blogRepository.save(blog);
 
-        var createdBlogDto = entityManager.find(BlogPO.class, blog.getId().toString());
+        var blogPO = entityManager.find(BlogPO.class, blog.getId().toString());
 
-        assertThat(createdBlogDto.getId()).isEqualTo(blog.getId().toString());
+        assertThat(blogPO.getId()).isEqualTo(blog.getId().toString());
     }
 }
