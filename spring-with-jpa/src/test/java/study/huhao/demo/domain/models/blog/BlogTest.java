@@ -28,7 +28,7 @@ class BlogTest {
             assertThat(blog.getId()).isNotNull();
             assertThat(blog.getTitle()).isEqualTo("Test Blog");
             assertThat(blog.getBody()).isEqualTo("Something...");
-            assertThat(blog.getAuthor()).isEqualTo(author);
+            assertThat(blog.getAuthorId()).isEqualTo(author);
             assertThat(blog.getStatus()).isEqualTo(Blog.PublishStatus.Draft);
             assertThat(blog.getCreatedAt()).isNotNull();
             assertThat(blog.getSavedAt()).isEqualTo(blog.getCreatedAt());

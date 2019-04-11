@@ -16,20 +16,20 @@ public class Blog implements AggregateRoot {
     private BlogId id;
     private String title;
     private String body;
-    private UserId author;
+    private UserId authorId;
     private PublishStatus status;
     private Instant createdAt;
     private Instant savedAt;
     private PublishedBlog published;
 
-    public Blog(String title, String body, UserId author) {
+    public Blog(String title, String body, UserId authorId) {
         validateTitle(title);
-        validateAuthor(author);
+        validateAuthor(authorId);
 
         this.id = new BlogId();
         this.title = title;
         this.body = body;
-        this.author = author;
+        this.authorId = authorId;
         this.status = PublishStatus.Draft;
         this.createdAt = Instant.now();
         this.savedAt = this.createdAt;

@@ -21,7 +21,7 @@ public class BlogPO implements PersistenceObject<Blog> {
     private String id;
     private String title;
     private String body;
-    private String author;
+    private String authorId;
     @Enumerated(EnumType.STRING)
     private Blog.PublishStatus status;
     private Instant createdAt;
@@ -34,7 +34,7 @@ public class BlogPO implements PersistenceObject<Blog> {
                 .id(blog.getId().toString())
                 .title(blog.getTitle())
                 .body(blog.getBody())
-                .author(blog.getAuthor().toString())
+                .authorId(blog.getAuthorId().toString())
                 .status(blog.getStatus())
                 .createdAt(blog.getCreatedAt())
                 .savedAt(blog.getSavedAt())
@@ -48,7 +48,7 @@ public class BlogPO implements PersistenceObject<Blog> {
                 BlogId.of(id),
                 title,
                 body,
-                UserId.of(author),
+                UserId.of(authorId),
                 status,
                 createdAt,
                 savedAt,
