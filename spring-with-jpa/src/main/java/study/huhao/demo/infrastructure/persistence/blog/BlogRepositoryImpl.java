@@ -23,7 +23,9 @@ public class BlogRepositoryImpl implements BlogRepository {
     @Override
     public void save(Blog blog) {
         var blogPO = mapperFacade.map(blog, BlogPO.class);
-        blogJpaRepository.save(blogPO);
+        BlogPO save = blogJpaRepository.save(blogPO);
+
+        Blog map = mapperFacade.map(save, Blog.class);
     }
 }
 
