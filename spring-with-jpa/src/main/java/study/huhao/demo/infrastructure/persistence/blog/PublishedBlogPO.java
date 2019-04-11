@@ -18,6 +18,10 @@ public class PublishedBlogPO implements PersistenceObject {
     private Instant publishedAt;
 
     public static PublishedBlogPO of(PublishedBlog draft) {
+        if (draft == null) {
+            return null;
+        }
+
         return PublishedBlogPO.builder()
                 .publishedTitle(draft.getTitle())
                 .publishedBody(draft.getBody())

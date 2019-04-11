@@ -38,7 +38,7 @@ public class BlogPO implements PersistenceObject<Blog> {
                 .status(blog.getStatus())
                 .createdAt(blog.getCreatedAt())
                 .savedAt(blog.getSavedAt())
-                .published(blog.getPublished() == null ? null : PublishedBlogPO.of(blog.getPublished()))
+                .published(PublishedBlogPO.of(blog.getPublished()))
                 .build();
     }
 
