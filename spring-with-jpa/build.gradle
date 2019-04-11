@@ -27,22 +27,19 @@ sourceCompatibility = '11'
 targetCompatibility = '11'
 
 configurations {
-    compile.exclude module: "spring-boot-starter-tomcat"
     compile.exclude module: 'junit'
 }
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-jetty'
     implementation "org.springframework.boot:spring-boot-starter-data-jpa"
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-    implementation 'ma.glasnost.orika:orika-core:1.5.4'
     compileOnly "org.projectlombok:lombok:1.18.6"
     annotationProcessor "org.projectlombok:lombok:1.18.6"
 
     runtimeOnly "mysql:mysql-connector-java:8.0.15"
+
     implementation "org.flywaydb:flyway-core:5.2.4"
     testImplementation "org.flywaydb.flyway-test-extensions:flyway-spring-test:5.2.0"
 

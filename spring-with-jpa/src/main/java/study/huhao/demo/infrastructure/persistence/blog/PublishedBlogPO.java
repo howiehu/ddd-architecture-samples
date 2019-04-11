@@ -1,18 +1,32 @@
 package study.huhao.demo.infrastructure.persistence.blog;
 
-import lombok.Data;
+import lombok.*;
+import study.huhao.demo.domain.models.blog.PublishedBlog;
 import study.huhao.demo.infrastructure.persistence.PersistenceObject;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.time.Instant;
 
 @Embeddable
-@Data
+@Getter
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class PublishedBlogPO implements PersistenceObject {
-    @Column(name = "published_title")
-    private String title;
-    @Column(name = "published_body")
-    private String body;
+    private String publishedTitle;
+    private String publishedBody;
     private Instant publishedAt;
+
+    public static PublishedBlogPO of(PublishedBlog draft) {
+        return PublishedBlogPO.builder()
+                .publishedTitle(draft.getTitle())
+                .publishedBody(draft.getBody())
+                .publishedAt(draft.getPublishedAt())
+                .build();
+    }
+
+    @Override
+    public PublishedBlog toDomainModel() {
+        return new PublishedBlog(publishedTitle, publishedBody, publishedAt);
+    }
 }
