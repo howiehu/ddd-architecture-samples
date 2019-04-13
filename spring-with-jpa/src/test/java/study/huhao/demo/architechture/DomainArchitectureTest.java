@@ -1,24 +1,47 @@
 package study.huhao.demo.architechture;
 
+import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.junit.AnalyzeClasses;
-import org.junit.jupiter.api.Test;
+import com.tngtech.archunit.junit.ArchTest;
+import com.tngtech.archunit.lang.ArchRule;
+import study.huhao.demo.domain.core.*;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
-import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
-@AnalyzeClasses(packages = "study.huhao.demo.domain")
+@AnalyzeClasses(packages = "study.huhao.demo", importOptions = ImportOption.DoNotIncludeTests.class)
 class DomainArchitectureTest {
-    @Test
-    void should_not_depend_on_other_layer() {
-        noClasses().should().dependOnClassesThat().resideInAnyPackage(
-                "..adapters..",
-                "..application..",
-                "..infrastructure.."
-        );
-    }
 
-    @Test
-    void should_only_depend_on_lombok() {
-        classes().should().onlyDependOnClassesThat().resideInAnyPackage("lombok");
-    }
+    @ArchTest
+    static final ArchRule domain_layer_depend_on_rule =
+            classes()
+                    .that().resideInAPackage("..domain")
+                    .should().onlyDependOnClassesThat().resideInAnyPackage("java..", "..domain.core..");
+
+    @ArchTest
+    static final ArchRule domain_layer_implement_interface_rule =
+            classes()
+                    .that().resideInAPackage("..domain.models..")
+                    .should().implement(Entity.class)
+                    .orShould().implement(AggregateRoot.class)
+                    .orShould().implement(ValueObject.class)
+                    .orShould().implement(DomainService.class)
+                    .orShould().beAssignableTo(Repository.class)
+                    .orShould().implement(DomainException.class)
+                    .as("The models in the domain should implement one of the markedness interfaces in " +
+                            "Entity, AggregateRoot, ValueObject, DomainService, Repository, DomainException.");
+
+    @ArchTest
+    static final ArchRule domain_services_should_be_named_ending_with_DomainService =
+            classes()
+                    .that().implement(DomainService.class)
+                    .should().haveSimpleNameEndingWith("DomainService")
+                    .as("The domain services should be named ending with 'DomainService.'");
+
+    @ArchTest
+    static final ArchRule domain_services_can_only_be_access_by_application_services =
+            classes()
+                    .that().implement(DomainService.class)
+                    .should().onlyBeAccessed().byAnyPackage("..application.services..")
+                    .as("The domain services can only be access by application services")
+                    .because("the application is the only entrance of domain.");
 }

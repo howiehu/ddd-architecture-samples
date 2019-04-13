@@ -1,10 +1,8 @@
-package study.huhao.demo.domain.services;
+package study.huhao.demo.domain.models.blog;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import study.huhao.demo.domain.models.blog.Blog;
-import study.huhao.demo.domain.models.blog.BlogRepository;
 import study.huhao.demo.domain.models.user.UserId;
 
 import java.util.UUID;

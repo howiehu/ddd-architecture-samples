@@ -1,6 +1,8 @@
 package study.huhao.demo.domain.core.excpetions;
 
-public class AggregateException extends RuntimeException {
+import study.huhao.demo.domain.core.DomainException;
+
+public class AggregateException extends RuntimeException implements DomainException {
     public AggregateException(String message) {
         super(message);
     }

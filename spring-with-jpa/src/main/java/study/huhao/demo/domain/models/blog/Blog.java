@@ -3,6 +3,7 @@ package study.huhao.demo.domain.models.blog;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import study.huhao.demo.domain.core.AggregateRoot;
+import study.huhao.demo.domain.core.ValueObject;
 import study.huhao.demo.domain.models.blog.exceptions.AuthorIsNullException;
 import study.huhao.demo.domain.models.blog.exceptions.NoNeedToPublishException;
 import study.huhao.demo.domain.models.blog.exceptions.TitleHasNoContentException;
@@ -22,7 +23,7 @@ public class Blog implements AggregateRoot {
     private Instant savedAt;
     private PublishedBlog published;
 
-    public Blog(String title, String body, UserId authorId) {
+    protected Blog(String title, String body, UserId authorId) {
         validateTitle(title);
         validateAuthor(authorId);
 
@@ -35,14 +36,14 @@ public class Blog implements AggregateRoot {
         this.savedAt = this.createdAt;
     }
 
-    public void publish() {
+    protected void publish() {
         validateIsNeedToPublish();
 
         this.published = new PublishedBlog(this.title, this.body, Instant.now());
         this.status = PublishStatus.Published;
     }
 
-    public void save(String title, String body) {
+    protected void save(String title, String body) {
         validateTitle(title);
 
         this.title = title;
@@ -72,7 +73,7 @@ public class Blog implements AggregateRoot {
         }
     }
 
-    public enum PublishStatus {
+    public enum PublishStatus implements ValueObject {
         Draft,
         Published
     }

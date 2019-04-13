@@ -2,6 +2,7 @@ package study.huhao.demo.infrastructure.persistence.blog;
 
 import org.flywaydb.test.FlywayTestExecutionListener;
 import org.flywaydb.test.annotation.FlywayTest;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
-import study.huhao.demo.domain.models.blog.Blog;
+import study.huhao.demo.domain.models.blog.BlogDomainService;
 import study.huhao.demo.domain.models.blog.BlogRepository;
 import study.huhao.demo.domain.models.user.UserId;
 
@@ -34,9 +35,16 @@ class BlogRepositoryTest {
     @Autowired
     private BlogRepository blogRepository;
 
+    private BlogDomainService blogDomainService;
+
+    @BeforeEach
+    void setUp() {
+        blogDomainService = new BlogDomainService(blogRepository);
+    }
+
     @Test
     void save() {
-        var blog = new Blog("Test Blog", "Something...", UserId.of(UUID.randomUUID().toString()));
+        var blog = blogDomainService.createBlog("Test Blog", "Something...", UserId.of(UUID.randomUUID().toString()));
 
         blogRepository.save(blog);
 
