@@ -1,25 +1,38 @@
 package study.huhao.demo.architechture;
 
-import com.tngtech.archunit.junit.AnalyzeClasses;
-import com.tngtech.archunit.junit.ArchTest;
-import com.tngtech.archunit.lang.ArchRule;
+import com.tngtech.archunit.core.domain.JavaClasses;
+import com.tngtech.archunit.core.importer.ClassFileImporter;
+import com.tngtech.archunit.core.importer.ImportOption;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static com.tngtech.archunit.library.Architectures.layeredArchitecture;
 
-@AnalyzeClasses(packages = "study.huhao.demo")
 class LayeredArchitectureTest {
-    @ArchTest
-    static final ArchRule layer_dependencies_are_respected = layeredArchitecture()
 
-            .layer("Adapters").definedBy("study.huhao.demo.adapters...")
-            .layer("Application").definedBy("study.huhao.demo.application...")
-            .layer("Infrastructure").definedBy("study.huhao.demo.infrastructure...")
-            .layer("Domain").definedBy("study.huhao.demo.domain...")
+    private JavaClasses classes;
 
-            .whereLayer("Adapters").mayNotBeAccessedByAnyLayer()
-            .whereLayer("Application").mayOnlyBeAccessedByLayers("Adapters")
-            .whereLayer("Persistence").mayOnlyBeAccessedByLayers("Application")
+    @BeforeEach
+    void setUp() {
+        classes = new ClassFileImporter()
+                .withImportOption(ImportOption.Predefined.DO_NOT_INCLUDE_TESTS)
+                .importPackages("study.huhao.demo");
+    }
 
-            .as("The layer dependencies must be respected.");
+    @Test
+    void layer_dependencies_are_respected() {
+        layeredArchitecture()
 
+                .layer("Adapters").definedBy("study.huhao.demo.adapters..")
+                .layer("Application").definedBy("study.huhao.demo.application..")
+                .layer("Infrastructure").definedBy("study.huhao.demo.infrastructure..")
+                .layer("Domain").definedBy("study.huhao.demo.domain..")
+
+                .whereLayer("Adapters").mayNotBeAccessedByAnyLayer()
+                .whereLayer("Application").mayOnlyBeAccessedByLayers("Adapters")
+                .whereLayer("Infrastructure").mayOnlyBeAccessedByLayers("Application")
+
+                .as("The layer dependencies must be respected.")
+                .check(classes);
+    }
 }
