@@ -9,13 +9,15 @@ import study.huhao.demo.domain.core.*;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
 @AnalyzeClasses(packages = "study.huhao.demo", importOptions = ImportOption.DoNotIncludeTests.class)
-class DomainArchitectureTest {
+class DomainLayerTest {
 
     @ArchTest
     static final ArchRule domain_layer_depend_on_rule =
             classes()
-                    .that().resideInAPackage("..domain")
-                    .should().onlyDependOnClassesThat().resideInAnyPackage("java..", "..domain.core..");
+                    .that().resideInAPackage("..domain..")
+                    .should().onlyDependOnClassesThat().resideInAnyPackage("java..", "..domain..")
+                    .as("The domain layer should only depend on the classes in the package of " +
+                            "java and domain.");
 
     @ArchTest
     static final ArchRule domain_layer_implement_interface_rule =
@@ -35,7 +37,7 @@ class DomainArchitectureTest {
             classes()
                     .that().implement(DomainService.class)
                     .should().haveSimpleNameEndingWith("DomainService")
-                    .as("The domain services should be named ending with 'DomainService.'");
+                    .as("The domain services should be named ending with 'DomainService'.");
 
     @ArchTest
     static final ArchRule domain_services_can_only_be_access_by_application_services =
