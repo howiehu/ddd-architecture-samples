@@ -19,8 +19,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.core.IsEqual.equalTo;
-import static org.hamcrest.core.IsNull.notNullValue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 @ExtendWith(SpringExtension.class)
@@ -45,7 +44,7 @@ class BlogControllerTest {
         void should_create_blog() {
             String authorId = UUID.randomUUID().toString();
 
-            given().port(port)
+            BlogRE blog = given().port(port)
                     .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                     .body(Map.of(
                             "title", "Test Blog",
@@ -55,10 +54,13 @@ class BlogControllerTest {
                     .when().post("/blogs")
                     .then()
                     .statusCode(HttpStatus.CREATED.value())
-                    .body("id", notNullValue())
-                    .body("title", equalTo("Test Blog"))
-                    .body("body", equalTo("Something..."))
-                    .body("authorId", equalTo(authorId));
+                    .extract()
+                    .as(BlogRE.class);
+
+            assertThat(blog).isNotNull();
+            assertThat(blog.title).isEqualTo("Test Blog");
+            assertThat(blog.body).isEqualTo("Something...");
+            assertThat(blog.authorId).isEqualTo(authorId);
         }
     }
 }

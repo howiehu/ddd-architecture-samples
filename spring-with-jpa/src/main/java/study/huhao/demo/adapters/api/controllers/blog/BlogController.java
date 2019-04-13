@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import study.huhao.demo.application.services.BlogService;
-import study.huhao.demo.domain.models.blog.Blog;
 import study.huhao.demo.domain.models.user.UserId;
 
 @RestController
@@ -21,7 +20,7 @@ public class BlogController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public Blog createBlog(@RequestBody BlogCreateRequest data) {
-        return blogService.createBlog(data.title, data.body, UserId.of(data.authorId));
+    public BlogRE createBlog(@RequestBody BlogCreateRequest data) {
+        return BlogRE.of(blogService.createBlog(data.title, data.body, UserId.of(data.authorId)));
     }
 }
