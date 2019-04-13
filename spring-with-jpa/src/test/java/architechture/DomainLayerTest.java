@@ -1,4 +1,4 @@
-package study.huhao.demo.architechture;
+package architechture;
 
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
