@@ -1,4 +1,4 @@
-package study.huhao.demo.adapters.api.controllers;
+package study.huhao.demo.adapters.api.controllers.blog;
 
 import org.flywaydb.test.FlywayTestExecutionListener;
 import org.flywaydb.test.annotation.FlywayTest;
