@@ -53,6 +53,9 @@ dependencies {
     testImplementation "org.mockito:mockito-core:2.+"
     testImplementation "org.junit.jupiter:junit-jupiter:5.4.1"
     testRuntimeOnly "org.junit.platform:junit-platform-launcher:1.4.1"
+
+    testImplementation 'com.tngtech.archunit:archunit-junit5-api:0.10.2'
+    testRuntimeOnly 'com.tngtech.archunit:archunit-junit5-engine:0.10.2'
 }
 
 test {
