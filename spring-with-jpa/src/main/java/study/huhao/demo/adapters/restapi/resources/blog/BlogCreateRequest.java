@@ -1,6 +1,6 @@
-package study.huhao.demo.adapters.api.resources.blog;
+package study.huhao.demo.adapters.restapi.resources.blog;
 
-import study.huhao.demo.adapters.api.resources.RequestDto;
+import study.huhao.demo.adapters.restapi.resources.RequestDto;
 
 class BlogCreateRequest implements RequestDto {
     public String title;

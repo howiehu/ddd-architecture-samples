@@ -1,4 +1,4 @@
-package study.huhao.demo.adapters.api.resources.blog;
+package study.huhao.demo.adapters.restapi.resources.blog;
 
 import org.flywaydb.test.annotation.FlywayTest;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import study.huhao.demo.adapters.api.resources.ResourceTest;
+import study.huhao.demo.adapters.restapi.resources.ResourceTest;
 
 import java.util.Map;
 import java.util.UUID;

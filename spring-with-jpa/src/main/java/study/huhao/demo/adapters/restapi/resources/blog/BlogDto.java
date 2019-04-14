@@ -1,6 +1,6 @@
-package study.huhao.demo.adapters.api.resources.blog;
+package study.huhao.demo.adapters.restapi.resources.blog;
 
-import study.huhao.demo.adapters.api.resources.ResponseDto;
+import study.huhao.demo.adapters.restapi.resources.ResponseDto;
 import study.huhao.demo.domain.models.blog.Blog;
 
 import java.time.Instant;

@@ -1,4 +1,4 @@
-package study.huhao.demo.adapters.api.resources.blog;
+package study.huhao.demo.adapters.restapi.resources.blog;
 
 import java.time.Instant;
 

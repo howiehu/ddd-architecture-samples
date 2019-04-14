@@ -1,4 +1,4 @@
-package study.huhao.demo.adapters.api.resources;
+package study.huhao.demo.adapters.restapi.resources;
 
 import study.huhao.demo.domain.core.HumbleObject;
 

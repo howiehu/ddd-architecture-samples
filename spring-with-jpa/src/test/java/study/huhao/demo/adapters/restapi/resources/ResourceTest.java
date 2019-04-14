@@ -1,4 +1,4 @@
-package study.huhao.demo.adapters.api.resources;
+package study.huhao.demo.adapters.restapi.resources;
 
 import org.flywaydb.test.FlywayTestExecutionListener;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,4 +1,4 @@
-package study.huhao.demo.adapters.api.resources.blog;
+package study.huhao.demo.adapters.restapi.resources.blog;
 
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
