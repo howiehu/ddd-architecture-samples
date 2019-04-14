@@ -1,5 +1,6 @@
 package study.huhao.demo.adapters.api.controllers.blog;
 
+import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,15 +13,20 @@ import study.huhao.demo.domain.models.user.UserId;
 public class BlogController {
 
     private final BlogService blogService;
+    private final MapperFacade mapperFacade;
 
     @Autowired
-    public BlogController(BlogService blogService) {
+    public BlogController(BlogService blogService, MapperFacade mapperFacade) {
         this.blogService = blogService;
+        this.mapperFacade = mapperFacade;
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public BlogRE createBlog(@RequestBody BlogCreateRequest data) {
-        return BlogRE.of(blogService.createBlog(data.title, data.body, UserId.of(data.authorId)));
+        return mapperFacade.map(
+                blogService.createBlog(data.title, data.body, UserId.valueOf(data.authorId)),
+                BlogRE.class
+        );
     }
 }

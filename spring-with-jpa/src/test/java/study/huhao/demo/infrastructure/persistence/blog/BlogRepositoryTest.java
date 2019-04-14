@@ -30,7 +30,7 @@ class BlogRepositoryTest extends RepositoryTest {
 
     @Test
     void save() {
-        var blog = blogDomainService.createBlog("Test Blog", "Something...", UserId.of(UUID.randomUUID().toString()));
+        var blog = blogDomainService.createBlog("Test Blog", "Something...", UserId.valueOf(UUID.randomUUID().toString()));
 
         blogRepository.save(blog);
 

@@ -30,7 +30,7 @@ class BlogDomainServiceTest {
         @Test
         void should_create_correctly() {
             var createdUser = blogDomainService
-                    .createBlog("Test Blog", "Something...", UserId.of(UUID.randomUUID().toString()));
+                    .createBlog("Test Blog", "Something...", UserId.valueOf(UUID.randomUUID().toString()));
 
             verify(blogRepository).save(any(Blog.class));
             assertThat(createdUser.getId()).isNotNull();

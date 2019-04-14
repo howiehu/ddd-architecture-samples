@@ -18,7 +18,7 @@ public class UserId implements EntityId {
         id = UUID.randomUUID();
     }
 
-    public static UserId of(String id) {
+    public static UserId valueOf(String id) {
         return new UserId(UUID.fromString(id));
     }
 

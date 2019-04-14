@@ -21,7 +21,7 @@ class BlogTest {
 
         @Test
         void should_initialize_correctly() {
-            var author = UserId.of(UUID.randomUUID().toString());
+            var author = UserId.valueOf(UUID.randomUUID().toString());
 
             var blog = new Blog("Test Blog", "Something...", author);
 
@@ -37,10 +37,10 @@ class BlogTest {
 
         @Test
         void should_throw_TitleHasNoContentException_when_title_is_null_or_no_content() {
-            assertThatThrownBy(() -> new Blog(null, "Something...", UserId.of(UUID.randomUUID().toString())))
+            assertThatThrownBy(() -> new Blog(null, "Something...", UserId.valueOf(UUID.randomUUID().toString())))
                     .isInstanceOf(TitleHasNoContentException.class)
                     .hasMessage("the title cannot be null or no content");
-            assertThatThrownBy(() -> new Blog("   ", "Something...", UserId.of(UUID.randomUUID().toString())))
+            assertThatThrownBy(() -> new Blog("   ", "Something...", UserId.valueOf(UUID.randomUUID().toString())))
                     .isInstanceOf(TitleHasNoContentException.class)
                     .hasMessage("the title cannot be null or no content");
         }
@@ -61,7 +61,7 @@ class BlogTest {
 
         @BeforeEach
         void setUp() {
-            blog = new Blog("Test Blog", "Something...", UserId.of(UUID.randomUUID().toString()));
+            blog = new Blog("Test Blog", "Something...", UserId.valueOf(UUID.randomUUID().toString()));
             pastSavedAt = blog.getSavedAt();
         }
 
@@ -93,7 +93,7 @@ class BlogTest {
 
         @BeforeEach
         void setUp() {
-            blog = new Blog("Test Blog", "Something...", UserId.of(UUID.randomUUID().toString()));
+            blog = new Blog("Test Blog", "Something...", UserId.valueOf(UUID.randomUUID().toString()));
         }
 
         @Test

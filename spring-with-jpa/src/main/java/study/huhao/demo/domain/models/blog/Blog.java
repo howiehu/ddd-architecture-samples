@@ -35,7 +35,7 @@ public class Blog implements AggregateRoot {
         this.createdAt = Instant.now();
         this.savedAt = this.createdAt;
     }
-
+    
     protected void publish() {
         validateIsNeedToPublish();
 

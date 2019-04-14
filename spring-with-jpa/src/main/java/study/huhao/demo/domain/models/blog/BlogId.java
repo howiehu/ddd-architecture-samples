@@ -18,7 +18,7 @@ public class BlogId implements ValueObject {
         id = UUID.randomUUID();
     }
 
-    public static BlogId of(String id) {
+    public static BlogId valueOf(String id) {
         return new BlogId(UUID.fromString(id));
     }
 
