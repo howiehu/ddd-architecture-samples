@@ -13,7 +13,9 @@ When designing these samples, I refer to the following architecture patterns:
 - [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 - [Microservice](https://www.martinfowler.com/microservices/)
 
-And I designed them with three principles (you can call it ***CUP***):
+And I designed them with these principles (you can call it ***CUPET***):
 - Easy to **C**ode
 - Easy to **U**nderstand
 - Easy to **P**rotect
+- Easy to **E**xtend
+- Easy to **T**est
