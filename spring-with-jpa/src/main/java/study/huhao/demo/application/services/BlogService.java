@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.huhao.demo.domain.models.blog.Blog;
 import study.huhao.demo.domain.models.blog.BlogDomainService;
+import study.huhao.demo.domain.models.blog.BlogId;
 import study.huhao.demo.domain.models.blog.BlogRepository;
 import study.huhao.demo.domain.models.user.UserId;
 
@@ -21,5 +22,9 @@ public class BlogService {
 
     public Blog createBlog(String title, String body, UserId author) {
         return blogDomainService.createBlog(title, body, author);
+    }
+
+    public Blog getBlog(BlogId id) {
+        return blogDomainService.getBlog(id);
     }
 }

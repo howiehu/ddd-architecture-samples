@@ -4,7 +4,10 @@ import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import study.huhao.demo.domain.models.blog.Blog;
+import study.huhao.demo.domain.models.blog.BlogId;
 import study.huhao.demo.domain.models.blog.BlogRepository;
+
+import java.util.Optional;
 
 @Component
 public class BlogRepositoryImpl implements BlogRepository {
@@ -23,6 +26,11 @@ public class BlogRepositoryImpl implements BlogRepository {
     public void save(Blog blog) {
         BlogDto blogDto = mapperFacade.map(blog, BlogDto.class);
         blogJpaRepository.save(blogDto);
+    }
+
+    @Override
+    public Optional<Blog> findById(BlogId id) {
+        return blogJpaRepository.findById(id.toString()).map(blogDto -> mapperFacade.map(blogDto, Blog.class));
     }
 }
 

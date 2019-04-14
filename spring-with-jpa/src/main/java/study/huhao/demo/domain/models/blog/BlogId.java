@@ -4,14 +4,14 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Value;
-import study.huhao.demo.domain.core.ValueObject;
+import study.huhao.demo.domain.core.EntityId;
 
 import java.util.UUID;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Value
 @Getter(AccessLevel.NONE)
-public class BlogId implements ValueObject {
+public class BlogId implements EntityId {
     private UUID id;
 
     protected BlogId() {

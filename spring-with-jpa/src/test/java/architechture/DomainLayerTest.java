@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import study.huhao.demo.domain.core.*;
 import study.huhao.demo.domain.core.excpetions.AggregateException;
 import study.huhao.demo.domain.core.excpetions.DomainServiceException;
+import study.huhao.demo.domain.core.excpetions.EntityNotfoundException;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
@@ -141,8 +142,29 @@ class DomainLayerTest {
                     .and().implement(DomainException.class)
                     .should().beAssignableTo(AggregateException.class)
                     .orShould().beAssignableTo(DomainServiceException.class)
-                    .as("The exceptions in '..domain.models..' package should extend one of the " +
-                            "core exceptions in AggregateException and DomainServiceException.")
+                    .as("The exceptions in '..domain.models..' package " +
+                            "should extend one of the core exceptions in " +
+                            "AggregateException, DomainServiceException.")
+                    .check(classes);
+        }
+
+        @Test
+        void entity_not_found_exceptions_should_be_named_ending_with_NotFoundException() {
+            classes()
+                    .that().resideInAPackage("..domain.models..")
+                    .and().areAssignableTo(EntityNotfoundException.class)
+                    .should().haveSimpleNameEndingWith("NotFoundException")
+                    .as("The entity not found exceptions should be named ending with 'NotFoundException'.")
+                    .check(classes);
+        }
+
+        @Test
+        void entity_not_found_exceptions_should_extend_EntityNotFoundException() {
+            classes()
+                    .that().resideInAPackage("..domain.models..")
+                    .and().haveSimpleNameEndingWith("NotFoundException")
+                    .should().beAssignableTo(EntityNotfoundException.class)
+                    .as("The entity not found exceptions should extend EntityNotFoundException.")
                     .check(classes);
         }
     }

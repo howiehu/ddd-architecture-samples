@@ -9,7 +9,7 @@ import java.time.Instant;
 
 @Embeddable
 @Data
-class PublishedBlogDto implements PersistenceDto {
+public class PublishedBlogDto implements PersistenceDto {
     @Column(name = "published_title")
     private String title;
     @Column(name = "published_body")

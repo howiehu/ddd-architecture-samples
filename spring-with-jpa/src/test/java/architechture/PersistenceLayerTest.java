@@ -125,11 +125,11 @@ class PersistenceLayerTest {
         }
 
         @Test
-        void persistence_dtos_be_package_private() {
+        void persistence_dtos_be_public() {
             classes()
                     .that().resideInAPackage("..persistence..")
                     .and().implement(PersistenceDto.class)
-                    .should().bePackagePrivate()
+                    .should().bePublic()
                     .as("The persistence DTOs should be package private.")
                     .check(classes);
         }

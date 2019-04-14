@@ -10,7 +10,7 @@ import java.time.Instant;
 @Entity
 @Table(name = "blog")
 @Data
-class BlogDto implements PersistenceDto {
+public class BlogDto implements PersistenceDto {
 
     @Id
     private String id;
