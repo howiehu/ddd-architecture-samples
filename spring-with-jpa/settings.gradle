@@ -3,4 +3,4 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-rootProject.name = 'spring-with-jpa'
+rootProject.name = 'ddd-sample-spring-with-jpa'

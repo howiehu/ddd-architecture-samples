@@ -1,2 +1,2 @@
-# Hexagonal Architecture - Spring MVC With JPA
+# DDD Architecture - Spring MVC With JPA
 
