@@ -14,6 +14,7 @@ When designing these samples, I refer to the following architecture patterns:
 - [Microservice](https://www.martinfowler.com/microservices/)
 
 And I designed them with these principles (you can call it ***CUPET***):
+
 - Easy to **C**ode
 - Easy to **U**nderstand
 - Easy to **P**rotect
