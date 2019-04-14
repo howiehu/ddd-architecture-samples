@@ -34,8 +34,8 @@ class BlogRepositoryTest extends RepositoryTest {
 
         blogRepository.save(blog);
 
-        var blogPO = testEntityManager.find(BlogPO.class, blog.getId().toString());
+        var blogDto = testEntityManager.find(BlogDto.class, blog.getId().toString());
 
-        assertThat(blogPO.getId()).isEqualTo(blog.getId().toString());
+        assertThat(blogDto.getId()).isEqualTo(blog.getId().toString());
     }
 }

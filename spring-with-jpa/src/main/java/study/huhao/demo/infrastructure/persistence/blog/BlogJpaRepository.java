@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BlogJpaRepository extends JpaRepository<BlogPO, String> {
+public interface BlogJpaRepository extends JpaRepository<BlogDto, String> {
 
 }

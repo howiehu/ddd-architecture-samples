@@ -1,11 +1,11 @@
-package study.huhao.demo.adapters.api.controllers.blog;
+package study.huhao.demo.adapters.api.resources.blog;
 
-import study.huhao.demo.adapters.api.controllers.ResponseEntity;
+import study.huhao.demo.adapters.api.resources.ResponseDto;
 import study.huhao.demo.domain.models.blog.Blog;
 
 import java.time.Instant;
 
-class BlogRE implements ResponseEntity {
+class BlogDto implements ResponseDto {
     public String id;
     public String title;
     public String body;
@@ -13,5 +13,5 @@ class BlogRE implements ResponseEntity {
     public Blog.PublishStatus status;
     public Instant createdAt;
     public Instant savedAt;
-    public PublishedBlogRE published;
+    public PublishedBlogDto published;
 }

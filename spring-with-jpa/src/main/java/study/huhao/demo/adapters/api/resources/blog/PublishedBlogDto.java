@@ -1,8 +1,8 @@
-package study.huhao.demo.adapters.api.controllers.blog;
+package study.huhao.demo.adapters.api.resources.blog;
 
 import java.time.Instant;
 
-class PublishedBlogRE {
+class PublishedBlogDto {
     public String title;
     public String body;
     public Instant publishedAt;

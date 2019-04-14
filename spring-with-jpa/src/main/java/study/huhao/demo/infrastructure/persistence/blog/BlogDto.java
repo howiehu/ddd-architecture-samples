@@ -2,7 +2,7 @@ package study.huhao.demo.infrastructure.persistence.blog;
 
 import lombok.Data;
 import study.huhao.demo.domain.models.blog.Blog;
-import study.huhao.demo.infrastructure.persistence.PersistenceObject;
+import study.huhao.demo.infrastructure.persistence.PersistenceDto;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -10,7 +10,7 @@ import java.time.Instant;
 @Entity
 @Table(name = "blog")
 @Data
-class BlogPO implements PersistenceObject {
+class BlogDto implements PersistenceDto {
 
     @Id
     private String id;
@@ -21,5 +21,5 @@ class BlogPO implements PersistenceObject {
     private Blog.PublishStatus status;
     private Instant createdAt;
     private Instant savedAt;
-    private PublishedBlogPO published;
+    private PublishedBlogDto published;
 }

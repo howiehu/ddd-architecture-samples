@@ -1,7 +1,7 @@
 package study.huhao.demo.infrastructure.persistence.blog;
 
 import lombok.Data;
-import study.huhao.demo.infrastructure.persistence.PersistenceObject;
+import study.huhao.demo.infrastructure.persistence.PersistenceDto;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -9,7 +9,7 @@ import java.time.Instant;
 
 @Embeddable
 @Data
-class PublishedBlogPO implements PersistenceObject {
+class PublishedBlogDto implements PersistenceDto {
     @Column(name = "published_title")
     private String title;
     @Column(name = "published_body")

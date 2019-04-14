@@ -1,4 +1,4 @@
-package study.huhao.demo.adapters.api.controllers;
+package study.huhao.demo.adapters.api.resources;
 
 import org.flywaydb.test.FlywayTestExecutionListener;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,5 +10,5 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, FlywayTestExecutionListener.class})
-public abstract class ControllerTest {
+public abstract class ResourceTest {
 }

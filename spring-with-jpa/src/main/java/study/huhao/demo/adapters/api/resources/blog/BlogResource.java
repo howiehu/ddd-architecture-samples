@@ -1,4 +1,4 @@
-package study.huhao.demo.adapters.api.controllers.blog;
+package study.huhao.demo.adapters.api.resources.blog;
 
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,23 +10,23 @@ import study.huhao.demo.domain.models.user.UserId;
 
 @RestController
 @RequestMapping(value = "/blogs", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-public class BlogController {
+public class BlogResource {
 
     private final BlogService blogService;
     private final MapperFacade mapperFacade;
 
     @Autowired
-    public BlogController(BlogService blogService, MapperFacade mapperFacade) {
+    public BlogResource(BlogService blogService, MapperFacade mapperFacade) {
         this.blogService = blogService;
         this.mapperFacade = mapperFacade;
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public BlogRE createBlog(@RequestBody BlogCreateRequest data) {
+    public BlogDto createBlog(@RequestBody BlogCreateRequest data) {
         return mapperFacade.map(
                 blogService.createBlog(data.title, data.body, UserId.valueOf(data.authorId)),
-                BlogRE.class
+                BlogDto.class
         );
     }
 }

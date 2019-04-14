@@ -1,4 +1,4 @@
-package study.huhao.demo.adapters.api.controllers.blog;
+package study.huhao.demo.adapters.api.resources.blog;
 
 import org.flywaydb.test.annotation.FlywayTest;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import study.huhao.demo.adapters.api.controllers.ControllerTest;
+import study.huhao.demo.adapters.api.resources.ResourceTest;
 
 import java.util.Map;
 import java.util.UUID;
@@ -17,7 +17,7 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("/blogs")
-class BlogControllerTest extends ControllerTest {
+class BlogResourceTest extends ResourceTest {
 
     @LocalServerPort
     private int port;
@@ -35,7 +35,7 @@ class BlogControllerTest extends ControllerTest {
         void should_create_blog() {
             String authorId = UUID.randomUUID().toString();
 
-            BlogRE blog = given().port(port)
+            BlogDto blog = given().port(port)
                     .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                     .body(Map.of(
                             "title", "Test Blog",
@@ -46,7 +46,7 @@ class BlogControllerTest extends ControllerTest {
                     .then()
                     .statusCode(HttpStatus.CREATED.value())
                     .extract()
-                    .as(BlogRE.class);
+                    .as(BlogDto.class);
 
             assertThat(blog).isNotNull();
             assertThat(blog.title).isEqualTo("Test Blog");
