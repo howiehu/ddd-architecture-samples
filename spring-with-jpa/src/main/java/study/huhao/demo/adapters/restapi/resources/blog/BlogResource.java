@@ -10,20 +10,20 @@ import study.huhao.demo.domain.models.user.UserId;
 
 @RestController
 @RequestMapping(value = "/blogs", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-public class BlogResource {
+class BlogResource {
 
     private final BlogService blogService;
     private final MapperFacade mapperFacade;
 
     @Autowired
-    public BlogResource(BlogService blogService, MapperFacade mapperFacade) {
+    BlogResource(BlogService blogService, MapperFacade mapperFacade) {
         this.blogService = blogService;
         this.mapperFacade = mapperFacade;
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public BlogDto createBlog(@RequestBody BlogCreateRequest data) {
+    BlogDto createBlog(@RequestBody BlogCreateRequest data) {
         return mapperFacade.map(
                 blogService.createBlog(data.title, data.body, UserId.valueOf(data.authorId)),
                 BlogDto.class
