@@ -9,7 +9,8 @@ import org.junit.jupiter.api.Test;
 import study.huhao.demo.domain.core.*;
 import study.huhao.demo.domain.core.excpetions.AggregateException;
 import study.huhao.demo.domain.core.excpetions.DomainServiceException;
-import study.huhao.demo.domain.core.excpetions.EntityNotfoundException;
+import study.huhao.demo.domain.core.excpetions.EntityExistedException;
+import study.huhao.demo.domain.core.excpetions.EntityNotFoundException;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
@@ -152,7 +153,7 @@ class DomainLayerTest {
         void entity_not_found_exceptions_should_be_named_ending_with_NotFoundException() {
             classes()
                     .that().resideInAPackage("..domain.models..")
-                    .and().areAssignableTo(EntityNotfoundException.class)
+                    .and().areAssignableTo(EntityNotFoundException.class)
                     .should().haveSimpleNameEndingWith("NotFoundException")
                     .as("The entity not found exceptions should be named ending with 'NotFoundException'.")
                     .check(classes);
@@ -163,8 +164,28 @@ class DomainLayerTest {
             classes()
                     .that().resideInAPackage("..domain.models..")
                     .and().haveSimpleNameEndingWith("NotFoundException")
-                    .should().beAssignableTo(EntityNotfoundException.class)
+                    .should().beAssignableTo(EntityNotFoundException.class)
                     .as("The entity not found exceptions should extend EntityNotFoundException.")
+                    .check(classes);
+        }
+
+        @Test
+        void entity_existed_exceptions_should_be_named_ending_with_ExistedException() {
+            classes()
+                    .that().resideInAPackage("..domain.models..")
+                    .and().areAssignableTo(EntityExistedException.class)
+                    .should().haveSimpleNameEndingWith("ExistedException")
+                    .as("The entity existed exceptions should be named ending with 'ExistedException'.")
+                    .check(classes);
+        }
+
+        @Test
+        void entity_existed_exceptions_should_extend_EntityExistedException() {
+            classes()
+                    .that().resideInAPackage("..domain.models..")
+                    .and().haveSimpleNameEndingWith("ExistedException")
+                    .should().beAssignableTo(EntityExistedException.class)
+                    .as("The entity existed exceptions should extend EntityExistedException.")
                     .check(classes);
         }
     }
