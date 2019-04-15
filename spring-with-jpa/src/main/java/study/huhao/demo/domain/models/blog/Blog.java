@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import study.huhao.demo.domain.core.AggregateRoot;
 import study.huhao.demo.domain.core.ValueObject;
-import study.huhao.demo.domain.models.blog.exceptions.AuthorIsNullException;
 import study.huhao.demo.domain.models.blog.exceptions.NoNeedToPublishException;
 import study.huhao.demo.domain.models.user.UserId;
 
@@ -52,7 +51,7 @@ public class Blog implements AggregateRoot {
 
     private void validateAuthor(UserId author) {
         if (author == null) {
-            throw new AuthorIsNullException();
+            throw new IllegalArgumentException("the author cannot be null");
         }
     }
 

@@ -3,7 +3,7 @@ package study.huhao.demo.domain.models.blog;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import study.huhao.demo.domain.models.blog.exceptions.BlogNotFoundException;
+import study.huhao.demo.domain.core.excpetions.EntityNotFoundException;
 import study.huhao.demo.domain.models.user.UserId;
 
 import java.util.Optional;
@@ -55,13 +55,13 @@ class BlogDomainServiceTest {
         }
 
         @Test
-        void should_throw_BlogNotFoundException_when_blog_not_found() {
+        void should_throw_EntityNotFoundException_when_blog_not_found() {
             var blogId = BlogId.valueOf(UUID.randomUUID().toString());
 
             when(blogRepository.findById(blogId)).thenReturn(Optional.empty());
 
             assertThatThrownBy(() -> blogDomainService.getBlog(blogId))
-                    .isInstanceOf(BlogNotFoundException.class)
+                    .isInstanceOf(EntityNotFoundException.class)
                     .hasMessage("cannot find the blog with id " + blogId);
         }
     }

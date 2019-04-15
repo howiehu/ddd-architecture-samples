@@ -1,7 +1,7 @@
 package study.huhao.demo.domain.models.blog;
 
 import study.huhao.demo.domain.core.DomainService;
-import study.huhao.demo.domain.models.blog.exceptions.BlogNotFoundException;
+import study.huhao.demo.domain.core.excpetions.EntityNotFoundException;
 import study.huhao.demo.domain.models.user.UserId;
 
 public class BlogDomainService implements DomainService {
@@ -19,6 +19,6 @@ public class BlogDomainService implements DomainService {
     }
 
     public Blog getBlog(BlogId id) {
-        return blogRepository.findById(id).orElseThrow(() -> new BlogNotFoundException(id));
+        return blogRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Blog.class, id));
     }
 }

@@ -3,7 +3,6 @@ package study.huhao.demo.domain.models.blog;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import study.huhao.demo.domain.models.blog.exceptions.AuthorIsNullException;
 import study.huhao.demo.domain.models.blog.exceptions.NoNeedToPublishException;
 import study.huhao.demo.domain.models.user.UserId;
 
@@ -45,9 +44,9 @@ class BlogTest {
         }
 
         @Test
-        void should_throw_AuthorIsNullException_when_author_is_null() {
+        void should_throw_IllegalArgumentException_when_author_is_null() {
             assertThatThrownBy(() -> new Blog("Test Blog", "Something...", null))
-                    .isInstanceOf(AuthorIsNullException.class)
+                    .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("the author cannot be null");
         }
     }
