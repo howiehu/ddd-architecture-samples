@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 import study.huhao.demo.domain.core.HumbleObject;
 import study.huhao.demo.domain.core.Repository;
-import study.huhao.demo.infrastructure.persistence.PersistenceDto;
+import study.huhao.demo.infrastructure.persistence.PersistenceObject;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.theClass;
@@ -117,41 +117,41 @@ class PersistenceLayerTest {
     class persistence_dto {
 
         @Test
-        void PersistenceDto_interface_should_extend_HumbleObject() {
-            theClass(PersistenceDto.class)
+        void PersistenceObject_interface_should_extend_HumbleObject() {
+            theClass(PersistenceObject.class)
                     .should().beAssignableTo(HumbleObject.class)
-                    .as("The PersistenceDto interface should extend HumbleObject.")
+                    .as("The PersistenceObject interface should extend HumbleObject.")
                     .check(classes);
         }
 
         @Test
-        void persistence_dtos_be_public() {
+        void persistence_objects_be_public() {
             classes()
                     .that().resideInAPackage("..persistence..")
-                    .and().implement(PersistenceDto.class)
+                    .and().implement(PersistenceObject.class)
                     .should().bePublic()
-                    .as("The persistence DTOs should be package private.")
+                    .as("The persistence objects should be public.")
                     .check(classes);
         }
 
         @Test
-        void persistence_dtos_should_be_named_ending_with_Persistence() {
+        void persistence_objects_should_be_named_ending_with_PO() {
             classes()
                     .that().resideInAPackage("..persistence..")
-                    .and().implement(PersistenceDto.class)
-                    .should().haveSimpleNameEndingWith("Dto")
-                    .as("The persistence DTOs should be named ending with 'Persistence'.")
+                    .and().implement(PersistenceObject.class)
+                    .should().haveSimpleNameEndingWith("PO")
+                    .as("The persistence objects should be named ending with 'PO'.")
                     .check(classes);
         }
 
         @Test
-        void persistence_dtos_should_implement_PersistenceDto() {
+        void persistence_objects_should_implement_PersistenceObject() {
             classes()
                     .that().resideInAPackage("..persistence..")
                     .and().haveSimpleNameEndingWith("Dto")
                     .and().areNotInterfaces()
-                    .should().implement(PersistenceDto.class)
-                    .as("The persistence DTOs should implement 'PersistenceDto' interface.")
+                    .should().implement(PersistenceObject.class)
+                    .as("The persistence objects should implement 'PersistenceObject' interface.")
                     .check(classes);
         }
     }
