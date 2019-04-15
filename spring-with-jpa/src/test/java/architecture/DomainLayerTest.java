@@ -7,8 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import study.huhao.demo.domain.core.*;
-import study.huhao.demo.domain.core.excpetions.AggregateException;
-import study.huhao.demo.domain.core.excpetions.DomainServiceException;
+import study.huhao.demo.domain.core.excpetions.DomainException;
 import study.huhao.demo.domain.core.excpetions.EntityExistedException;
 import study.huhao.demo.domain.core.excpetions.EntityNotFoundException;
 
@@ -119,35 +118,22 @@ class DomainLayerTest {
         @Test
         void domain_exceptions_should_be_named_ending_with_Exception() {
             classes().that().resideInAPackage("..domain..")
-                    .and().implement(DomainException.class)
+                    .and().areAssignableTo(DomainException.class)
                     .should().haveSimpleNameEndingWith("Exception")
                     .as("The domain exceptions should be named ending with 'Exception'.")
                     .check(classes);
         }
 
         @Test
-        void domain_exceptions_should_implement_DomainException() {
+        void domain_exceptions_should_extend_DomainException() {
             classes()
                     .that().resideInAPackage("..domain..")
                     .and().haveSimpleNameEndingWith("Exception")
-                    .and().areNotInterfaces()
-                    .should().implement(DomainException.class)
-                    .as("The domain exceptions should implement 'DomainException' interface.")
+                    .should().beAssignableTo(DomainException.class)
+                    .as("The domain exceptions should extend DomainException.")
                     .check(classes);
         }
 
-        @Test
-        void exceptions_in_models_package_should_extend_one_of_the_core_exceptions() {
-            classes()
-                    .that().resideInAPackage("..domain.models..")
-                    .and().implement(DomainException.class)
-                    .should().beAssignableTo(AggregateException.class)
-                    .orShould().beAssignableTo(DomainServiceException.class)
-                    .as("The exceptions in '..domain.models..' package " +
-                            "should extend one of the core exceptions in " +
-                            "AggregateException, DomainServiceException.")
-                    .check(classes);
-        }
 
         @Test
         void entity_not_found_exceptions_should_be_named_ending_with_NotFoundException() {

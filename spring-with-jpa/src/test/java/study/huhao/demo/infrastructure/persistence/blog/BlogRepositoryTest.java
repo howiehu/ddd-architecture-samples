@@ -33,8 +33,6 @@ class BlogRepositoryTest extends RepositoryTest {
         var blog = blogDomainService
                 .createBlog("Test Blog", "Something...", UserId.valueOf(UUID.randomUUID().toString()));
 
-        blogRepository.save(blog);
-
         var blogDto = testEntityManager.find(BlogDto.class, blog.getId().toString());
 
         assertThat(blogDto.getId()).isEqualTo(blog.getId().toString());
@@ -44,11 +42,9 @@ class BlogRepositoryTest extends RepositoryTest {
     void findById() {
         var blog = blogDomainService
                 .createBlog("Test Blog", "Something...", UserId.valueOf(UUID.randomUUID().toString()));
-        blogRepository.save(blog);
 
-        var blogDto = blogRepository.findById(blog.getId());
+        var foundBlog = blogDomainService.getBlog(blog.getId());
 
-        assertThat(blogDto).isNotEmpty()
-                .hasValueSatisfying(dto -> assertThat(dto.getId()).isEqualTo(blog.getId()));
+        assertThat(foundBlog.getId()).isEqualTo(blog.getId());
     }
 }
