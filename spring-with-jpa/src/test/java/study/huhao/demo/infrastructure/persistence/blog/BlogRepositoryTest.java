@@ -3,7 +3,6 @@ package study.huhao.demo.infrastructure.persistence.blog;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import study.huhao.demo.domain.models.blog.BlogDomainService;
 import study.huhao.demo.domain.models.blog.BlogRepository;
 import study.huhao.demo.domain.models.user.UserId;
@@ -16,9 +15,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class BlogRepositoryTest extends RepositoryTest {
 
     @Autowired
-    private TestEntityManager testEntityManager;
-
-    @Autowired
     private BlogRepository blogRepository;
 
     private BlogDomainService blogDomainService;
@@ -29,16 +25,6 @@ class BlogRepositoryTest extends RepositoryTest {
     }
 
     @Test
-    void save() {
-        var blog = blogDomainService
-                .createBlog("Test Blog", "Something...", UserId.valueOf(UUID.randomUUID().toString()));
-
-        var blogDto = testEntityManager.find(BlogDto.class, blog.getId().toString());
-
-        assertThat(blogDto.getId()).isEqualTo(blog.getId().toString());
-    }
-
-    @Test
     void findById() {
         var blog = blogDomainService
                 .createBlog("Test Blog", "Something...", UserId.valueOf(UUID.randomUUID().toString()));
@@ -46,5 +32,7 @@ class BlogRepositoryTest extends RepositoryTest {
         var foundBlog = blogDomainService.getBlog(blog.getId());
 
         assertThat(foundBlog.getId()).isEqualTo(blog.getId());
+        assertThat(foundBlog.getTitle()).isEqualTo("Test Blog");
+        assertThat(foundBlog.getBody()).isEqualTo("Something...");
     }
 }
