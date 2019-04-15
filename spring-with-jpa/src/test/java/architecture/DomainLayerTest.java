@@ -47,7 +47,7 @@ class DomainLayerTest {
                     .orShould().implement(EntityId.class)
                     .orShould().implement(DomainService.class)
                     .orShould().beAssignableTo(Repository.class)
-                    .orShould().implement(DomainException.class)
+                    .orShould().beAssignableTo(DomainException.class)
                     .as("The models in the domain should implement one of the markedness interfaces in " +
                             "Entity, AggregateRoot, ValueObject, EntityId, DomainService, Repository, DomainException.")
                     .check(classes);

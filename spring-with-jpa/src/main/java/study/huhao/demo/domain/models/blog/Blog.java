@@ -6,7 +6,6 @@ import study.huhao.demo.domain.core.AggregateRoot;
 import study.huhao.demo.domain.core.ValueObject;
 import study.huhao.demo.domain.models.blog.exceptions.AuthorIsNullException;
 import study.huhao.demo.domain.models.blog.exceptions.NoNeedToPublishException;
-import study.huhao.demo.domain.models.blog.exceptions.TitleHasNoContentException;
 import study.huhao.demo.domain.models.user.UserId;
 
 import java.time.Instant;
@@ -35,7 +34,7 @@ public class Blog implements AggregateRoot {
         this.createdAt = Instant.now();
         this.savedAt = this.createdAt;
     }
-    
+
     protected void publish() {
         validateIsNeedToPublish();
 
@@ -59,7 +58,7 @@ public class Blog implements AggregateRoot {
 
     private void validateTitle(String title) {
         if (title == null || title.isBlank()) {
-            throw new TitleHasNoContentException();
+            throw new IllegalArgumentException("the title cannot be null or no content");
         }
     }
 

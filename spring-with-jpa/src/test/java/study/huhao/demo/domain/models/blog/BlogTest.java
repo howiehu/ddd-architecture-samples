@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import study.huhao.demo.domain.models.blog.exceptions.AuthorIsNullException;
 import study.huhao.demo.domain.models.blog.exceptions.NoNeedToPublishException;
-import study.huhao.demo.domain.models.blog.exceptions.TitleHasNoContentException;
 import study.huhao.demo.domain.models.user.UserId;
 
 import java.time.Instant;
@@ -36,12 +35,12 @@ class BlogTest {
         }
 
         @Test
-        void should_throw_TitleHasNoContentException_when_title_is_null_or_no_content() {
+        void should_throw_IllegalArgumentException_when_title_is_null_or_no_content() {
             assertThatThrownBy(() -> new Blog(null, "Something...", UserId.valueOf(UUID.randomUUID().toString())))
-                    .isInstanceOf(TitleHasNoContentException.class)
+                    .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("the title cannot be null or no content");
             assertThatThrownBy(() -> new Blog("   ", "Something...", UserId.valueOf(UUID.randomUUID().toString())))
-                    .isInstanceOf(TitleHasNoContentException.class)
+                    .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("the title cannot be null or no content");
         }
 
@@ -75,12 +74,12 @@ class BlogTest {
         }
 
         @Test
-        void should_throw_TitleHasNoContentException_when_title_is_null_or_no_content() {
+        void should_throw_IllegalArgumentException_when_title_is_null_or_no_content() {
             assertThatThrownBy(() -> blog.save(null, "Updated..."))
-                    .isInstanceOf(TitleHasNoContentException.class)
+                    .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("the title cannot be null or no content");
             assertThatThrownBy(() -> blog.save("   ", "Updated..."))
-                    .isInstanceOf(TitleHasNoContentException.class)
+                    .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("the title cannot be null or no content");
         }
 
