@@ -2,15 +2,15 @@ package study.huhao.demo.domain.models.blog;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Value;
 import study.huhao.demo.domain.core.EntityId;
 
 import java.util.UUID;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Value
 @Getter(AccessLevel.NONE)
+@EqualsAndHashCode
 public class BlogId implements EntityId {
     private UUID id;
 

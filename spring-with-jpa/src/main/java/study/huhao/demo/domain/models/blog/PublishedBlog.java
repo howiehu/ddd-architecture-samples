@@ -1,13 +1,15 @@
 package study.huhao.demo.domain.models.blog;
 
 import lombok.AllArgsConstructor;
-import lombok.Value;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import study.huhao.demo.domain.core.ValueObject;
 
 import java.time.Instant;
 
 @AllArgsConstructor
-@Value
+@Getter
+@EqualsAndHashCode
 public class PublishedBlog implements ValueObject {
     private String title;
     private String body;
