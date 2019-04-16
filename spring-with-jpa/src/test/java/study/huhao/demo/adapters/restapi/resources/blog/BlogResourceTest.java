@@ -1,7 +1,5 @@
 package study.huhao.demo.adapters.restapi.resources.blog;
 
-import org.flywaydb.test.annotation.FlywayTest;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -22,11 +20,6 @@ class BlogResourceTest extends ResourceTest {
 
     @LocalServerPort
     private int port;
-
-    @BeforeEach
-    @FlywayTest
-    void setUp() {
-    }
 
     @Nested
     @DisplayName("POST /blogs")
