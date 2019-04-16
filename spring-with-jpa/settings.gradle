@@ -1,6 +1,1 @@
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-    }
-}
 rootProject.name = 'ddd-sample-spring-with-jpa'
