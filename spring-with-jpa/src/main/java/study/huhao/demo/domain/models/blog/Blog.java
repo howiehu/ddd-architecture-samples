@@ -21,7 +21,7 @@ public class Blog implements AggregateRoot {
     private Instant savedAt;
     private PublishedBlog published;
 
-    protected Blog(String title, String body, UserId authorId) {
+    Blog(String title, String body, UserId authorId) {
         validateTitle(title);
         validateAuthor(authorId);
 
@@ -34,14 +34,14 @@ public class Blog implements AggregateRoot {
         this.savedAt = this.createdAt;
     }
 
-    protected void publish() {
+    void publish() {
         validateIsNeedToPublish();
 
         this.published = new PublishedBlog(this.title, this.body, Instant.now());
         this.status = PublishStatus.Published;
     }
 
-    protected void save(String title, String body) {
+    void save(String title, String body) {
         validateTitle(title);
 
         this.title = title;
