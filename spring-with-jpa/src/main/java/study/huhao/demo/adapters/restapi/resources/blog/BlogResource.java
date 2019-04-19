@@ -39,4 +39,10 @@ class BlogResource {
                 BlogDto.class
         );
     }
+
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void saveBlog(@PathVariable String id, @RequestBody BlogSaveRequest data) {
+        blogService.saveBlog(BlogId.valueOf(id), data.title, data.body);
+    }
 }

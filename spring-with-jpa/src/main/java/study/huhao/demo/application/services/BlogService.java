@@ -27,4 +27,8 @@ public class BlogService {
     public Blog getBlog(BlogId id) {
         return blogDomainService.getBlog(id);
     }
+
+    public void saveBlog(BlogId id, String title, String body) {
+        blogDomainService.saveBlog(id, title, body);
+    }
 }

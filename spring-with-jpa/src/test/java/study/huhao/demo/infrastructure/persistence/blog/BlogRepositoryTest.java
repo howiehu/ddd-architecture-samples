@@ -35,4 +35,17 @@ class BlogRepositoryTest extends RepositoryTest {
         assertThat(foundBlog.getTitle()).isEqualTo("Test Blog");
         assertThat(foundBlog.getBody()).isEqualTo("Something...");
     }
+
+    @Test
+    void save_updated_blog() {
+        var blog = blogDomainService
+                .createBlog("Test Blog", "Something...", UserId.valueOf(UUID.randomUUID().toString()));
+
+        blogDomainService.saveBlog(blog.getId(), "Updated Title", "Updated...");
+
+        var foundBlog = blogDomainService.getBlog(blog.getId());
+        assertThat(foundBlog.getId()).isEqualTo(blog.getId());
+        assertThat(foundBlog.getTitle()).isEqualTo("Updated Title");
+        assertThat(foundBlog.getBody()).isEqualTo("Updated...");
+    }
 }

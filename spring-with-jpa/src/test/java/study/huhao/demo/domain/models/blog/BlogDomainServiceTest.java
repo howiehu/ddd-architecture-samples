@@ -46,7 +46,6 @@ class BlogDomainServiceTest {
         void should_get_correctly() {
             var createdBlog =
                     new Blog("Test Blog", "Something...", UserId.valueOf(UUID.randomUUID().toString()));
-
             when(blogRepository.findById(createdBlog.getId())).thenReturn(Optional.of(createdBlog));
 
             var foundBlog = blogDomainService.getBlog(createdBlog.getId());
@@ -61,6 +60,32 @@ class BlogDomainServiceTest {
             when(blogRepository.findById(blogId)).thenReturn(Optional.empty());
 
             assertThatThrownBy(() -> blogDomainService.getBlog(blogId))
+                    .isInstanceOf(EntityNotFoundException.class)
+                    .hasMessage("cannot find the blog with id " + blogId);
+        }
+    }
+
+    @Nested
+    class saveBlog {
+
+        @Test
+        void should_save_correctly() {
+            var createdBlog =
+                    new Blog("Test Blog", "Something...", UserId.valueOf(UUID.randomUUID().toString()));
+            when(blogRepository.findById(createdBlog.getId())).thenReturn(Optional.of(createdBlog));
+
+            blogDomainService.saveBlog(createdBlog.getId(), "Updated Title", "Updated...");
+
+            verify(blogRepository).save(any(Blog.class));
+        }
+
+        @Test
+        void should_throw_EntityNotFoundException_when_blog_not_found() {
+            var blogId = BlogId.valueOf(UUID.randomUUID().toString());
+
+            when(blogRepository.findById(blogId)).thenReturn(Optional.empty());
+
+            assertThatThrownBy(() -> blogDomainService.saveBlog(blogId, "Updated Title", "Updated..."))
                     .isInstanceOf(EntityNotFoundException.class)
                     .hasMessage("cannot find the blog with id " + blogId);
         }
