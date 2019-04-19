@@ -3,6 +3,7 @@ package study.huhao.demo.domain.models.blog;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.mockito.InOrder;
 import study.huhao.demo.domain.core.excpetions.EntityNotFoundException;
 import study.huhao.demo.domain.models.user.UserId;
 
@@ -44,13 +45,12 @@ class BlogDomainServiceTest {
 
         @Test
         void should_get_correctly() {
-            var createdBlog =
-                    new Blog("Test Blog", "Something...", UserId.valueOf(UUID.randomUUID().toString()));
-            when(blogRepository.findById(createdBlog.getId())).thenReturn(Optional.of(createdBlog));
+            var mockBlog = mock(Blog.class);
+            when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.of(mockBlog));
 
-            var foundBlog = blogDomainService.getBlog(createdBlog.getId());
+            var foundBlog = blogDomainService.getBlog(mockBlog.getId());
 
-            assertThat(foundBlog.getId()).isEqualTo(createdBlog.getId());
+            assertThat(foundBlog).isEqualTo(mockBlog);
         }
 
         @Test
@@ -70,13 +70,14 @@ class BlogDomainServiceTest {
 
         @Test
         void should_save_correctly() {
-            var createdBlog =
-                    new Blog("Test Blog", "Something...", UserId.valueOf(UUID.randomUUID().toString()));
-            when(blogRepository.findById(createdBlog.getId())).thenReturn(Optional.of(createdBlog));
+            var mockBlog = mock(Blog.class);
+            when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.of(mockBlog));
 
-            blogDomainService.saveBlog(createdBlog.getId(), "Updated Title", "Updated...");
+            blogDomainService.saveBlog(mockBlog.getId(), "Updated Title", "Updated...");
 
-            verify(blogRepository).save(any(Blog.class));
+            InOrder inOrder = inOrder(mockBlog, blogRepository);
+            inOrder.verify(mockBlog).save("Updated Title", "Updated...");
+            inOrder.verify(blogRepository).save(mockBlog);
         }
 
         @Test
