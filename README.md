@@ -35,11 +35,11 @@ And I designed them with these principles (you can call it ***CUPET***):
 
 I don't write the test for the specific implementation of repositories, and the instead is inject the repository implementation to domain services, and write the ***integration tests*** for the services.
 
-Because when we used the domain models and domain services to replace POJO, it makes creating input data for repositories in the tests are very difficult. The more important is only focus on the implementation of repositories is make little sense; they must work correctly in the business context (domain services).
+Because when we used the domain models and domain services to replace [anemic models](https://martinfowler.com/bliki/AnemicDomainModel.html) like POJO or POCO, it makes creating input data for repositories in the tests are very difficult. The more important is only focus on the implementation of repositories is make little sense; they must work correctly in the business context (domain services).
 
 ### Domain Service Test
 
-The ***test doubles*** are very useful to write ***unit tests*** for domain services. This way can make the domain service's tests very easy because we want to focus on the business logic in domain service, not the implementation of domain models and repositories.
+The ***test doubles*** are handy when writing ***unit tests*** for domain services. This way can make the domain service's tests very easy because we want to focus on the business logic in domain service, not the implementation of domain models and repositories.
 
 ### Domain Model Test
 
