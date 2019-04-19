@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import study.huhao.demo.adapters.restapi.resources.ResourceTest;
+import study.huhao.demo.domain.models.blog.Blog;
 
 import java.util.Map;
 import java.util.UUID;
@@ -62,6 +63,67 @@ class BlogResourceTest extends ResourceTest {
                     .statusCode(HttpStatus.NOT_FOUND.value())
                     .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                     .body("message", equalTo("cannot find the blog with id " + blogId));
+        }
+    }
+
+    @Nested
+    @DisplayName("POST /blogs/{id}/published")
+    class publishBlog {
+
+        @Test
+        void should_publish_blog() {
+            var authorId = UUID.randomUUID().toString();
+            var createdBlog = createBlog("Test Blog", "Something...", authorId);
+
+            given()
+                    .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                    .when()
+                    .post("/blogs/" + createdBlog.id + "/published")
+                    .then()
+                    .statusCode(HttpStatus.CREATED.value());
+
+            var publishedBlot = getBlog(createdBlog.id);
+
+            assertThat(publishedBlot).isNotNull();
+            assertThat(publishedBlot.id).isEqualTo(createdBlog.id);
+            assertThat(publishedBlot.status).isEqualTo(Blog.PublishStatus.Published);
+            assertThat(publishedBlot.published).isNotNull();
+            assertThat(publishedBlot.published.title).isEqualTo("Test Blog");
+            assertThat(publishedBlot.published.body).isEqualTo("Something...");
+            assertThat(publishedBlot.published.publishedAt).isNotNull();
+        }
+
+        @Test
+        void should_return_404_when_blog_not_found() {
+            var blogId = UUID.randomUUID().toString();
+            given()
+                    .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                    .when()
+                    .post("/blogs/" + blogId + "/published")
+                    .then()
+                    .statusCode(HttpStatus.NOT_FOUND.value())
+                    .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                    .body("message", equalTo("cannot find the blog with id " + blogId));
+        }
+
+        @Test
+        void should_return_409_when_no_need_to_publish() {
+            var authorId = UUID.randomUUID().toString();
+            var createdBlog = createBlog("Test Blog", "Something...", authorId);
+
+            given()
+                    .when()
+                    .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                    .post("/blogs/" + createdBlog.id + "/published");
+
+            given()
+                    .when()
+                    .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                    .post("/blogs/" + createdBlog.id + "/published")
+                    .then()
+                    .statusCode(HttpStatus.CONFLICT.value())
+                    .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                    .body("message", equalTo("no need to publish"));
         }
     }
 

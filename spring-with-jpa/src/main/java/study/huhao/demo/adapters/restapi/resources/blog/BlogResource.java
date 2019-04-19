@@ -51,4 +51,10 @@ class BlogResource {
     void deleteBlog(@PathVariable String id) {
         blogService.deleteBlog(BlogId.valueOf(id));
     }
+
+    @PostMapping(value = "/{id}/published", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    void publishBlog(@PathVariable String id) {
+        blogService.publishBlog(BlogId.valueOf(id));
+    }
 }

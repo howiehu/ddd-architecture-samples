@@ -32,4 +32,10 @@ public class BlogDomainService implements DomainService {
         var blog = blogRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Blog.class, id));
         blogRepository.delete(blog);
     }
+
+    public void publishBlog(BlogId id) {
+        var blog = blogRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Blog.class, id));
+        blog.publish();
+        blogRepository.save(blog);
+    }
 }

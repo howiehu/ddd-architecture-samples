@@ -35,4 +35,8 @@ public class BlogService {
     public void deleteBlog(BlogId id) {
         blogDomainService.deleteBlog(id);
     }
+
+    public void publishBlog(BlogId id) {
+        blogDomainService.publishBlog(id);
+    }
 }
