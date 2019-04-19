@@ -39,7 +39,7 @@ Because when we used the domain models and domain services to replace POJO, it m
 
 ### Domain Service Test
 
-The ***test doubles*** are very helpful to write ***unit tests*** for domain services. This way can make the domain service's tests very easy because we want to focus on the business logic in domain service, not the implementation of domain models and repositories.
+The ***test doubles*** are very useful to write ***unit tests*** for domain services. This way can make the domain service's tests very easy because we want to focus on the business logic in domain service, not the implementation of domain models and repositories.
 
 ### Domain Model Test
 
