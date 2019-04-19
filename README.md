@@ -20,3 +20,27 @@ And I designed them with these principles (you can call it ***CUPET***):
 - Easy to **P**rotect
 - Easy to **E**xtend
 - Easy to **T**est
+
+## Domain Model & Humble Object
+
+*Work in progress...*
+
+## Test Strategy
+
+### API E2E Test
+
+*Work in progress...*
+
+### Repository Test
+
+I don't write the test for the specific implementation of repositories, and the instead is inject the repository implementation to domain services, and write the ***integration tests*** for the services.
+
+Because when we used the domain models and domain services to replace POJO, it makes creating input data for repositories in the tests are very difficult. The more important is only focus on the implementation of repositories is meaningless; they must work correctly in the business context (domain services).
+
+### Domain Service Test
+
+The ***test doubles*** are very helpful to write ***unit tests*** for domain services. This way can make the domain service's tests very easy because we want to focus on the business logic in domain service, not the implementation of domain models and repositories.
+
+### Domain Model Test
+
+*Work in progress...*
