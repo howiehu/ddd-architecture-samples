@@ -8,4 +8,6 @@ public interface BlogRepository extends Repository {
     void save(Blog blog);
 
     Optional<Blog> findById(BlogId id);
+
+    void delete(Blog blog);
 }

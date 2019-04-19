@@ -27,4 +27,9 @@ public class BlogDomainService implements DomainService {
         blog.save(title, body);
         blogRepository.save(blog);
     }
+
+    public void deleteBlog(BlogId id) {
+        var blog = blogRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Blog.class, id));
+        blogRepository.delete(blog);
+    }
 }

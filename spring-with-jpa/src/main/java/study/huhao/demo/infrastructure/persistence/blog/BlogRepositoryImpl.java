@@ -13,24 +13,28 @@ import java.util.Optional;
 public class BlogRepositoryImpl implements BlogRepository {
 
     private final BlogJpaRepository blogJpaRepository;
-    private final MapperFacade mapperFacade;
+    private final MapperFacade mapper;
 
     @Autowired
-    public BlogRepositoryImpl(BlogJpaRepository blogJpaRepository, MapperFacade mapperFacade) {
+    public BlogRepositoryImpl(BlogJpaRepository blogJpaRepository, MapperFacade mapper) {
         this.blogJpaRepository = blogJpaRepository;
-        this.mapperFacade = mapperFacade;
+        this.mapper = mapper;
     }
 
 
     @Override
     public void save(Blog blog) {
-        BlogPO blogDto = mapperFacade.map(blog, BlogPO.class);
-        blogJpaRepository.save(blogDto);
+        blogJpaRepository.save(mapper.map(blog, BlogPO.class));
     }
 
     @Override
     public Optional<Blog> findById(BlogId id) {
-        return blogJpaRepository.findById(id.toString()).map(blogDto -> mapperFacade.map(blogDto, Blog.class));
+        return blogJpaRepository.findById(id.toString()).map(blogDto -> mapper.map(blogDto, Blog.class));
+    }
+
+    @Override
+    public void delete(Blog blog) {
+        blogJpaRepository.delete(mapper.map(blog, BlogPO.class));
     }
 }
 

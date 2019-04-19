@@ -31,4 +31,8 @@ public class BlogService {
     public void saveBlog(BlogId id, String title, String body) {
         blogDomainService.saveBlog(id, title, body);
     }
+
+    public void deleteBlog(BlogId id) {
+        blogDomainService.deleteBlog(id);
+    }
 }

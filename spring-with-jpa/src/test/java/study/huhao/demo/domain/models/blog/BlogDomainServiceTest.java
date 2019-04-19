@@ -91,4 +91,29 @@ class BlogDomainServiceTest {
                     .hasMessage("cannot find the blog with id " + blogId);
         }
     }
+
+    @Nested
+    class deleteBlog {
+
+        @Test
+        void should_delete_correctly() {
+            var mockBlog = mock(Blog.class);
+            when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.of(mockBlog));
+
+            blogDomainService.deleteBlog(mockBlog.getId());
+
+            verify(blogRepository).delete(mockBlog);
+        }
+
+        @Test
+        void should_throw_EntityNotFoundException_when_blog_not_found() {
+            var blogId = BlogId.valueOf(UUID.randomUUID().toString());
+
+            when(blogRepository.findById(blogId)).thenReturn(Optional.empty());
+
+            assertThatThrownBy(() -> blogDomainService.deleteBlog(blogId))
+                    .isInstanceOf(EntityNotFoundException.class)
+                    .hasMessage("cannot find the blog with id " + blogId);
+        }
+    }
 }

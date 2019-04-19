@@ -3,7 +3,6 @@ package study.huhao.demo.adapters.restapi.resources.blog;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import study.huhao.demo.adapters.restapi.resources.ResourceTest;
@@ -17,9 +16,6 @@ import static org.hamcrest.core.IsEqual.equalTo;
 
 @DisplayName("/blogs")
 class BlogResourceTest extends ResourceTest {
-
-    @LocalServerPort
-    private int port;
 
     @Nested
     @DisplayName("POST /blogs")
@@ -59,7 +55,7 @@ class BlogResourceTest extends ResourceTest {
         @Test
         void should_return_404_when_blog_not_found() {
             var blogId = UUID.randomUUID().toString();
-            given().port(port)
+            given()
                     .when()
                     .get("/blogs/" + blogId)
                     .then()
@@ -78,7 +74,7 @@ class BlogResourceTest extends ResourceTest {
             var authorId = UUID.randomUUID().toString();
             var createdBlog = createBlog("Test Blog", "Something...", authorId);
 
-            given().port(port)
+            given()
                     .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                     .body(Map.of(
                             "title", "Updated Title",
@@ -95,16 +91,13 @@ class BlogResourceTest extends ResourceTest {
             assertThat(updatedBlog.id).isEqualTo(createdBlog.id);
             assertThat(updatedBlog.title).isEqualTo("Updated Title");
             assertThat(updatedBlog.body).isEqualTo("Updated...");
-            assertThat(updatedBlog.authorId).isEqualTo(createdBlog.authorId);
-            assertThat(updatedBlog.createdAt).isEqualTo(createdBlog.createdAt);
-            assertThat(updatedBlog.status).isEqualTo(createdBlog.status);
             assertThat(updatedBlog.savedAt).isAfter(createdBlog.savedAt);
         }
 
         @Test
         void should_return_404_when_blog_not_found() {
             var blogId = UUID.randomUUID().toString();
-            given().port(port)
+            given()
                     .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                     .body(Map.of(
                             "title", "Updated Title",
@@ -119,8 +112,43 @@ class BlogResourceTest extends ResourceTest {
         }
     }
 
+    @Nested
+    @DisplayName("DELETE /blogs/{id}")
+    class deleteBlog {
+
+        @Test
+        void should_delete_blog() {
+            var authorId = UUID.randomUUID().toString();
+            var createdBlog = createBlog("Test Blog", "Something...", authorId);
+
+            given()
+                    .when()
+                    .delete("/blogs/" + createdBlog.id)
+                    .then()
+                    .statusCode(HttpStatus.NO_CONTENT.value());
+
+            given()
+                    .when()
+                    .get("/blogs/" + createdBlog.id)
+                    .then()
+                    .statusCode(HttpStatus.NOT_FOUND.value());
+        }
+
+        @Test
+        void should_return_404_when_blog_not_found() {
+            var blogId = UUID.randomUUID().toString();
+            given()
+                    .when()
+                    .delete("/blogs/" + blogId)
+                    .then()
+                    .statusCode(HttpStatus.NOT_FOUND.value())
+                    .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                    .body("message", equalTo("cannot find the blog with id " + blogId));
+        }
+    }
+
     private BlogDto createBlog(String title, String body, String authorId) {
-        return given().port(port)
+        return given()
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .body(Map.of(
                         "title", title,
@@ -137,7 +165,7 @@ class BlogResourceTest extends ResourceTest {
     }
 
     private BlogDto getBlog(String blogId) {
-        return given().port(port)
+        return given()
                 .when()
                 .get("/blogs/" + blogId)
                 .then()

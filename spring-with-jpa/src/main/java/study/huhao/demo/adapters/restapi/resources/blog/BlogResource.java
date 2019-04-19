@@ -14,18 +14,18 @@ import study.huhao.demo.domain.models.user.UserId;
 class BlogResource {
 
     private final BlogService blogService;
-    private final MapperFacade mapperFacade;
+    private final MapperFacade mapper;
 
     @Autowired
-    BlogResource(BlogService blogService, MapperFacade mapperFacade) {
+    BlogResource(BlogService blogService, MapperFacade mapper) {
         this.blogService = blogService;
-        this.mapperFacade = mapperFacade;
+        this.mapper = mapper;
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     BlogDto createBlog(@RequestBody BlogCreateRequest data) {
-        return mapperFacade.map(
+        return mapper.map(
                 blogService.createBlog(data.title, data.body, UserId.valueOf(data.authorId)),
                 BlogDto.class
         );
@@ -34,7 +34,7 @@ class BlogResource {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     BlogDto getBlog(@PathVariable String id) {
-        return mapperFacade.map(
+        return mapper.map(
                 blogService.getBlog(BlogId.valueOf(id)),
                 BlogDto.class
         );
@@ -44,5 +44,11 @@ class BlogResource {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void saveBlog(@PathVariable String id, @RequestBody BlogSaveRequest data) {
         blogService.saveBlog(BlogId.valueOf(id), data.title, data.body);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void deleteBlog(@PathVariable String id) {
+        blogService.deleteBlog(BlogId.valueOf(id));
     }
 }

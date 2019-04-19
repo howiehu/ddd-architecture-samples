@@ -3,6 +3,7 @@ package study.huhao.demo.infrastructure.persistence.blog;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import study.huhao.demo.domain.core.excpetions.EntityNotFoundException;
 import study.huhao.demo.domain.models.blog.BlogDomainService;
 import study.huhao.demo.domain.models.blog.BlogRepository;
 import study.huhao.demo.domain.models.user.UserId;
@@ -11,6 +12,7 @@ import study.huhao.demo.infrastructure.persistence.RepositoryTest;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class BlogRepositoryTest extends RepositoryTest {
 
@@ -47,5 +49,16 @@ class BlogRepositoryTest extends RepositoryTest {
         assertThat(foundBlog.getId()).isEqualTo(blog.getId());
         assertThat(foundBlog.getTitle()).isEqualTo("Updated Title");
         assertThat(foundBlog.getBody()).isEqualTo("Updated...");
+    }
+
+    @Test
+    void delete_blog() {
+        var blog = blogDomainService
+                .createBlog("Test Blog", "Something...", UserId.valueOf(UUID.randomUUID().toString()));
+
+        blogDomainService.deleteBlog(blog.getId());
+
+        assertThatThrownBy(() -> blogDomainService.getBlog(blog.getId()))
+                .isInstanceOf(EntityNotFoundException.class);
     }
 }
