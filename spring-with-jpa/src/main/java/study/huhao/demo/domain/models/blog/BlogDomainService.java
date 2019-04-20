@@ -12,8 +12,8 @@ public class BlogDomainService implements DomainService {
         this.blogRepository = blogRepository;
     }
 
-    public Blog createBlog(String title, String body, UserId author) {
-        var blog = new Blog(title, body, author);
+    public Blog createBlog(String title, String body, UserId authorId) {
+        var blog = new Blog(title, body, authorId);
         blogRepository.save(blog);
         return blog;
     }

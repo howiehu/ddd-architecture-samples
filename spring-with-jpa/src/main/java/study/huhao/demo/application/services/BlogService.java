@@ -20,8 +20,8 @@ public class BlogService {
         blogDomainService = new BlogDomainService(blogRepository);
     }
 
-    public Blog createBlog(String title, String body, UserId author) {
-        return blogDomainService.createBlog(title, body, author);
+    public Blog createBlog(String title, String body, UserId authorId) {
+        return blogDomainService.createBlog(title, body, authorId);
     }
 
     public Blog getBlog(BlogId id) {
