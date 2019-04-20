@@ -30,9 +30,7 @@ public class BlogDomainService implements DomainService {
 
     public void deleteBlog(BlogId id) {
         var existed = blogRepository.existById(id);
-
         if (!existed) throw new EntityNotFoundException(Blog.class, id);
-
         blogRepository.deleteById(id);
     }
 
