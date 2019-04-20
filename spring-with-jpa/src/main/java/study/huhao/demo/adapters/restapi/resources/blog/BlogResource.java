@@ -24,7 +24,7 @@ class BlogResource {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    BlogDto createBlog(@RequestBody BlogCreateRequest data) {
+    public BlogDto createBlog(@RequestBody BlogCreateRequest data) {
         return mapper.map(
                 blogService.createBlog(data.title, data.body, UserId.valueOf(data.authorId)),
                 BlogDto.class
@@ -33,7 +33,7 @@ class BlogResource {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    BlogDto getBlog(@PathVariable String id) {
+    public BlogDto getBlog(@PathVariable String id) {
         return mapper.map(
                 blogService.getBlog(BlogId.valueOf(id)),
                 BlogDto.class
@@ -42,19 +42,19 @@ class BlogResource {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void saveBlog(@PathVariable String id, @RequestBody BlogSaveRequest data) {
+    public void saveBlog(@PathVariable String id, @RequestBody BlogSaveRequest data) {
         blogService.saveBlog(BlogId.valueOf(id), data.title, data.body);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteBlog(@PathVariable String id) {
+    public void deleteBlog(@PathVariable String id) {
         blogService.deleteBlog(BlogId.valueOf(id));
     }
 
     @PostMapping(value = "/{id}/published", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    void publishBlog(@PathVariable String id) {
+    public void publishBlog(@PathVariable String id) {
         blogService.publishBlog(BlogId.valueOf(id));
     }
 }

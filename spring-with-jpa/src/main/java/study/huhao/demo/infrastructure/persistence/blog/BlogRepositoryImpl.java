@@ -29,7 +29,7 @@ public class BlogRepositoryImpl implements BlogRepository {
 
     @Override
     public Optional<Blog> findById(BlogId id) {
-        return blogJpaRepository.findById(id.toString()).map(blogDto -> mapper.map(blogDto, Blog.class));
+        return blogJpaRepository.findById(id.toString()).map(blogPO -> mapper.map(blogPO, Blog.class));
     }
 
     @Override
