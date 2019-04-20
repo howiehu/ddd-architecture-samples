@@ -9,5 +9,7 @@ public interface BlogRepository extends Repository {
 
     Optional<Blog> findById(BlogId id);
 
-    void delete(Blog blog);
+    boolean existById(BlogId id);
+
+    void deleteById(BlogId id);
 }

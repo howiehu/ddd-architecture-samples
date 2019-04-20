@@ -33,8 +33,13 @@ public class BlogRepositoryImpl implements BlogRepository {
     }
 
     @Override
-    public void delete(Blog blog) {
-        blogJpaRepository.delete(mapper.map(blog, BlogPO.class));
+    public boolean existById(BlogId id) {
+        return blogJpaRepository.existsById(id.toString());
+    }
+
+    @Override
+    public void deleteById(BlogId id) {
+        blogJpaRepository.deleteById(id.toString());
     }
 }
 
