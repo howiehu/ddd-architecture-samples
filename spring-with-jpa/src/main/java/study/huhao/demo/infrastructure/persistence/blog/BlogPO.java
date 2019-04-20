@@ -18,7 +18,7 @@ public class BlogPO implements PersistenceObject {
     private String body;
     private String authorId;
     @Enumerated(EnumType.STRING)
-    private Blog.PublishStatus status;
+    private Blog.Status status;
     private Instant createdAt;
     private Instant savedAt;
     private PublishedBlogPO published;

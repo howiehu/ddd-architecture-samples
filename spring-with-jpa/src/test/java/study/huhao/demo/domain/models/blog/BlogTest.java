@@ -27,7 +27,7 @@ class BlogTest {
             assertThat(blog.getTitle()).isEqualTo("Test Blog");
             assertThat(blog.getBody()).isEqualTo("Something...");
             assertThat(blog.getAuthorId()).isEqualTo(author);
-            assertThat(blog.getStatus()).isEqualTo(Blog.PublishStatus.Draft);
+            assertThat(blog.getStatus()).isEqualTo(Blog.Status.Draft);
             assertThat(blog.getCreatedAt()).isNotNull();
             assertThat(blog.getSavedAt()).isEqualTo(blog.getCreatedAt());
             assertThat(blog.getPublished()).isNull();
@@ -98,7 +98,7 @@ class BlogTest {
         void should_publish_correctly() {
             blog.publish();
 
-            assertThat(blog.getStatus()).isEqualTo(Blog.PublishStatus.Published);
+            assertThat(blog.getStatus()).isEqualTo(Blog.Status.Published);
             var published = blog.getPublished();
             assertThat(published.getTitle()).isEqualTo("Test Blog");
             assertThat(published.getBody()).isEqualTo("Something...");

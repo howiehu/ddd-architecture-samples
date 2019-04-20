@@ -72,7 +72,7 @@ class BlogRepositoryTest extends RepositoryTest {
 
         var foundBlog = blogDomainService.getBlog(blog.getId());
         assertThat(foundBlog.getId()).isEqualTo(blog.getId());
-        assertThat(foundBlog.getStatus()).isEqualTo(Blog.PublishStatus.Published);
+        assertThat(foundBlog.getStatus()).isEqualTo(Blog.Status.Published);
         assertThat(foundBlog.getPublished()).isNotNull();
         assertThat(foundBlog.getPublished().getTitle()).isEqualTo("Test Blog");
         assertThat(foundBlog.getPublished().getBody()).isEqualTo("Something...");

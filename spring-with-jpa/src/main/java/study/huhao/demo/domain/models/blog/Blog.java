@@ -16,7 +16,7 @@ public class Blog implements AggregateRoot {
     private String title;
     private String body;
     private UserId authorId;
-    private PublishStatus status;
+    private Status status;
     private Instant createdAt;
     private Instant savedAt;
     private PublishedBlog published;
@@ -29,7 +29,7 @@ public class Blog implements AggregateRoot {
         this.title = title;
         this.body = body;
         this.authorId = authorId;
-        this.status = PublishStatus.Draft;
+        this.status = Status.Draft;
         this.createdAt = Instant.now();
         this.savedAt = this.createdAt;
     }
@@ -38,7 +38,7 @@ public class Blog implements AggregateRoot {
         validateIsNeedToPublish();
 
         this.published = new PublishedBlog(this.title, this.body, Instant.now());
-        this.status = PublishStatus.Published;
+        this.status = Status.Published;
     }
 
     void save(String title, String body) {
@@ -62,7 +62,7 @@ public class Blog implements AggregateRoot {
     }
 
     private void validateIsNeedToPublish() {
-        if (this.status == PublishStatus.Published) {
+        if (this.status == Status.Published) {
             boolean noChange =
                     this.title.equals(this.published.getTitle()) && this.body.equals(this.published.getBody());
             if (noChange) {
@@ -71,7 +71,7 @@ public class Blog implements AggregateRoot {
         }
     }
 
-    public enum PublishStatus implements ValueObject {
+    public enum Status implements ValueObject {
         Draft,
         Published
     }

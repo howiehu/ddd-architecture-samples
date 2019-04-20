@@ -86,7 +86,7 @@ class BlogResourceTest extends ResourceTest {
 
             assertThat(publishedBlot).isNotNull();
             assertThat(publishedBlot.id).isEqualTo(createdBlog.id);
-            assertThat(publishedBlot.status).isEqualTo(Blog.PublishStatus.Published);
+            assertThat(publishedBlot.status).isEqualTo(Blog.Status.Published);
             assertThat(publishedBlot.published).isNotNull();
             assertThat(publishedBlot.published.title).isEqualTo("Test Blog");
             assertThat(publishedBlot.published.body).isEqualTo("Something...");
