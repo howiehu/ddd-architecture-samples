@@ -27,6 +27,10 @@ And I designed them with these principles (you can call it ***CUPET***):
 
 ## Test Strategy
 
+### Architecture Test
+
+*Work in progress...*
+
 ### API E2E Test
 
 *Work in progress...*
