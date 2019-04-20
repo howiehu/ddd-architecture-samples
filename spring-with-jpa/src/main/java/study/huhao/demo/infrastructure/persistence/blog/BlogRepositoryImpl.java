@@ -3,7 +3,9 @@ package study.huhao.demo.infrastructure.persistence.blog;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import study.huhao.demo.domain.core.Page;
 import study.huhao.demo.domain.models.blog.Blog;
+import study.huhao.demo.domain.models.blog.BlogCriteria;
 import study.huhao.demo.domain.models.blog.BlogId;
 import study.huhao.demo.domain.models.blog.BlogRepository;
 
@@ -40,6 +42,11 @@ public class BlogRepositoryImpl implements BlogRepository {
     @Override
     public void deleteById(BlogId id) {
         blogJpaRepository.deleteById(id.toString());
+    }
+
+    @Override
+    public Page<Blog> findAllWithPagination(BlogCriteria criteria) {
+        throw  new UnsupportedOperationException("not implement");
     }
 }
 

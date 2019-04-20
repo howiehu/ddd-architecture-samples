@@ -1,5 +1,6 @@
 package study.huhao.demo.domain.models.blog;
 
+import study.huhao.demo.domain.core.Page;
 import study.huhao.demo.domain.core.Repository;
 
 import java.util.Optional;
@@ -12,4 +13,6 @@ public interface BlogRepository extends Repository {
     boolean existById(BlogId id);
 
     void deleteById(BlogId id);
+
+    Page<Blog> findAllWithPagination(BlogCriteria criteria);
 }

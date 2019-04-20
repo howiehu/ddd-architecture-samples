@@ -132,4 +132,27 @@ class DomainLayerTest {
                     .check(classes);
         }
     }
+
+    @Nested
+    class criteria {
+
+        @Test
+        void criteria_should_be_named_ending_with_Criteria() {
+            classes().that().resideInAPackage("..domain..")
+                    .and().implement(Criteria.class)
+                    .should().haveSimpleNameEndingWith("Criteria")
+                    .as("The criteria should be named ending with 'Criteria'.")
+                    .check(classes);
+        }
+
+        @Test
+        void criteria_should_implement_Criteria() {
+            classes()
+                    .that().resideInAPackage("..domain..")
+                    .and().haveSimpleNameEndingWith("Exception")
+                    .should().implement(Criteria.class)
+                    .as("The criteria should implement 'Criteria' interface.")
+                    .check(classes);
+        }
+    }
 }
