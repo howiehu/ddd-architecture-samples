@@ -15,11 +15,11 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 
-@DisplayName("/blogs")
+@DisplayName("/blog")
 class BlogResourceTest extends ResourceTest {
 
     @Nested
-    @DisplayName("POST /blogs")
+    @DisplayName("POST /blog")
     class createBlog {
 
         @Test
@@ -36,7 +36,7 @@ class BlogResourceTest extends ResourceTest {
     }
 
     @Nested
-    @DisplayName("GET /blogs/{id}")
+    @DisplayName("GET /blog/{id}")
     class getBlog {
 
         @Test
@@ -58,7 +58,7 @@ class BlogResourceTest extends ResourceTest {
             var blogId = UUID.randomUUID().toString();
             given()
                     .when()
-                    .get("/blogs/" + blogId)
+                    .get("/blog/" + blogId)
                     .then()
                     .statusCode(HttpStatus.NOT_FOUND.value())
                     .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -67,7 +67,7 @@ class BlogResourceTest extends ResourceTest {
     }
 
     @Nested
-    @DisplayName("POST /blogs/{id}/published")
+    @DisplayName("POST /blog/{id}/published")
     class publishBlog {
 
         @Test
@@ -78,7 +78,7 @@ class BlogResourceTest extends ResourceTest {
             given()
                     .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                     .when()
-                    .post("/blogs/" + createdBlog.id + "/published")
+                    .post("/blog/" + createdBlog.id + "/published")
                     .then()
                     .statusCode(HttpStatus.CREATED.value());
 
@@ -99,7 +99,7 @@ class BlogResourceTest extends ResourceTest {
             given()
                     .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                     .when()
-                    .post("/blogs/" + blogId + "/published")
+                    .post("/blog/" + blogId + "/published")
                     .then()
                     .statusCode(HttpStatus.NOT_FOUND.value())
                     .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -114,12 +114,12 @@ class BlogResourceTest extends ResourceTest {
             given()
                     .when()
                     .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-                    .post("/blogs/" + createdBlog.id + "/published");
+                    .post("/blog/" + createdBlog.id + "/published");
 
             given()
                     .when()
                     .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-                    .post("/blogs/" + createdBlog.id + "/published")
+                    .post("/blog/" + createdBlog.id + "/published")
                     .then()
                     .statusCode(HttpStatus.CONFLICT.value())
                     .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -128,7 +128,7 @@ class BlogResourceTest extends ResourceTest {
     }
 
     @Nested
-    @DisplayName("PUT /blogs/{id}")
+    @DisplayName("PUT /blog/{id}")
     class saveBlog {
 
         @Test
@@ -143,7 +143,7 @@ class BlogResourceTest extends ResourceTest {
                             "body", "Updated..."
                     ))
                     .when()
-                    .put("/blogs/" + createdBlog.id)
+                    .put("/blog/" + createdBlog.id)
                     .then()
                     .statusCode(HttpStatus.NO_CONTENT.value());
 
@@ -166,7 +166,7 @@ class BlogResourceTest extends ResourceTest {
                             "body", "Updated..."
                     ))
                     .when()
-                    .put("/blogs/" + blogId)
+                    .put("/blog/" + blogId)
                     .then()
                     .statusCode(HttpStatus.NOT_FOUND.value())
                     .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -175,7 +175,7 @@ class BlogResourceTest extends ResourceTest {
     }
 
     @Nested
-    @DisplayName("DELETE /blogs/{id}")
+    @DisplayName("DELETE /blog/{id}")
     class deleteBlog {
 
         @Test
@@ -185,13 +185,13 @@ class BlogResourceTest extends ResourceTest {
 
             given()
                     .when()
-                    .delete("/blogs/" + createdBlog.id)
+                    .delete("/blog/" + createdBlog.id)
                     .then()
                     .statusCode(HttpStatus.NO_CONTENT.value());
 
             given()
                     .when()
-                    .get("/blogs/" + createdBlog.id)
+                    .get("/blog/" + createdBlog.id)
                     .then()
                     .statusCode(HttpStatus.NOT_FOUND.value());
         }
@@ -201,7 +201,7 @@ class BlogResourceTest extends ResourceTest {
             var blogId = UUID.randomUUID().toString();
             given()
                     .when()
-                    .delete("/blogs/" + blogId)
+                    .delete("/blog/" + blogId)
                     .then()
                     .statusCode(HttpStatus.NOT_FOUND.value())
                     .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -218,7 +218,7 @@ class BlogResourceTest extends ResourceTest {
                         "authorId", authorId
                 ))
                 .when()
-                .post("/blogs")
+                .post("/blog")
                 .then()
                 .statusCode(HttpStatus.CREATED.value())
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -229,7 +229,7 @@ class BlogResourceTest extends ResourceTest {
     private BlogDto getBlog(String blogId) {
         return given()
                 .when()
-                .get("/blogs/" + blogId)
+                .get("/blog/" + blogId)
                 .then()
                 .statusCode(HttpStatus.OK.value())
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)

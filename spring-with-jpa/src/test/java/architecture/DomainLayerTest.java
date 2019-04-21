@@ -36,7 +36,7 @@ class DomainLayerTest {
         }
 
         @Test
-        void domain_layer_implement_interface_rule() {
+        void domain_layer_implement_and_extend_rule() {
             classes()
                     .that().resideInAPackage("..domain.models..")
                     .should().implement(Entity.class)
@@ -46,8 +46,9 @@ class DomainLayerTest {
                     .orShould().implement(DomainService.class)
                     .orShould().beAssignableTo(Repository.class)
                     .orShould().beAssignableTo(DomainException.class)
-                    .as("The models in the domain should implement one of the markedness interfaces in " +
-                            "Entity, AggregateRoot, ValueObject, EntityId, DomainService, Repository, DomainException.")
+                    .orShould().beAssignableTo(Criteria.class)
+                    .as("The models in the domain should implement or extend one of the interfaces / classes in " +
+                            "Entity, AggregateRoot, ValueObject, EntityId, DomainService, Repository, DomainException, Criteria.")
                     .check(classes);
         }
     }
@@ -139,19 +140,19 @@ class DomainLayerTest {
         @Test
         void criteria_should_be_named_ending_with_Criteria() {
             classes().that().resideInAPackage("..domain..")
-                    .and().implement(Criteria.class)
+                    .and().areAssignableTo(Criteria.class)
                     .should().haveSimpleNameEndingWith("Criteria")
                     .as("The criteria should be named ending with 'Criteria'.")
                     .check(classes);
         }
 
         @Test
-        void criteria_should_implement_Criteria() {
+        void criteria_should_extend_Criteria() {
             classes()
                     .that().resideInAPackage("..domain..")
-                    .and().haveSimpleNameEndingWith("Exception")
-                    .should().implement(Criteria.class)
-                    .as("The criteria should implement 'Criteria' interface.")
+                    .and().haveSimpleNameEndingWith("Criteria")
+                    .should().beAssignableTo(Criteria.class)
+                    .as("The criteria should extend Criteria.")
                     .check(classes);
         }
     }
