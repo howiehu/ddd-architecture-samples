@@ -6,20 +6,34 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import study.huhao.demo.application.services.BlogService;
+import study.huhao.demo.domain.core.Page;
+import study.huhao.demo.domain.models.blog.BlogCriteria;
 import study.huhao.demo.domain.models.blog.BlogId;
 import study.huhao.demo.domain.models.user.UserId;
 
 @RestController
 @RequestMapping(value = "/blog", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 class BlogResource {
-
     private final BlogService blogService;
+
     private final MapperFacade mapper;
 
     @Autowired
     BlogResource(BlogService blogService, MapperFacade mapper) {
         this.blogService = blogService;
         this.mapper = mapper;
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public Page<BlogDto> allBlog(@RequestParam int limit, @RequestParam int offset) {
+
+        var criteria = BlogCriteria.builder()
+                .limit(limit)
+                .offset(offset)
+                .build();
+
+        return blogService.getAllBlog(criteria).map(blog -> mapper.map(blog, BlogDto.class));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)

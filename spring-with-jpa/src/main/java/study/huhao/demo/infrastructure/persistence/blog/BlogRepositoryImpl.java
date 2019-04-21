@@ -11,6 +11,8 @@ import study.huhao.demo.domain.models.blog.BlogRepository;
 
 import java.util.Optional;
 
+import static study.huhao.demo.infrastructure.persistence.utils.PaginationUtil.buildPageRequest;
+
 @Component
 public class BlogRepositoryImpl implements BlogRepository {
 
@@ -46,7 +48,16 @@ public class BlogRepositoryImpl implements BlogRepository {
 
     @Override
     public Page<Blog> findAllWithPagination(BlogCriteria criteria) {
-        throw  new UnsupportedOperationException("not implement");
+        var pagedBlog = blogJpaRepository.findAll(buildPageRequest(criteria))
+                .map(blogPO -> mapper.map(blogPO, Blog.class));
+
+        return new Page<>(
+                pagedBlog.getContent(),
+                criteria.getLimit(),
+                criteria.getOffset(),
+                pagedBlog.getTotalElements()
+        );
     }
+
 }
 

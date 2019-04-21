@@ -3,10 +3,8 @@ package study.huhao.demo.application.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import study.huhao.demo.domain.models.blog.Blog;
-import study.huhao.demo.domain.models.blog.BlogDomainService;
-import study.huhao.demo.domain.models.blog.BlogId;
-import study.huhao.demo.domain.models.blog.BlogRepository;
+import study.huhao.demo.domain.core.Page;
+import study.huhao.demo.domain.models.blog.*;
 import study.huhao.demo.domain.models.user.UserId;
 
 @Service
@@ -38,5 +36,9 @@ public class BlogService {
 
     public void publishBlog(BlogId id) {
         blogDomainService.publishBlog(id);
+    }
+
+    public Page<Blog> getAllBlog(BlogCriteria criteria) {
+        return blogDomainService.getAllBlog(criteria);
     }
 }

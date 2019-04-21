@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import study.huhao.demo.domain.core.excpetions.EntityNotFoundException;
 import study.huhao.demo.domain.models.blog.Blog;
+import study.huhao.demo.domain.models.blog.BlogCriteria;
 import study.huhao.demo.domain.models.blog.BlogDomainService;
 import study.huhao.demo.domain.models.blog.BlogRepository;
 import study.huhao.demo.domain.models.user.UserId;
@@ -77,5 +78,21 @@ class BlogRepositoryTest extends RepositoryTest {
         assertThat(foundBlog.getPublished().getTitle()).isEqualTo("Test Blog");
         assertThat(foundBlog.getPublished().getBody()).isEqualTo("Something...");
         assertThat(foundBlog.getPublished().getPublishedAt()).isNotNull();
+    }
+
+    @Test
+    void get_all_blog() {
+        UserId authorId = UserId.valueOf(UUID.randomUUID().toString());
+        for (int i = 0; i < 5; i++) {
+            blogDomainService.createBlog("Test Blog " + i + 1, "Something...", authorId);
+        }
+        var criteria = BlogCriteria.builder().limit(3).offset(4).build();
+
+        var pagedBlog = blogDomainService.getAllBlog(criteria);
+
+        assertThat(pagedBlog.getResults()).hasSize(2);
+        assertThat(pagedBlog.getLimit()).isEqualTo(3);
+        assertThat(pagedBlog.getOffset()).isEqualTo(4);
+        assertThat(pagedBlog.getTotal()).isEqualTo(5);
     }
 }

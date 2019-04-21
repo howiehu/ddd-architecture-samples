@@ -39,6 +39,11 @@ class DomainLayerTest {
         void domain_layer_implement_and_extend_rule() {
             classes()
                     .that().resideInAPackage("..domain.models..")
+
+                    // these lines use to ignore lombok's @SuperBuilder generated code
+                    .and().haveSimpleNameNotEndingWith("CriteriaBuilderImpl")
+                    .and().haveSimpleNameNotEndingWith("CriteriaBuilder")
+
                     .should().implement(Entity.class)
                     .orShould().implement(AggregateRoot.class)
                     .orShould().implement(ValueObject.class)

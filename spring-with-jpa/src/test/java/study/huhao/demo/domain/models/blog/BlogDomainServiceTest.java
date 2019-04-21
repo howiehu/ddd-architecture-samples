@@ -143,4 +143,17 @@ class BlogDomainServiceTest {
                     .hasMessage("cannot find the blog with id " + mockBlog.getId());
         }
     }
+
+    @Nested
+    class getAllBlog {
+
+        @Test
+        void should_get_all_with_pagination() {
+            var mockCriteria = mock(BlogCriteria.class);
+
+            blogDomainService.getAllBlog(mockCriteria);
+
+            verify(blogRepository).findAllWithPagination(mockCriteria);
+        }
+    }
 }
