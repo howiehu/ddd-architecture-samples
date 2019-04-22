@@ -82,11 +82,55 @@ class DomainLayerTest {
         }
 
         @Test
-        void domain_services_can_only_be_access_by_application_services() {
+        void domain_services_can_only_be_access_by_policies_and_application_services() {
             classes().that().resideInAPackage("..domain..")
                     .and().implement(DomainService.class)
+                    .should().onlyBeAccessed()
+                    .byAnyPackage("..domain.polices..", "..application.services..")
+                    .as("The domain services can only be access by policies and application services")
+                    .because("the polices and application is the only entrance of domain.")
+                    .check(classes);
+        }
+    }
+
+    @Nested
+    class policy {
+
+        @Test
+        void policies_should_be_named_ending_with_Policy() {
+            classes().that().resideInAPackage("..domain..")
+                    .and().implement(Policy.class)
+                    .should().haveSimpleNameEndingWith("Policy")
+                    .as("The policies should be named ending with 'Policy'.")
+                    .check(classes);
+        }
+
+        @Test
+        void policies_should_implement_Policy() {
+            classes()
+                    .that().resideInAPackage("..domain..")
+                    .and().haveSimpleNameEndingWith("Policy")
+                    .and().areNotInterfaces()
+                    .should().implement(Policy.class)
+                    .as("The policies should implement 'Policy' interface.")
+                    .check(classes);
+        }
+
+        @Test
+        void policies_should_in_the_domain_policies_packages() {
+            classes().that().resideInAPackage("..domain..")
+                    .and().implement(Policy.class)
+                    .should().resideInAPackage("..domain.policies..")
+                    .as("The policies should in the ..domain.policies.. package.")
+                    .check(classes);
+        }
+
+        @Test
+        void policies_can_only_be_access_by_application_services() {
+            classes().that().resideInAPackage("..domain..")
+                    .and().implement(Policy.class)
                     .should().onlyBeAccessed().byAnyPackage("..application.services..")
-                    .as("The domain services can only be access by application services")
+                    .as("The policies can only be access by application services")
                     .because("the application is the only entrance of domain.")
                     .check(classes);
         }

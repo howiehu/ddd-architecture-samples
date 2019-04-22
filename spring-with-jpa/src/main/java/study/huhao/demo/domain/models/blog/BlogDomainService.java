@@ -7,7 +7,7 @@ import study.huhao.demo.domain.models.user.UserId;
 
 public class BlogDomainService implements DomainService {
 
-    private BlogRepository blogRepository;
+    private final BlogRepository blogRepository;
 
     public BlogDomainService(BlogRepository blogRepository) {
         this.blogRepository = blogRepository;
