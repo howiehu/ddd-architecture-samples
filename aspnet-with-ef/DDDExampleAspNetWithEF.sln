@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HuHao.BlogService.Domain", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HuHao.BlogService.Domain.Test", "HuHao.BlogService.Domain.Test\HuHao.BlogService.Domain.Test.csproj", "{247BAEA3-5917-47D6-81D4-C0961E79C08B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HuHao.BlogService.ArchitectureTest", "HuHao.BlogService.ArchitectureTest\HuHao.BlogService.ArchitectureTest.csproj", "{D637BA7E-BB0E-4892-BABC-78D9023B1A44}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,5 +52,17 @@ Global
 		{247BAEA3-5917-47D6-81D4-C0961E79C08B}.Release|x64.Build.0 = Release|Any CPU
 		{247BAEA3-5917-47D6-81D4-C0961E79C08B}.Release|x86.ActiveCfg = Release|Any CPU
 		{247BAEA3-5917-47D6-81D4-C0961E79C08B}.Release|x86.Build.0 = Release|Any CPU
+		{D637BA7E-BB0E-4892-BABC-78D9023B1A44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D637BA7E-BB0E-4892-BABC-78D9023B1A44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D637BA7E-BB0E-4892-BABC-78D9023B1A44}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D637BA7E-BB0E-4892-BABC-78D9023B1A44}.Debug|x64.Build.0 = Debug|Any CPU
+		{D637BA7E-BB0E-4892-BABC-78D9023B1A44}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D637BA7E-BB0E-4892-BABC-78D9023B1A44}.Debug|x86.Build.0 = Debug|Any CPU
+		{D637BA7E-BB0E-4892-BABC-78D9023B1A44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D637BA7E-BB0E-4892-BABC-78D9023B1A44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D637BA7E-BB0E-4892-BABC-78D9023B1A44}.Release|x64.ActiveCfg = Release|Any CPU
+		{D637BA7E-BB0E-4892-BABC-78D9023B1A44}.Release|x64.Build.0 = Release|Any CPU
+		{D637BA7E-BB0E-4892-BABC-78D9023B1A44}.Release|x86.ActiveCfg = Release|Any CPU
+		{D637BA7E-BB0E-4892-BABC-78D9023B1A44}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
