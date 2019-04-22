@@ -1,2 +1,3 @@
-# DDD Architecture - Spring MVC With JPA
+# DDD Architecture - Spring MVC With Spring Data JPA
 
+## Why Not MyBatis
