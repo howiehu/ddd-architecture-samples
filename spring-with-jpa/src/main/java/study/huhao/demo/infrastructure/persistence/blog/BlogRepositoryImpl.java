@@ -17,23 +17,21 @@ import static study.huhao.demo.infrastructure.persistence.utils.PaginationUtil.b
 public class BlogRepositoryImpl implements BlogRepository {
 
     private final BlogJpaRepository blogJpaRepository;
-    private final MapperFacade mapper;
 
     @Autowired
     public BlogRepositoryImpl(BlogJpaRepository blogJpaRepository, MapperFacade mapper) {
         this.blogJpaRepository = blogJpaRepository;
-        this.mapper = mapper;
     }
 
 
     @Override
     public void save(Blog blog) {
-        blogJpaRepository.save(mapper.map(blog, BlogPO.class));
+        blogJpaRepository.save(BlogPO.of(blog));
     }
 
     @Override
     public Optional<Blog> findById(BlogId id) {
-        return blogJpaRepository.findById(id.toString()).map(blogPO -> mapper.map(blogPO, Blog.class));
+        return blogJpaRepository.findById(id.toString()).map(BlogPO::toDomainModel);
     }
 
     @Override
@@ -49,7 +47,7 @@ public class BlogRepositoryImpl implements BlogRepository {
     @Override
     public Page<Blog> findAllWithPagination(BlogCriteria criteria) {
         var pagedBlog = blogJpaRepository.findAll(buildPageRequest(criteria))
-                .map(blogPO -> mapper.map(blogPO, Blog.class));
+                .map(BlogPO::toDomainModel);
 
         return new Page<>(
                 pagedBlog.getContent(),
