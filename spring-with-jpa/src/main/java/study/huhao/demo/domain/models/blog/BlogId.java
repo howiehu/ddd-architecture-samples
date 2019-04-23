@@ -3,22 +3,21 @@ package study.huhao.demo.domain.models.blog;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import study.huhao.demo.domain.core.EntityId;
 
 import java.util.UUID;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Getter(AccessLevel.NONE)
 @EqualsAndHashCode
 public class BlogId implements EntityId {
     private UUID id;
 
-    protected BlogId() {
+    BlogId() {
         id = UUID.randomUUID();
     }
 
     public static BlogId valueOf(String id) {
+        if (id == null) return null;
         return new BlogId(UUID.fromString(id));
     }
 
