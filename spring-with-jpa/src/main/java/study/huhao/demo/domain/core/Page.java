@@ -7,7 +7,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Getter
-public class Page<T> {
+public class Page<T> implements ReadModel {
     private List<T> results;
     private int limit;
     private long offset;
