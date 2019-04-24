@@ -37,7 +37,7 @@ configurations {
 }
 
 dependencies {
-    implementation project(':domain')
+    implementation project(':application')
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-undertow'
@@ -45,7 +45,6 @@ dependencies {
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-    compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     implementation 'ma.glasnost.orika:orika-core:1.5.4'
 
