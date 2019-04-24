@@ -1,9 +1,6 @@
 package study.huhao.demo.infrastructure.persistence.blog;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import study.huhao.demo.domain.models.blog.Blog;
 import study.huhao.demo.domain.models.blog.BlogId;
 import study.huhao.demo.domain.models.user.UserId;
@@ -14,11 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.Instant;
 
+// Spring Data JPA annotations
 @Entity
 @Table(name = "blog")
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
+// Lombok annotations
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 @Builder
 public class BlogPO implements PersistenceObject<Blog> {
 
@@ -32,8 +31,8 @@ public class BlogPO implements PersistenceObject<Blog> {
     private Instant savedAt;
     private PublishedBlogPO published;
 
-    // JPA's entity needs to reflect the table structure.
-    // The domain model and persistence object may have more different.
+    // The persistence object needs to reflect the table structure.
+    // The domain model and persistence object may have much different.
     // So, manual to convert between them is better than use object mapper like Orika.
     @Override
     public Blog toDomainModel() {
@@ -49,8 +48,8 @@ public class BlogPO implements PersistenceObject<Blog> {
         );
     }
 
-    // JPA's entity needs to reflect the table structure.
-    // The domain model and persistence object may have more different.
+    // The persistence object needs to reflect the table structure.
+    // The domain model and persistence object may have much different.
     // So, manual to convert between them is better than use object mapper like Orika.
     static BlogPO of(Blog blog) {
         if (blog == null) return null;

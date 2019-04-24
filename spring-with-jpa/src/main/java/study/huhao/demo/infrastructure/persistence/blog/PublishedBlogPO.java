@@ -1,44 +1,40 @@
 package study.huhao.demo.infrastructure.persistence.blog;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import study.huhao.demo.domain.models.blog.PublishedBlog;
 import study.huhao.demo.infrastructure.persistence.PersistenceObject;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.time.Instant;
 
+// Spring Data JPA annotations
 @Embeddable
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
+// Lombok annotations
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 @Builder
 public class PublishedBlogPO implements PersistenceObject<PublishedBlog> {
-    @Column(name = "published_title")
-    private String title;
-    @Column(name = "published_body")
-    private String body;
+    private String publishedTitle;
+    private String publishedBody;
     private Instant publishedAt;
 
-    // JPA's entity needs to reflect the table structure.
-    // The domain model and persistence object may have more different.
+    // The persistence object needs to reflect the table structure.
+    // The domain model and persistence object may have much different.
     // So, manual to convert between them is better than use object mapper like Orika.
     @Override
     public PublishedBlog toDomainModel() {
-        return new PublishedBlog(title, body, publishedAt);
+        return new PublishedBlog(publishedTitle, publishedBody, publishedAt);
     }
 
-    // JPA's entity needs to reflect the table structure.
-    // The domain model and persistence object may have more different.
+    // The persistence object needs to reflect the table structure.
+    // The domain model and persistence object may have much different.
     // So, manual to convert between them is better than use object mapper like Orika.
     static PublishedBlogPO of(PublishedBlog published) {
         if (published == null) return null;
         return PublishedBlogPO.builder()
-                .title(published.getTitle())
-                .body(published.getBody())
+                .publishedTitle(published.getTitle())
+                .publishedBody(published.getBody())
                 .publishedAt(published.getPublishedAt())
                 .build();
     }
