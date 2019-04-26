@@ -1,4 +1,4 @@
-package study.huhao.demo.configurations.converters;
+package study.huhao.demo.configurations.orika.converters;
 
 import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.converter.BidirectionalConverter;

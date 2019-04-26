@@ -10,51 +10,40 @@ import study.huhao.demo.domain.models.blog.BlogRepository;
 
 import java.util.Optional;
 
-import static study.huhao.demo.infrastructure.persistence.utils.PaginationUtil.buildPageRequest;
 
 @Component
 public class BlogRepositoryImpl implements BlogRepository {
 
-    private final BlogJpaRepository blogJpaRepository;
+    private final BlogMapper blogMapper;
 
     @Autowired
-    public BlogRepositoryImpl(BlogJpaRepository blogJpaRepository) {
-        this.blogJpaRepository = blogJpaRepository;
+    public BlogRepositoryImpl(BlogMapper blogMapper) {
+        this.blogMapper = blogMapper;
     }
-
 
     @Override
     public void save(Blog blog) {
-        blogJpaRepository.save(BlogPO.of(blog));
+
     }
 
     @Override
     public Optional<Blog> findById(BlogId id) {
-        return blogJpaRepository.findById(id.toString()).map(BlogPO::toDomainModel);
+        return Optional.empty();
     }
 
     @Override
     public boolean existById(BlogId id) {
-        return blogJpaRepository.existsById(id.toString());
+        return false;
     }
 
     @Override
     public void deleteById(BlogId id) {
-        blogJpaRepository.deleteById(id.toString());
+
     }
 
     @Override
     public Page<Blog> findAllWithPagination(BlogCriteria criteria) {
-        var pagedBlog = blogJpaRepository.findAll(buildPageRequest(criteria))
-                .map(BlogPO::toDomainModel);
-
-        return new Page<>(
-                pagedBlog.getContent(),
-                criteria.getLimit(),
-                criteria.getOffset(),
-                pagedBlog.getTotalElements()
-        );
+        return null;
     }
-
 }
 

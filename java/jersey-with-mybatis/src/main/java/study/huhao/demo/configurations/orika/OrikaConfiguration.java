@@ -1,11 +1,11 @@
-package study.huhao.demo.configurations;
+package study.huhao.demo.configurations.orika;
 
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import study.huhao.demo.configurations.converters.BlogIdConverter;
-import study.huhao.demo.configurations.converters.UserIdConverter;
+import study.huhao.demo.configurations.orika.converters.BlogIdConverter;
+import study.huhao.demo.configurations.orika.converters.UserIdConverter;
 
 @Configuration
 public class OrikaConfiguration {
