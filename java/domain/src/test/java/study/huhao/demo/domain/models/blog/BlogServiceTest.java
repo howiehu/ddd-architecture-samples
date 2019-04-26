@@ -15,16 +15,16 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class BlogDomainServiceTest {
+class BlogServiceTest {
 
     private BlogRepository blogRepository;
 
-    private BlogDomainService blogDomainService;
+    private BlogService blogService;
 
     @BeforeEach
     void setUp() {
         blogRepository = mock(BlogRepository.class);
-        blogDomainService = new BlogDomainService(blogRepository);
+        blogService = new BlogService(blogRepository);
     }
 
     @Nested
@@ -32,7 +32,7 @@ class BlogDomainServiceTest {
 
         @Test
         void should_create_correctly() {
-            var createdUser = blogDomainService
+            var createdUser = blogService
                     .createBlog("Test Blog", "Something...", UserId.valueOf(UUID.randomUUID().toString()));
 
             verify(blogRepository).save(any(Blog.class));
@@ -48,7 +48,7 @@ class BlogDomainServiceTest {
             var mockBlog = mock(Blog.class);
             when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.of(mockBlog));
 
-            var foundBlog = blogDomainService.getBlog(mockBlog.getId());
+            var foundBlog = blogService.getBlog(mockBlog.getId());
 
             assertThat(foundBlog).isEqualTo(mockBlog);
         }
@@ -59,7 +59,7 @@ class BlogDomainServiceTest {
 
             when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.empty());
 
-            assertThatThrownBy(() -> blogDomainService.getBlog(mockBlog.getId()))
+            assertThatThrownBy(() -> blogService.getBlog(mockBlog.getId()))
                     .isInstanceOf(EntityNotFoundException.class)
                     .hasMessage("cannot find the blog with id " + mockBlog.getId());
         }
@@ -73,7 +73,7 @@ class BlogDomainServiceTest {
             var mockBlog = mock(Blog.class);
             when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.of(mockBlog));
 
-            blogDomainService.saveBlog(mockBlog.getId(), "Updated Title", "Updated...");
+            blogService.saveBlog(mockBlog.getId(), "Updated Title", "Updated...");
 
             InOrder inOrder = inOrder(mockBlog, blogRepository);
             inOrder.verify(mockBlog).save("Updated Title", "Updated...");
@@ -86,7 +86,7 @@ class BlogDomainServiceTest {
 
             when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.empty());
 
-            assertThatThrownBy(() -> blogDomainService.saveBlog(mockBlog.getId(), "Updated Title", "Updated..."))
+            assertThatThrownBy(() -> blogService.saveBlog(mockBlog.getId(), "Updated Title", "Updated..."))
                     .isInstanceOf(EntityNotFoundException.class)
                     .hasMessage("cannot find the blog with id " + mockBlog.getId());
         }
@@ -100,7 +100,7 @@ class BlogDomainServiceTest {
             var mockBlog = mock(Blog.class);
             when(blogRepository.existById(mockBlog.getId())).thenReturn(true);
 
-            blogDomainService.deleteBlog(mockBlog.getId());
+            blogService.deleteBlog(mockBlog.getId());
 
             verify(blogRepository).deleteById(mockBlog.getId());
         }
@@ -111,7 +111,7 @@ class BlogDomainServiceTest {
 
             when(blogRepository.existById(mockBlog.getId())).thenReturn(false);
 
-            assertThatThrownBy(() -> blogDomainService.deleteBlog(mockBlog.getId()))
+            assertThatThrownBy(() -> blogService.deleteBlog(mockBlog.getId()))
                     .isInstanceOf(EntityNotFoundException.class)
                     .hasMessage("cannot find the blog with id " + mockBlog.getId());
         }
@@ -125,7 +125,7 @@ class BlogDomainServiceTest {
             var mockBlog = mock(Blog.class);
             when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.of(mockBlog));
 
-            blogDomainService.publishBlog(mockBlog.getId());
+            blogService.publishBlog(mockBlog.getId());
 
             InOrder inOrder = inOrder(mockBlog, blogRepository);
             inOrder.verify(mockBlog).publish();
@@ -138,7 +138,7 @@ class BlogDomainServiceTest {
 
             when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.empty());
 
-            assertThatThrownBy(() -> blogDomainService.publishBlog(mockBlog.getId()))
+            assertThatThrownBy(() -> blogService.publishBlog(mockBlog.getId()))
                     .isInstanceOf(EntityNotFoundException.class)
                     .hasMessage("cannot find the blog with id " + mockBlog.getId());
         }
@@ -151,7 +151,7 @@ class BlogDomainServiceTest {
         void should_get_all_with_pagination() {
             var mockCriteria = mock(BlogCriteria.class);
 
-            blogDomainService.getAllBlog(mockCriteria);
+            blogService.getAllBlog(mockCriteria);
 
             verify(blogRepository).findAllWithPagination(mockCriteria);
         }

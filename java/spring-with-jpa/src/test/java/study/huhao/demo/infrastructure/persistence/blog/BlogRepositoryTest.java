@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import study.huhao.demo.domain.core.excpetions.EntityNotFoundException;
 import study.huhao.demo.domain.models.blog.Blog;
 import study.huhao.demo.domain.models.blog.BlogCriteria;
-import study.huhao.demo.domain.models.blog.BlogDomainService;
+import study.huhao.demo.domain.models.blog.BlogService;
 import study.huhao.demo.domain.models.blog.BlogRepository;
 import study.huhao.demo.domain.models.user.UserId;
 import study.huhao.demo.infrastructure.persistence.RepositoryTest;
@@ -21,19 +21,19 @@ class BlogRepositoryTest extends RepositoryTest {
     @Autowired
     private BlogRepository blogRepository;
 
-    private BlogDomainService blogDomainService;
+    private BlogService blogService;
 
     @BeforeEach
     void setUp() {
-        blogDomainService = new BlogDomainService(blogRepository);
+        blogService = new BlogService(blogRepository);
     }
 
     @Test
     void findById() {
-        var blog = blogDomainService
+        var blog = blogService
                 .createBlog("Test Blog", "Something...", UserId.valueOf(UUID.randomUUID().toString()));
 
-        var foundBlog = blogDomainService.getBlog(blog.getId());
+        var foundBlog = blogService.getBlog(blog.getId());
 
         assertThat(foundBlog.getId()).isEqualTo(blog.getId());
         assertThat(foundBlog.getTitle()).isEqualTo("Test Blog");
@@ -42,12 +42,12 @@ class BlogRepositoryTest extends RepositoryTest {
 
     @Test
     void save_updated_blog() {
-        var blog = blogDomainService
+        var blog = blogService
                 .createBlog("Test Blog", "Something...", UserId.valueOf(UUID.randomUUID().toString()));
 
-        blogDomainService.saveBlog(blog.getId(), "Updated Title", "Updated...");
+        blogService.saveBlog(blog.getId(), "Updated Title", "Updated...");
 
-        var foundBlog = blogDomainService.getBlog(blog.getId());
+        var foundBlog = blogService.getBlog(blog.getId());
         assertThat(foundBlog.getId()).isEqualTo(blog.getId());
         assertThat(foundBlog.getTitle()).isEqualTo("Updated Title");
         assertThat(foundBlog.getBody()).isEqualTo("Updated...");
@@ -55,23 +55,23 @@ class BlogRepositoryTest extends RepositoryTest {
 
     @Test
     void delete_blog() {
-        var blog = blogDomainService
+        var blog = blogService
                 .createBlog("Test Blog", "Something...", UserId.valueOf(UUID.randomUUID().toString()));
 
-        blogDomainService.deleteBlog(blog.getId());
+        blogService.deleteBlog(blog.getId());
 
-        assertThatThrownBy(() -> blogDomainService.getBlog(blog.getId()))
+        assertThatThrownBy(() -> blogService.getBlog(blog.getId()))
                 .isInstanceOf(EntityNotFoundException.class);
     }
 
     @Test
     void publish_blog() {
-        var blog = blogDomainService
+        var blog = blogService
                 .createBlog("Test Blog", "Something...", UserId.valueOf(UUID.randomUUID().toString()));
 
-        blogDomainService.publishBlog(blog.getId());
+        blogService.publishBlog(blog.getId());
 
-        var foundBlog = blogDomainService.getBlog(blog.getId());
+        var foundBlog = blogService.getBlog(blog.getId());
         assertThat(foundBlog.getId()).isEqualTo(blog.getId());
         assertThat(foundBlog.getStatus()).isEqualTo(Blog.Status.Published);
         assertThat(foundBlog.getPublished()).isNotNull();
@@ -84,11 +84,11 @@ class BlogRepositoryTest extends RepositoryTest {
     void get_all_blog() {
         UserId authorId = UserId.valueOf(UUID.randomUUID().toString());
         for (int i = 0; i < 5; i++) {
-            blogDomainService.createBlog("Test Blog " + i + 1, "Something...", authorId);
+            blogService.createBlog("Test Blog " + i + 1, "Something...", authorId);
         }
         var criteria = BlogCriteria.builder().limit(3).offset(4).build();
 
-        var pagedBlog = blogDomainService.getAllBlog(criteria);
+        var pagedBlog = blogService.getAllBlog(criteria);
 
         assertThat(pagedBlog.getResults()).hasSize(2);
         assertThat(pagedBlog.getLimit()).isEqualTo(3);

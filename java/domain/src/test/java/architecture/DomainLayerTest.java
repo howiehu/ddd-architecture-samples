@@ -50,49 +50,38 @@ class DomainLayerTest {
                     .orShould().implement(EntityId.class)
                     .orShould().implement(ReadModel.class)
                     .orShould().implement(WriteModel.class) // need to be verified
-                    .orShould().implement(DomainService.class)
+                    .orShould().implement(Service.class)
                     .orShould().implement(Policy.class)
                     .orShould().beAssignableTo(Repository.class)
                     .orShould().beAssignableTo(DomainException.class)
                     .orShould().beAssignableTo(Criteria.class)
                     .as("The models in the domain should implement or extend one of the interfaces / classes in " +
                             "Entity, AggregateRoot, ValueObject, EntityId, ReadModel, WriteModel, " +
-                            "DomainService, Policy, Repository, DomainException, Criteria.")
+                            "Service, Policy, Repository, DomainException, Criteria.")
                     .check(classes);
         }
     }
 
     @Nested
-    class domain_service {
+    class service {
 
         @Test
-        void domain_services_should_be_named_ending_with_DomainService() {
+        void services_should_be_named_ending_with_Service() {
             classes().that().resideInAPackage("..domain..")
-                    .and().implement(DomainService.class)
-                    .should().haveSimpleNameEndingWith("DomainService")
-                    .as("The domain services should be named ending with 'DomainService'.")
+                    .and().implement(Service.class)
+                    .should().haveSimpleNameEndingWith("Service")
+                    .as("The domain services should be named ending with 'Service'.")
                     .check(classes);
         }
 
         @Test
-        void domain_services_should_implement_DomainService() {
+        void services_should_implement_Service() {
             classes()
                     .that().resideInAPackage("..domain..")
-                    .and().haveSimpleNameEndingWith("DomainService")
+                    .and().haveSimpleNameEndingWith("Service")
                     .and().areNotInterfaces()
-                    .should().implement(DomainService.class)
-                    .as("The domain services should implement 'DomainService' interface.")
-                    .check(classes);
-        }
-
-        @Test
-        void domain_services_can_only_be_access_by_policies_and_application_services() {
-            classes().that().resideInAPackage("..domain..")
-                    .and().implement(DomainService.class)
-                    .should().onlyBeAccessed()
-                    .byAnyPackage("..domain.polices..", "..application.services..")
-                    .as("The domain services can only be access by policies and application services")
-                    .because("the polices and application is the only entrance of domain.")
+                    .should().implement(Service.class)
+                    .as("The domain services should implement 'Service' interface.")
                     .check(classes);
         }
     }
@@ -126,16 +115,6 @@ class DomainLayerTest {
                     .and().implement(Policy.class)
                     .should().resideInAPackage("..domain.policies..")
                     .as("The policies should in the ..domain.policies.. package.")
-                    .check(classes);
-        }
-
-        @Test
-        void policies_can_only_be_access_by_application_services() {
-            classes().that().resideInAPackage("..domain..")
-                    .and().implement(Policy.class)
-                    .should().onlyBeAccessed().byAnyPackage("..application.services..")
-                    .as("The policies can only be access by application services")
-                    .because("the application is the only entrance of domain.")
                     .check(classes);
         }
     }

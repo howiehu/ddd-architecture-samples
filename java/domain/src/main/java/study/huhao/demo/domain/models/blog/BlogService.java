@@ -1,15 +1,15 @@
 package study.huhao.demo.domain.models.blog;
 
-import study.huhao.demo.domain.core.DomainService;
+import study.huhao.demo.domain.core.Service;
 import study.huhao.demo.domain.core.Page;
 import study.huhao.demo.domain.core.excpetions.EntityNotFoundException;
 import study.huhao.demo.domain.models.user.UserId;
 
-public class BlogDomainService implements DomainService {
+public class BlogService implements Service {
 
     private final BlogRepository blogRepository;
 
-    public BlogDomainService(BlogRepository blogRepository) {
+    public BlogService(BlogRepository blogRepository) {
         this.blogRepository = blogRepository;
     }
 

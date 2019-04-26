@@ -4,14 +4,17 @@ import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import study.huhao.demo.application.services.BlogService;
 import study.huhao.demo.domain.core.Page;
 import study.huhao.demo.domain.models.blog.BlogCriteria;
 import study.huhao.demo.domain.models.blog.BlogId;
+import study.huhao.demo.domain.models.blog.BlogRepository;
+import study.huhao.demo.domain.models.blog.BlogService;
 import study.huhao.demo.domain.models.user.UserId;
 
 @RestController
+@Transactional
 @RequestMapping(value = "/blog", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 class BlogResource {
     private final BlogService blogService;
@@ -19,8 +22,8 @@ class BlogResource {
     private final MapperFacade mapper;
 
     @Autowired
-    BlogResource(BlogService blogService, MapperFacade mapper) {
-        this.blogService = blogService;
+    BlogResource(BlogRepository blogRepository, MapperFacade mapper) {
+        this.blogService = new BlogService(blogRepository);
         this.mapper = mapper;
     }
 

@@ -1,4 +1,4 @@
 package study.huhao.demo.domain.core;
 
-public interface DomainService {
+public interface Service {
 }

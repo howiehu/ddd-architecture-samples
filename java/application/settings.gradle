@@ -1,4 +1,0 @@
-rootProject.name = 'ddd-sample-application'
-
-include 'domain'
-project(':domain').projectDir = new File(settingsDir, '../domain')
