@@ -37,13 +37,14 @@ repositories {
 }
 
 dependencies {
+    implementation project(':domain')
+
     implementation 'org.springframework.boot:spring-boot-starter-jersey'
     implementation 'org.springframework.boot:spring-boot-starter-undertow'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1'
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-    compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     implementation 'ma.glasnost.orika:orika-core:1.5.4'
 
