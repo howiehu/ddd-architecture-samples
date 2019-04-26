@@ -1,9 +1,9 @@
 package study.huhao.demo.domain.models.blog;
 
-import study.huhao.demo.domain.core.Service;
+import study.huhao.demo.domain.core.EntityId;
 import study.huhao.demo.domain.core.Page;
+import study.huhao.demo.domain.core.Service;
 import study.huhao.demo.domain.core.excpetions.EntityNotFoundException;
-import study.huhao.demo.domain.models.user.UserId;
 
 public class BlogService implements Service {
 
@@ -13,7 +13,7 @@ public class BlogService implements Service {
         this.blogRepository = blogRepository;
     }
 
-    public Blog createBlog(String title, String body, UserId authorId) {
+    public Blog createBlog(String title, String body, EntityId authorId) {
         var blog = new Blog(title, body, authorId);
         blogRepository.save(blog);
         return blog;

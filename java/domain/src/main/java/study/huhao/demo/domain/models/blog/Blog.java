@@ -3,9 +3,9 @@ package study.huhao.demo.domain.models.blog;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import study.huhao.demo.domain.core.AggregateRoot;
+import study.huhao.demo.domain.core.EntityId;
 import study.huhao.demo.domain.core.ValueObject;
 import study.huhao.demo.domain.models.blog.exceptions.NoNeedToPublishException;
-import study.huhao.demo.domain.models.user.UserId;
 
 import java.time.Instant;
 
@@ -15,13 +15,13 @@ public class Blog implements AggregateRoot {
     private BlogId id;
     private String title;
     private String body;
-    private UserId authorId;
+    private EntityId authorId;
     private Status status;
     private Instant createdAt;
     private Instant savedAt;
     private PublishedBlog published;
 
-    Blog(String title, String body, UserId authorId) {
+    Blog(String title, String body, EntityId authorId) {
         validateTitle(title);
         validateAuthor(authorId);
 
@@ -49,7 +49,7 @@ public class Blog implements AggregateRoot {
         this.savedAt = Instant.now();
     }
 
-    private void validateAuthor(UserId author) {
+    private void validateAuthor(EntityId author) {
         if (author == null) {
             throw new IllegalArgumentException("the author cannot be null");
         }
