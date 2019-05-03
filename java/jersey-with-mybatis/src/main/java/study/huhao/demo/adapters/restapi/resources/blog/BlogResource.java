@@ -2,10 +2,8 @@ package study.huhao.demo.adapters.restapi.resources.blog;
 
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
 import study.huhao.demo.domain.core.Page;
 import study.huhao.demo.domain.models.blog.BlogCriteria;
 import study.huhao.demo.domain.models.blog.BlogId;
@@ -13,9 +11,20 @@ import study.huhao.demo.domain.models.blog.BlogRepository;
 import study.huhao.demo.domain.models.blog.BlogService;
 import study.huhao.demo.domain.models.user.UserId;
 
-@RestController
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
+import java.net.URI;
+
+import static javax.ws.rs.core.Response.Status.CREATED;
+import static javax.ws.rs.core.Response.created;
+import static javax.ws.rs.core.Response.status;
+
+@Path("blog")
+@Produces(MediaType.APPLICATION_JSON)
+@Component
 @Transactional
-@RequestMapping(value = "/blog", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class BlogResource {
     private final BlogService blogService;
 
@@ -27,9 +36,8 @@ public class BlogResource {
         this.mapper = mapper;
     }
 
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public Page<BlogDto> allBlog(@RequestParam int limit, @RequestParam int offset) {
+    @GET
+    public Page<BlogDto> allBlog(@QueryParam("limit") int limit, @QueryParam("offset") int offset) {
 
         var criteria = BlogCriteria.builder()
                 .limit(limit)
@@ -39,39 +47,45 @@ public class BlogResource {
         return blogService.getAllBlog(criteria).map(blog -> mapper.map(blog, BlogDto.class));
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public BlogDto createBlog(@RequestBody BlogCreateRequest data) {
-        return mapper.map(
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response createBlog(BlogCreateRequest data) {
+        var entity = mapper.map(
                 blogService.createBlog(data.title, data.body, UserId.valueOf(data.authorId)),
                 BlogDto.class
         );
+
+        URI uri = UriBuilder.fromResource(BlogResource.class).path("{id}").build(entity.id);
+        return created(uri).entity(entity).build();
     }
 
-    @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public BlogDto getBlog(@PathVariable String id) {
+    @GET
+    @Path("{id}")
+    public BlogDto getBlog(@PathParam("id") String id) {
         return mapper.map(
                 blogService.getBlog(BlogId.valueOf(id)),
                 BlogDto.class
         );
     }
 
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void saveBlog(@PathVariable String id, @RequestBody BlogSaveRequest data) {
+    @PUT
+    @Path("{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void saveBlog(@PathParam("id") String id, BlogSaveRequest data) {
         blogService.saveBlog(BlogId.valueOf(id), data.title, data.body);
     }
 
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteBlog(@PathVariable String id) {
+    @DELETE
+    @Path("{id}")
+    public void deleteBlog(@PathParam("id") String id) {
         blogService.deleteBlog(BlogId.valueOf(id));
     }
 
-    @PostMapping(value = "/{id}/published", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public void publishBlog(@PathVariable String id) {
+    @POST
+    @Path("{id}/published")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response publishBlog(@PathParam("id") String id) {
         blogService.publishBlog(BlogId.valueOf(id));
+        return status(CREATED).build();
     }
 }

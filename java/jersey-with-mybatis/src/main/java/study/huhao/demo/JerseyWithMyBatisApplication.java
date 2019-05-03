@@ -2,12 +2,14 @@ package study.huhao.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
-public class JerseyWithMybatisApplication {
+@PropertySource("classpath:flyway.properties")
+public class JerseyWithMyBatisApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(JerseyWithMybatisApplication.class, args);
+        SpringApplication.run(JerseyWithMyBatisApplication.class, args);
     }
 
 }

@@ -6,10 +6,10 @@ import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
 @PropertySource("classpath:flyway.properties")
-public class ApiApplication {
+public class SpringWithJpaApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ApiApplication.class, args);
+        SpringApplication.run(SpringWithJpaApplication.class, args);
     }
 
 }
