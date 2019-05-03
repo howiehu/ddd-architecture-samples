@@ -98,7 +98,7 @@ class BlogServiceTest {
         @Test
         void should_delete_correctly() {
             var mockBlog = mock(Blog.class);
-            when(blogRepository.existById(mockBlog.getId())).thenReturn(true);
+            when(blogRepository.existsById(mockBlog.getId())).thenReturn(true);
 
             blogService.deleteBlog(mockBlog.getId());
 
@@ -109,7 +109,7 @@ class BlogServiceTest {
         void should_throw_EntityNotFoundException_when_blog_not_found() {
             var mockBlog = mock(Blog.class);
 
-            when(blogRepository.existById(mockBlog.getId())).thenReturn(false);
+            when(blogRepository.existsById(mockBlog.getId())).thenReturn(false);
 
             assertThatThrownBy(() -> blogService.deleteBlog(mockBlog.getId()))
                     .isInstanceOf(EntityNotFoundException.class)

@@ -30,7 +30,7 @@ public class BlogService implements Service {
     }
 
     public void deleteBlog(BlogId id) {
-        var existed = blogRepository.existById(id);
+        var existed = blogRepository.existsById(id);
         if (!existed) throw new EntityNotFoundException(Blog.class, id);
         blogRepository.deleteById(id);
     }

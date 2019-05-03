@@ -18,6 +18,6 @@ public abstract class Criteria {
     }
 
     public int getRequestPage() {
-        return (int) Math.ceil((double) getOffset() / getLimit());
+        return (int) Math.ceil((double) (getOffset() + 1) / getLimit());
     }
 }

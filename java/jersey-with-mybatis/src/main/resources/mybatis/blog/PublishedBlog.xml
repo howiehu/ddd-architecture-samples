@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="records">
+    <resultMap id="publishedBlog" type="study.huhao.demo.infrastructure.persistence.blog.PublishedBlogPO">
+        <result property="publishedTitle" column="published_title"/>
+        <result property="publishedBody" column="published_body"/>
+        <result property="publishedAt" column="published_at" javaType="java.time.Instant"/>
+    </resultMap>
+</mapper>

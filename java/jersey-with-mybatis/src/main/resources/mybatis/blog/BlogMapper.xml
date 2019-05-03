@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="study.huhao.demo.infrastructure.persistence.blog.BlogMapper">
+
+    <insert id="insert">
+        insert into blog
+        (
+        id,title, body, author_id, status, created_at, saved_at
+        <if test="blog.published != null">
+            ,
+            published_title,
+            published_body,
+            published_at
+        </if>
+        )
+        values
+        (
+        #{blog.id}, #{blog.title}, #{blog.body}, #{blog.authorId}, #{blog.status}, #{blog.createdAt}, #{blog.savedAt}
+        <if test="blog.published != null">
+            ,
+            #{blog.published.publishedTitle},
+            #{blog.published.publishedBody},
+            #{blog.published.publishedAt}
+        </if>
+        )
+    </insert>
+
+    <update id="update">
+        update blog set
+        id = #{blog.id},
+        title = #{blog.title},
+        body = #{blog.body},
+        author_id = #{blog.authorId},
+        status = #{blog.status},
+        created_at = #{blog.createdAt},
+        saved_at = #{blog.savedAt}
+        <if test="blog.published != null">
+            ,
+            published_title = #{blog.published.publishedTitle},
+            published_body = #{blog.published.publishedBody},
+            published_at = #{blog.published.publishedAt}
+        </if>
+        where id = #{blog.id}
+    </update>
+
+    <delete id="deleteById">
+        delete
+        from blog
+        where id = #{id}
+    </delete>
+
+    <select id="findById" resultMap="records.blog">
+        select *
+        from blog
+        where id = #{id}
+    </select>
+
+    <select id="existsById" resultType="boolean">
+        select count(id)
+        from blog
+        where id = #{id}
+    </select>
+
+    <select id="countTotalByCriteria" resultType="long">
+        select count(id)
+        from blog
+    </select>
+
+    <select id="selectAllByCriteria" resultMap="records.blog">
+        select *
+        from blog
+        limit #{criteria.limit} offset #{criteria.offset}
+    </select>
+
+</mapper>

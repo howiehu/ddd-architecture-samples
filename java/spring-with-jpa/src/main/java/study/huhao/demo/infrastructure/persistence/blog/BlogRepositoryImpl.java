@@ -34,7 +34,7 @@ public class BlogRepositoryImpl implements BlogRepository {
     }
 
     @Override
-    public boolean existById(BlogId id) {
+    public boolean existsById(BlogId id) {
         return blogJpaRepository.existsById(id.toString());
     }
 

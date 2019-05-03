@@ -18,8 +18,8 @@ apply plugin: 'io.spring.dependency-management'
 
 group = 'study.huhao.demo'
 version = '1.0.0'
-sourceCompatibility = '11'
-targetCompatibility = '11'
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 
 configurations {
     compile {
