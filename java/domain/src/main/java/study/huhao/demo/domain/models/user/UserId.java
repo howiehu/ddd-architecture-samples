@@ -17,8 +17,7 @@ public class UserId implements EntityId {
     }
 
     public static UserId valueOf(String id) {
-        if (id == null) return null;
-        return new UserId(UUID.fromString(id));
+        return id == null ? null : new UserId(UUID.fromString(id));
     }
 
     @Override

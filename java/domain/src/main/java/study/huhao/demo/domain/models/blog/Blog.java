@@ -30,8 +30,7 @@ public class Blog implements AggregateRoot {
         this.body = body;
         this.authorId = authorId;
         this.status = Status.Draft;
-        this.createdAt = Instant.now();
-        this.savedAt = this.createdAt;
+        this.savedAt = this.createdAt = Instant.now();
     }
 
     void publish() {

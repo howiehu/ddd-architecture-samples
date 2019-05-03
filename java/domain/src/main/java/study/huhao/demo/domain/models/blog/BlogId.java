@@ -17,8 +17,7 @@ public class BlogId implements EntityId {
     }
 
     public static BlogId valueOf(String id) {
-        if (id == null) return null;
-        return new BlogId(UUID.fromString(id));
+        return id == null ? null : new BlogId(UUID.fromString(id));
     }
 
     @Override
