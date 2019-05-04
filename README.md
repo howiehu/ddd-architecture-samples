@@ -24,6 +24,8 @@ And I designed them with these principles (you can call it ***CUPET***):
 
 *Work in progress...*
 
+## Specification Pattern
+
 ## Test Strategy
 
 ### Architecture Test
