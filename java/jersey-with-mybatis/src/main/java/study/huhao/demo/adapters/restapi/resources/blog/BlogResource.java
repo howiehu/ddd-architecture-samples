@@ -37,12 +37,9 @@ public class BlogResource {
     }
 
     @GET
-    public Page<BlogDto> allBlog(@QueryParam("limit") int limit, @QueryParam("offset") int offset) {
+    public Page<BlogDto> allBlog(@QueryParam("page") int page, @QueryParam("page_size") int pageSize) {
 
-        var criteria = BlogCriteria.builder()
-                .limit(limit)
-                .offset(offset)
-                .build();
+        var criteria = new BlogCriteria(page, pageSize);
 
         return blogService.getAllBlog(criteria).map(blog -> mapper.map(blog, BlogDto.class));
     }

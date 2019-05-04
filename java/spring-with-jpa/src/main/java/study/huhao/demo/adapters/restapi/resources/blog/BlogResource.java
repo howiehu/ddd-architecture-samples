@@ -29,12 +29,9 @@ public class BlogResource {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Page<BlogDto> allBlog(@RequestParam int limit, @RequestParam int offset) {
+    public Page<BlogDto> allBlog(@RequestParam int page, @RequestParam("page_size") int pageSize) {
 
-        var criteria = BlogCriteria.builder()
-                .limit(limit)
-                .offset(offset)
-                .build();
+        var criteria = new BlogCriteria(page, pageSize);
 
         return blogService.getAllBlog(criteria).map(blog -> mapper.map(blog, BlogDto.class));
     }
