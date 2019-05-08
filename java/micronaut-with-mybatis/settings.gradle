@@ -1,0 +1,4 @@
+rootProject.name="ddd-sample-micronaut-with-mybatis"
+
+include 'domain'
+project(':domain').projectDir = new File(settingsDir, '../domain')

@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: study.huhao.demo
+---
+testFramework: junit
+sourceLanguage: java

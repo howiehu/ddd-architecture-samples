@@ -1,0 +1,3 @@
+micronaut:
+  application:
+    name: ddd-sample-micronaut-with-mybatis
