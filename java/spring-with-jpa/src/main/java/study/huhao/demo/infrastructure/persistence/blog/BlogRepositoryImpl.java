@@ -50,8 +50,8 @@ public class BlogRepositoryImpl implements BlogRepository {
 
         return new Page<>(
                 pagedBlog.getContent(),
-                criteria.getPage(),
-                criteria.getPageSize(),
+                criteria.getLimit(),
+                criteria.getOffset(),
                 pagedBlog.getTotalElements()
         );
     }

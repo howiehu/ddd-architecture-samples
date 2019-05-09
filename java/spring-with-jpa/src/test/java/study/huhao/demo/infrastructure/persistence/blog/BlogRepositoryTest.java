@@ -86,13 +86,13 @@ class BlogRepositoryTest extends RepositoryTest {
         for (int i = 0; i < 5; i++) {
             blogService.createBlog("Test Blog " + (i + 1), "Something...", authorId);
         }
-        var criteria = new BlogCriteria(2, 3);
+        var criteria = BlogCriteria.builder().limit(3).offset(3).build();
 
         var pagedBlog = blogService.getAllBlog(criteria);
 
         assertThat(pagedBlog.getResults()).hasSize(2);
-        assertThat(pagedBlog.getPage()).isEqualTo(2);
-        assertThat(pagedBlog.getPageSize()).isEqualTo(3);
+        assertThat(pagedBlog.getLimit()).isEqualTo(3);
+        assertThat(pagedBlog.getOffset()).isEqualTo(3);
         assertThat(pagedBlog.getTotal()).isEqualTo(5);
     }
 }

@@ -225,13 +225,13 @@ class BlogResourceTest extends ResourceTest {
 
             given()
                     .when()
-                    .get("/blog?page=2&page_size=3")
+                    .get("/blog?limit=3&offset=3")
                     .then()
                     .statusCode(HttpStatus.OK.value())
                     .contentType(ContentType.JSON)
                     .body("results", hasSize(2))
-                    .body("page", equalTo(2))
-                    .body("pageSize", equalTo(3))
+                    .body("limit", equalTo(3))
+                    .body("offset", equalTo(3))
                     .body("total", equalTo(5));
         }
 
@@ -239,13 +239,13 @@ class BlogResourceTest extends ResourceTest {
         void should_return_empty_results_when_not_found_any_blog() {
             given()
                     .when()
-                    .get("/blog?page=2&page_size=3")
+                    .get("/blog?limit=3&offset=4")
                     .then()
                     .statusCode(HttpStatus.OK.value())
                     .contentType(ContentType.JSON)
                     .body("results", hasSize(0))
-                    .body("page", equalTo(2))
-                    .body("pageSize", equalTo(3))
+                    .body("limit", equalTo(3))
+                    .body("offset", equalTo(4))
                     .body("total", equalTo(0));
         }
     }
