@@ -8,10 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import study.huhao.demo.domain.core.Page;
 import study.huhao.demo.domain.models.blog.BlogCriteria;
-import study.huhao.demo.domain.models.blog.BlogId;
 import study.huhao.demo.domain.models.blog.BlogRepository;
 import study.huhao.demo.domain.models.blog.BlogService;
-import study.huhao.demo.domain.models.user.UserId;
+
+import java.util.UUID;
 
 @RestController
 @Transactional
@@ -43,7 +43,7 @@ public class BlogResource {
     @ResponseStatus(HttpStatus.CREATED)
     public BlogDto createBlog(@RequestBody BlogCreateRequest data) {
         return mapper.map(
-                blogService.createBlog(data.title, data.body, UserId.valueOf(data.authorId)),
+                blogService.createBlog(data.title, data.body, UUID.fromString(data.authorId)),
                 BlogDto.class
         );
     }
@@ -52,7 +52,7 @@ public class BlogResource {
     @ResponseStatus(HttpStatus.OK)
     public BlogDto getBlog(@PathVariable String id) {
         return mapper.map(
-                blogService.getBlog(BlogId.valueOf(id)),
+                blogService.getBlog(UUID.fromString(id)),
                 BlogDto.class
         );
     }
@@ -60,18 +60,18 @@ public class BlogResource {
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void saveBlog(@PathVariable String id, @RequestBody BlogSaveRequest data) {
-        blogService.saveBlog(BlogId.valueOf(id), data.title, data.body);
+        blogService.saveBlog(UUID.fromString(id), data.title, data.body);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBlog(@PathVariable String id) {
-        blogService.deleteBlog(BlogId.valueOf(id));
+        blogService.deleteBlog(UUID.fromString(id));
     }
 
     @PostMapping(value = "/{id}/published", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public void publishBlog(@PathVariable String id) {
-        blogService.publishBlog(BlogId.valueOf(id));
+        blogService.publishBlog(UUID.fromString(id));
     }
 }

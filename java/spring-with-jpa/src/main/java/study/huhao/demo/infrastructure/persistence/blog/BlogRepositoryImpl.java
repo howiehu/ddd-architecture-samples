@@ -5,10 +5,10 @@ import org.springframework.stereotype.Component;
 import study.huhao.demo.domain.core.Page;
 import study.huhao.demo.domain.models.blog.Blog;
 import study.huhao.demo.domain.models.blog.BlogCriteria;
-import study.huhao.demo.domain.models.blog.BlogId;
 import study.huhao.demo.domain.models.blog.BlogRepository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static study.huhao.demo.infrastructure.persistence.utils.PaginationUtil.buildPageRequest;
 
@@ -29,17 +29,17 @@ public class BlogRepositoryImpl implements BlogRepository {
     }
 
     @Override
-    public Optional<Blog> findById(BlogId id) {
+    public Optional<Blog> findById(UUID id) {
         return blogJpaRepository.findById(id.toString()).map(BlogPO::toDomainModel);
     }
 
     @Override
-    public boolean existsById(BlogId id) {
+    public boolean existsById(UUID id) {
         return blogJpaRepository.existsById(id.toString());
     }
 
     @Override
-    public void deleteById(BlogId id) {
+    public void deleteById(UUID id) {
         blogJpaRepository.deleteById(id.toString());
     }
 

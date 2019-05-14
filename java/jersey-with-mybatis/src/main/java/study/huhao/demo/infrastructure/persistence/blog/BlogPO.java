@@ -2,11 +2,10 @@ package study.huhao.demo.infrastructure.persistence.blog;
 
 import lombok.*;
 import study.huhao.demo.domain.models.blog.Blog;
-import study.huhao.demo.domain.models.blog.BlogId;
-import study.huhao.demo.domain.models.user.UserId;
 import study.huhao.demo.infrastructure.persistence.PersistenceObject;
 
 import java.time.Instant;
+import java.util.UUID;
 
 // Lombok annotations
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -30,10 +29,10 @@ public class BlogPO implements PersistenceObject<Blog> {
     @Override
     public Blog toDomainModel() {
         return new Blog(
-                BlogId.valueOf(id),
+                UUID.fromString(id),
                 title,
                 body,
-                UserId.valueOf(authorId),
+                UUID.fromString(authorId),
                 Blog.Status.valueOf(status),
                 createdAt,
                 savedAt,

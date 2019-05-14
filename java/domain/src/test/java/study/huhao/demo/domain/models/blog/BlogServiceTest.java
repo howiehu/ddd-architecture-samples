@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 import study.huhao.demo.domain.core.excpetions.EntityNotFoundException;
-import study.huhao.demo.domain.models.user.UserId;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -33,7 +32,7 @@ class BlogServiceTest {
         @Test
         void should_create_correctly() {
             var createdUser = blogService
-                    .createBlog("Test Blog", "Something...", UserId.valueOf(UUID.randomUUID().toString()));
+                    .createBlog("Test Blog", "Something...", UUID.randomUUID());
 
             verify(blogRepository).save(any(Blog.class));
             assertThat(createdUser.getId()).isNotNull();

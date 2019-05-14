@@ -47,7 +47,6 @@ class DomainLayerTest {
                     .should().implement(Entity.class)
                     .orShould().implement(AggregateRoot.class)
                     .orShould().implement(ValueObject.class)
-                    .orShould().implement(EntityId.class)
                     .orShould().implement(ReadModel.class)
                     .orShould().implement(WriteModel.class) // need to be verified
                     .orShould().implement(Service.class)
@@ -56,7 +55,7 @@ class DomainLayerTest {
                     .orShould().beAssignableTo(DomainException.class)
                     .orShould().beAssignableTo(Criteria.class)
                     .as("The models in the domain should implement or extend one of the interfaces / classes in " +
-                            "Entity, AggregateRoot, ValueObject, EntityId, ReadModel, WriteModel, " +
+                            "Entity, AggregateRoot, ValueObject, ReadModel, WriteModel, " +
                             "Service, Policy, Repository, DomainException, Criteria.")
                     .check(classes);
         }

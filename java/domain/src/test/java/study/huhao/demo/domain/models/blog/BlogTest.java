@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import study.huhao.demo.domain.models.blog.exceptions.NoNeedToPublishException;
-import study.huhao.demo.domain.models.user.UserId;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -19,14 +18,14 @@ class BlogTest {
 
         @Test
         void should_initialize_correctly() {
-            var author = UserId.valueOf(UUID.randomUUID().toString());
+            var authorId = UUID.randomUUID();
 
-            var blog = new Blog("Test Blog", "Something...", author);
+            var blog = new Blog("Test Blog", "Something...", authorId);
 
             assertThat(blog.getId()).isNotNull();
             assertThat(blog.getTitle()).isEqualTo("Test Blog");
             assertThat(blog.getBody()).isEqualTo("Something...");
-            assertThat(blog.getAuthorId()).isEqualTo(author);
+            assertThat(blog.getAuthorId()).isEqualTo(authorId);
             assertThat(blog.getStatus()).isEqualTo(Blog.Status.Draft);
             assertThat(blog.getCreatedAt()).isNotNull();
             assertThat(blog.getSavedAt()).isEqualTo(blog.getCreatedAt());
@@ -35,10 +34,10 @@ class BlogTest {
 
         @Test
         void should_throw_IllegalArgumentException_when_title_is_null_or_no_content() {
-            assertThatThrownBy(() -> new Blog(null, "Something...", UserId.valueOf(UUID.randomUUID().toString())))
+            assertThatThrownBy(() -> new Blog(null, "Something...", UUID.randomUUID()))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("the title cannot be null or no content");
-            assertThatThrownBy(() -> new Blog("   ", "Something...", UserId.valueOf(UUID.randomUUID().toString())))
+            assertThatThrownBy(() -> new Blog("   ", "Something...", UUID.randomUUID()))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("the title cannot be null or no content");
         }
@@ -59,7 +58,7 @@ class BlogTest {
 
         @BeforeEach
         void setUp() {
-            blog = new Blog("Test Blog", "Something...", UserId.valueOf(UUID.randomUUID().toString()));
+            blog = new Blog("Test Blog", "Something...", UUID.randomUUID());
             pastSavedAt = blog.getSavedAt();
         }
 
@@ -91,7 +90,7 @@ class BlogTest {
 
         @BeforeEach
         void setUp() {
-            blog = new Blog("Test Blog", "Something...", UserId.valueOf(UUID.randomUUID().toString()));
+            blog = new Blog("Test Blog", "Something...", UUID.randomUUID());
         }
 
         @Test

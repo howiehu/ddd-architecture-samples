@@ -6,16 +6,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import study.huhao.demo.domain.core.Page;
 import study.huhao.demo.domain.models.blog.BlogCriteria;
-import study.huhao.demo.domain.models.blog.BlogId;
 import study.huhao.demo.domain.models.blog.BlogRepository;
 import study.huhao.demo.domain.models.blog.BlogService;
-import study.huhao.demo.domain.models.user.UserId;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
+import java.util.UUID;
 
 import static javax.ws.rs.core.Response.Status.CREATED;
 import static javax.ws.rs.core.Response.created;
@@ -51,7 +50,7 @@ public class BlogResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createBlog(BlogCreateRequest data) {
         var entity = mapper.map(
-                blogService.createBlog(data.title, data.body, UserId.valueOf(data.authorId)),
+                blogService.createBlog(data.title, data.body, UUID.fromString(data.authorId)),
                 BlogDto.class
         );
 
@@ -63,7 +62,7 @@ public class BlogResource {
     @Path("{id}")
     public BlogDto getBlog(@PathParam("id") String id) {
         return mapper.map(
-                blogService.getBlog(BlogId.valueOf(id)),
+                blogService.getBlog(UUID.fromString(id)),
                 BlogDto.class
         );
     }
@@ -72,20 +71,20 @@ public class BlogResource {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public void saveBlog(@PathParam("id") String id, BlogSaveRequest data) {
-        blogService.saveBlog(BlogId.valueOf(id), data.title, data.body);
+        blogService.saveBlog(UUID.fromString(id), data.title, data.body);
     }
 
     @DELETE
     @Path("{id}")
     public void deleteBlog(@PathParam("id") String id) {
-        blogService.deleteBlog(BlogId.valueOf(id));
+        blogService.deleteBlog(UUID.fromString(id));
     }
 
     @POST
     @Path("{id}/published")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response publishBlog(@PathParam("id") String id) {
-        blogService.publishBlog(BlogId.valueOf(id));
+        blogService.publishBlog(UUID.fromString(id));
         return status(CREATED).build();
     }
 }
