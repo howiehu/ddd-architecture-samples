@@ -25,7 +25,7 @@ class BlogResourceTest extends ResourceTest {
 
         @Test
         void should_create_blog() {
-            var authorId = UUID.randomUUID().toString();
+            var authorId = UUID.randomUUID();
 
             var blog = createBlog("Test Blog", "Something...", authorId);
 
@@ -42,7 +42,7 @@ class BlogResourceTest extends ResourceTest {
 
         @Test
         void should_get_blog() {
-            var authorId = UUID.randomUUID().toString();
+            var authorId = UUID.randomUUID();
             var createdBlog = createBlog("Test Blog", "Something...", authorId);
 
             var blog = getBlog(createdBlog.id);
@@ -56,7 +56,7 @@ class BlogResourceTest extends ResourceTest {
 
         @Test
         void should_return_404_when_blog_not_found() {
-            var blogId = UUID.randomUUID().toString();
+            var blogId = UUID.randomUUID();
             given()
                     .when()
                     .get("/blog/" + blogId)
@@ -73,7 +73,7 @@ class BlogResourceTest extends ResourceTest {
 
         @Test
         void should_publish_blog() {
-            var authorId = UUID.randomUUID().toString();
+            var authorId = UUID.randomUUID();
             var createdBlog = createBlog("Test Blog", "Something...", authorId);
 
             given()
@@ -96,7 +96,7 @@ class BlogResourceTest extends ResourceTest {
 
         @Test
         void should_return_404_when_blog_not_found() {
-            var blogId = UUID.randomUUID().toString();
+            var blogId = UUID.randomUUID();
             given()
                     .contentType(ContentType.JSON)
                     .when()
@@ -109,7 +109,7 @@ class BlogResourceTest extends ResourceTest {
 
         @Test
         void should_return_409_when_no_need_to_publish() {
-            var authorId = UUID.randomUUID().toString();
+            var authorId = UUID.randomUUID();
             var createdBlog = createBlog("Test Blog", "Something...", authorId);
 
             given()
@@ -134,7 +134,7 @@ class BlogResourceTest extends ResourceTest {
 
         @Test
         void should_save_blog() {
-            var authorId = UUID.randomUUID().toString();
+            var authorId = UUID.randomUUID();
             var createdBlog = createBlog("Test Blog", "Something...", authorId);
 
             given()
@@ -159,7 +159,7 @@ class BlogResourceTest extends ResourceTest {
 
         @Test
         void should_return_empty_when_blog_not_found() {
-            var blogId = UUID.randomUUID().toString();
+            var blogId = UUID.randomUUID();
             given()
                     .contentType(ContentType.JSON)
                     .body(Map.of(
@@ -181,7 +181,7 @@ class BlogResourceTest extends ResourceTest {
 
         @Test
         void should_delete_blog() {
-            var authorId = UUID.randomUUID().toString();
+            var authorId = UUID.randomUUID();
             var createdBlog = createBlog("Test Blog", "Something...", authorId);
 
             given()
@@ -199,7 +199,7 @@ class BlogResourceTest extends ResourceTest {
 
         @Test
         void should_return_404_when_blog_not_found() {
-            var blogId = UUID.randomUUID().toString();
+            var blogId = UUID.randomUUID();
             given()
                     .when()
                     .delete("/blog/" + blogId)
@@ -216,7 +216,7 @@ class BlogResourceTest extends ResourceTest {
 
         @Test
         void should_get_blog_with_pagination() {
-            var authorId = UUID.randomUUID().toString();
+            var authorId = UUID.randomUUID();
             createBlog("Test Blog 1", "Something...", authorId);
             createBlog("Test Blog 2", "Something...", authorId);
             createBlog("Test Blog 3", "Something...", authorId);
@@ -250,7 +250,7 @@ class BlogResourceTest extends ResourceTest {
         }
     }
 
-    private BlogDto createBlog(String title, String body, String authorId) {
+    private BlogDto createBlog(String title, String body, UUID authorId) {
         return given()
                 .contentType(ContentType.JSON)
                 .body(Map.of(
@@ -267,7 +267,7 @@ class BlogResourceTest extends ResourceTest {
                 .as(BlogDto.class);
     }
 
-    private BlogDto getBlog(String blogId) {
+    private BlogDto getBlog(UUID blogId) {
         return given()
                 .when()
                 .get("/blog/" + blogId)

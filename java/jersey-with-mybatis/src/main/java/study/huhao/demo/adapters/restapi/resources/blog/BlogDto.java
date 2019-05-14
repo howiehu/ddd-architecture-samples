@@ -4,12 +4,13 @@ import study.huhao.demo.adapters.restapi.resources.ResponseDto;
 import study.huhao.demo.domain.models.blog.Blog;
 
 import java.time.Instant;
+import java.util.UUID;
 
 class BlogDto implements ResponseDto {
-    public String id;
+    public UUID id;
     public String title;
     public String body;
-    public String authorId;
+    public UUID authorId;
     public Blog.Status status;
     public Instant createdAt;
     public Instant savedAt;

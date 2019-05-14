@@ -60,9 +60,9 @@ public class BlogResource {
 
     @GET
     @Path("{id}")
-    public BlogDto getBlog(@PathParam("id") String id) {
+    public BlogDto getBlog(@PathParam("id") UUID id) {
         return mapper.map(
-                blogService.getBlog(UUID.fromString(id)),
+                blogService.getBlog(id),
                 BlogDto.class
         );
     }
@@ -70,21 +70,21 @@ public class BlogResource {
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void saveBlog(@PathParam("id") String id, BlogSaveRequest data) {
-        blogService.saveBlog(UUID.fromString(id), data.title, data.body);
+    public void saveBlog(@PathParam("id") UUID id, BlogSaveRequest data) {
+        blogService.saveBlog(id, data.title, data.body);
     }
 
     @DELETE
     @Path("{id}")
-    public void deleteBlog(@PathParam("id") String id) {
-        blogService.deleteBlog(UUID.fromString(id));
+    public void deleteBlog(@PathParam("id") UUID id) {
+        blogService.deleteBlog(id);
     }
 
     @POST
     @Path("{id}/published")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response publishBlog(@PathParam("id") String id) {
-        blogService.publishBlog(UUID.fromString(id));
+    public Response publishBlog(@PathParam("id") UUID id) {
+        blogService.publishBlog(id);
         return status(CREATED).build();
     }
 }

@@ -30,7 +30,7 @@ class BlogRepositoryTest extends RepositoryTest {
     @Test
     void findById() {
         var blog = blogService
-                .createBlog("Test Blog", "Something...", UUID.fromString(UUID.randomUUID().toString()));
+                .createBlog("Test Blog", "Something...", UUID.randomUUID());
 
         var foundBlog = blogService.getBlog(blog.getId());
 
@@ -42,7 +42,7 @@ class BlogRepositoryTest extends RepositoryTest {
     @Test
     void save_updated_blog() {
         var blog = blogService
-                .createBlog("Test Blog", "Something...", UUID.fromString(UUID.randomUUID().toString()));
+                .createBlog("Test Blog", "Something...", UUID.randomUUID());
 
         blogService.saveBlog(blog.getId(), "Updated Title", "Updated...");
 
@@ -55,7 +55,7 @@ class BlogRepositoryTest extends RepositoryTest {
     @Test
     void delete_blog() {
         var blog = blogService
-                .createBlog("Test Blog", "Something...", UUID.fromString(UUID.randomUUID().toString()));
+                .createBlog("Test Blog", "Something...", UUID.randomUUID());
 
         blogService.deleteBlog(blog.getId());
 
@@ -66,7 +66,7 @@ class BlogRepositoryTest extends RepositoryTest {
     @Test
     void publish_blog() {
         var blog = blogService
-                .createBlog("Test Blog", "Something...", UUID.fromString(UUID.randomUUID().toString()));
+                .createBlog("Test Blog", "Something...", UUID.randomUUID());
 
         blogService.publishBlog(blog.getId());
 
@@ -81,7 +81,7 @@ class BlogRepositoryTest extends RepositoryTest {
 
     @Test
     void get_all_blog() {
-        var authorId = UUID.fromString(UUID.randomUUID().toString());
+        var authorId = UUID.randomUUID();
         for (int i = 0; i < 5; i++) {
             blogService.createBlog("Test Blog " + (i + 1), "Something...", authorId);
         }
