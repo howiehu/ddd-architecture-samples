@@ -50,13 +50,14 @@ class DomainLayerTest {
                     .orShould().implement(ReadModel.class)
                     .orShould().implement(WriteModel.class) // need to be verified
                     .orShould().implement(Service.class)
+                    .orShould().implement(Factory.class)
                     .orShould().implement(Policy.class)
                     .orShould().beAssignableTo(Repository.class)
                     .orShould().beAssignableTo(DomainException.class)
                     .orShould().beAssignableTo(Criteria.class)
                     .as("The models in the domain should implement or extend one of the interfaces / classes in " +
                             "Entity, AggregateRoot, ValueObject, ReadModel, WriteModel, " +
-                            "Service, Policy, Repository, DomainException, Criteria.")
+                            "Service, Policy, Factory, Repository, DomainException, Criteria.")
                     .check(classes);
         }
     }
@@ -81,6 +82,30 @@ class DomainLayerTest {
                     .and().areNotInterfaces()
                     .should().implement(Service.class)
                     .as("The domain services should implement 'Service' interface.")
+                    .check(classes);
+        }
+    }
+
+    @Nested
+    class factory {
+
+        @Test
+        void factories_should_be_named_ending_with_Factory() {
+            classes().that().resideInAPackage("..domain..")
+                    .and().implement(Factory.class)
+                    .should().haveSimpleNameEndingWith("Factory")
+                    .as("The domain factories should be named ending with 'Factory'.")
+                    .check(classes);
+        }
+
+        @Test
+        void factories_should_implement_Factory() {
+            classes()
+                    .that().resideInAPackage("..domain..")
+                    .and().haveSimpleNameEndingWith("Factory")
+                    .and().areNotInterfaces()
+                    .should().implement(Factory.class)
+                    .as("The domain factories should implement 'Factory' interface.")
                     .check(classes);
         }
     }
