@@ -5,9 +5,9 @@ namespace HuHao.BlogService.Domain.Models.Blog
 {
     public class Blog : IAggregateRoot
     {
-        internal Blog(string title, string body, IEntityId authorId)
+        internal Blog(string title, string body, Guid authorId)
         {
-            BlogId = new BlogId();
+            BlogId = Guid.NewGuid();
             Title = title;
             Body = body;
             AuthorId = authorId;
@@ -15,7 +15,7 @@ namespace HuHao.BlogService.Domain.Models.Blog
             SavedAt = CreatedAt = DateTime.UtcNow;
         }
 
-        public Blog(BlogId blogId, string title, string body, IEntityId authorId, Status status, DateTime createdAt,
+        public Blog(Guid blogId, string title, string body, Guid authorId, Status status, DateTime createdAt,
             DateTime savedAt, PublishedBlog published)
         {
             BlogId = blogId;
@@ -28,10 +28,10 @@ namespace HuHao.BlogService.Domain.Models.Blog
             Published = published;
         }
 
-        public BlogId BlogId { get; }
+        public Guid BlogId { get; }
         public string Title { get; }
         public string Body { get; }
-        public IEntityId AuthorId { get; }
+        public Guid AuthorId { get; }
         public Status Status { get; }
         public DateTime CreatedAt { get; }
         public DateTime SavedAt { get; }

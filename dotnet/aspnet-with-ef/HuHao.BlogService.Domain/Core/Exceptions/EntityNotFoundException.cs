@@ -8,7 +8,7 @@ namespace HuHao.BlogService.Domain.Core.Exceptions
         {
         }
 
-        public EntityNotFoundException(Type type, IEntityId id) :
+        public EntityNotFoundException(Type type, Guid id) :
             this($"cannot find the {type.Name.ToLower()} with id {id}")
         {
         }

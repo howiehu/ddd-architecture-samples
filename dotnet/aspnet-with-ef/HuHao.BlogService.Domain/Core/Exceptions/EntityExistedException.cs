@@ -8,7 +8,7 @@ namespace HuHao.BlogService.Domain.Core.Exceptions
         {
         }
 
-        public EntityExistedException(Type type, IEntityId id) :
+        public EntityExistedException(Type type, Guid id) :
             this($"the {type.Name.ToLower()} with id {id} was existed")
         {
         }
