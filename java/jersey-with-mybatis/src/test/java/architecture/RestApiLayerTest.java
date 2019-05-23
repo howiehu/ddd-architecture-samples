@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RestController;
 import study.huhao.demo.adapters.restapi.resources.RequestDto;
 import study.huhao.demo.adapters.restapi.resources.ResponseDto;
@@ -36,16 +35,6 @@ class RestApiLayerTest {
                     .and().haveSimpleNameEndingWith("Resource")
                     .should().beAnnotatedWith(Component.class)
                     .as("The resources should be annotated with 'Component'.")
-                    .check(classes);
-        }
-
-        @Test
-        void resources_should_be_annotated_with_Transactional() {
-            classes()
-                    .that().resideInAPackage("..restapi..")
-                    .and().haveSimpleNameEndingWith("Resource")
-                    .should().beAnnotatedWith(Transactional.class)
-                    .as("The resources should be annotated with 'Transactional'.")
                     .check(classes);
         }
 

@@ -23,7 +23,6 @@ import static javax.ws.rs.core.Response.status;
 @Path("blog")
 @Produces(MediaType.APPLICATION_JSON)
 @Component
-@Transactional
 public class BlogResource {
     private final BlogService blogService;
 
@@ -48,6 +47,7 @@ public class BlogResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Transactional
     public Response createBlog(BlogCreateRequest data) {
         var entity = mapper.map(
                 blogService.createBlog(data.title, data.body, UUID.fromString(data.authorId)),
@@ -70,12 +70,14 @@ public class BlogResource {
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Transactional
     public void saveBlog(@PathParam("id") UUID id, BlogSaveRequest data) {
         blogService.saveBlog(id, data.title, data.body);
     }
 
     @DELETE
     @Path("{id}")
+    @Transactional
     public void deleteBlog(@PathParam("id") UUID id) {
         blogService.deleteBlog(id);
     }
@@ -83,6 +85,7 @@ public class BlogResource {
     @POST
     @Path("{id}/published")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Transactional
     public Response publishBlog(@PathParam("id") UUID id) {
         blogService.publishBlog(id);
         return status(CREATED).build();

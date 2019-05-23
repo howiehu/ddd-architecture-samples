@@ -14,7 +14,6 @@ import study.huhao.demo.domain.models.blog.BlogService;
 import java.util.UUID;
 
 @RestController
-@Transactional
 @RequestMapping(value = "/blog", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class BlogResource {
     private final BlogService blogService;
@@ -41,6 +40,7 @@ public class BlogResource {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
+    @Transactional
     public BlogDto createBlog(@RequestBody BlogCreateRequest data) {
         return mapper.map(
                 blogService.createBlog(data.title, data.body, UUID.fromString(data.authorId)),
@@ -59,18 +59,21 @@ public class BlogResource {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Transactional
     public void saveBlog(@PathVariable UUID id, @RequestBody BlogSaveRequest data) {
         blogService.saveBlog(id, data.title, data.body);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Transactional
     public void deleteBlog(@PathVariable UUID id) {
         blogService.deleteBlog(id);
     }
 
     @PostMapping(value = "/{id}/published", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
+    @Transactional
     public void publishBlog(@PathVariable UUID id) {
         blogService.publishBlog(id);
     }
