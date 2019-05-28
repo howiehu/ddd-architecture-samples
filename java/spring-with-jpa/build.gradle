@@ -3,15 +3,11 @@ buildscript {
         mavenCentral()
         jcenter()
     }
-    dependencies {
-        classpath 'mysql:mysql-connector-java:8.0.15'
-    }
 }
 
 plugins {
     id 'java'
     id 'org.springframework.boot' version '2.1.4.RELEASE'
-    id 'org.flywaydb.flyway' version '5.2.4'
 }
 
 repositories {
@@ -58,7 +54,7 @@ dependencies {
     // that the correct version of Hamcrest is used
     testImplementation 'io.rest-assured:rest-assured'
     testImplementation 'io.rest-assured:spring-mock-mvc'
-    
+
     testImplementation 'org.junit.jupiter:junit-jupiter:5.4.1'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.4.1'
 

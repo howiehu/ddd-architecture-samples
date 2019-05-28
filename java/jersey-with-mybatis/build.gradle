@@ -3,15 +3,11 @@ buildscript {
         mavenCentral()
         jcenter()
     }
-    dependencies {
-        classpath 'mysql:mysql-connector-java:8.0.15'
-    }
 }
 
 plugins {
     id 'java'
     id 'org.springframework.boot' version '2.1.4.RELEASE'
-    id 'org.flywaydb.flyway' version '5.2.4'
 }
 
 apply plugin: 'io.spring.dependency-management'
