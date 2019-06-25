@@ -63,7 +63,9 @@ class BlogTest {
         }
 
         @Test
-        void should_save_correctly() {
+        void should_save_correctly() throws InterruptedException {
+            Thread.sleep(1);
+
             blog.save("Updated Title", "Updated...");
 
             assertThat(blog.getTitle()).isEqualTo("Updated Title");
