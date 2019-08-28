@@ -48,10 +48,8 @@ class DomainLayerTest {
                     .orShould().implement(AggregateRoot.class)
                     .orShould().implement(ValueObject.class)
                     .orShould().implement(ReadModel.class)
-                    .orShould().implement(WriteModel.class) // need to be verified
                     .orShould().implement(Service.class)
                     .orShould().implement(Factory.class)
-                    .orShould().implement(Policy.class)
                     .orShould().beAssignableTo(Repository.class)
                     .orShould().beAssignableTo(DomainException.class)
                     .orShould().beAssignableTo(Criteria.class)
@@ -106,39 +104,6 @@ class DomainLayerTest {
                     .and().areNotInterfaces()
                     .should().implement(Factory.class)
                     .as("The domain factories should implement 'Factory' interface.")
-                    .check(classes);
-        }
-    }
-
-    @Nested
-    class policy {
-
-        @Test
-        void policies_should_be_named_ending_with_Policy() {
-            classes().that().resideInAPackage("..domain..")
-                    .and().implement(Policy.class)
-                    .should().haveSimpleNameEndingWith("Policy")
-                    .as("The policies should be named ending with 'Policy'.")
-                    .check(classes);
-        }
-
-        @Test
-        void policies_should_implement_Policy() {
-            classes()
-                    .that().resideInAPackage("..domain..")
-                    .and().haveSimpleNameEndingWith("Policy")
-                    .and().areNotInterfaces()
-                    .should().implement(Policy.class)
-                    .as("The policies should implement 'Policy' interface.")
-                    .check(classes);
-        }
-
-        @Test
-        void policies_should_in_the_domain_policies_packages() {
-            classes().that().resideInAPackage("..domain..")
-                    .and().implement(Policy.class)
-                    .should().resideInAPackage("..domain.policies..")
-                    .as("The policies should in the ..domain.policies.. package.")
                     .check(classes);
         }
     }
