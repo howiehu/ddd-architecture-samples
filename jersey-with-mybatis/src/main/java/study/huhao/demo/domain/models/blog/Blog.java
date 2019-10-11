@@ -19,7 +19,16 @@ public class Blog implements AggregateRoot {
     private Status status;
     private Instant createdAt;
     private Instant savedAt;
+
     private PublishedBlog published;
+
+    public PublishedBlog getPublished() {
+        // return immutable object to follow the encapsulation principle
+        return new PublishedBlog(
+                this.published.getTitle(),
+                this.published.getBody(),
+                this.published.getPublishedAt());
+    }
 
     Blog(String title, String body, UUID authorId) {
         validateTitle(title);
