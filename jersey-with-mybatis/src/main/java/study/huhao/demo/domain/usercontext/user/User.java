@@ -1,4 +1,4 @@
-package study.huhao.demo.domain.models.user;
+package study.huhao.demo.domain.usercontext.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

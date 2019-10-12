@@ -1,6 +1,6 @@
 package study.huhao.demo.adapters.restapi.providers;
 
-import study.huhao.demo.domain.models.blog.exceptions.NoNeedToPublishException;
+import study.huhao.demo.domain.blogcontext.blog.exceptions.NoNeedToPublishException;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;

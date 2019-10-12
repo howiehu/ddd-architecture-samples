@@ -1,4 +1,4 @@
-package study.huhao.demo.domain.models.blog;
+package study.huhao.demo.domain.blogcontext.blog;
 
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;

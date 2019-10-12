@@ -1,4 +1,4 @@
-package study.huhao.demo.domain.models.blog;
+package study.huhao.demo.domain.blogcontext.blog;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;

@@ -1,4 +1,4 @@
-package study.huhao.demo.domain.models.blog;
+package study.huhao.demo.domain.blogcontext.blog;
 
 import study.huhao.demo.domain.core.Page;
 import study.huhao.demo.domain.core.Service;

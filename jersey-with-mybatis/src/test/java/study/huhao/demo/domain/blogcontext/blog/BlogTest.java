@@ -1,9 +1,9 @@
-package study.huhao.demo.domain.models.blog;
+package study.huhao.demo.domain.blogcontext.blog;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import study.huhao.demo.domain.models.blog.exceptions.NoNeedToPublishException;
+import study.huhao.demo.domain.blogcontext.blog.exceptions.NoNeedToPublishException;
 
 import java.time.Instant;
 import java.util.UUID;

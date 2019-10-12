@@ -1,4 +1,4 @@
-package study.huhao.demo.domain.models.blog.exceptions;
+package study.huhao.demo.domain.blogcontext.blog.exceptions;
 
 import study.huhao.demo.domain.core.excpetions.DomainException;
 

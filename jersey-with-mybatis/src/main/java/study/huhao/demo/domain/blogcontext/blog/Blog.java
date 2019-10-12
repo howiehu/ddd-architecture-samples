@@ -1,10 +1,10 @@
-package study.huhao.demo.domain.models.blog;
+package study.huhao.demo.domain.blogcontext.blog;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import study.huhao.demo.domain.core.AggregateRoot;
 import study.huhao.demo.domain.core.ValueObject;
-import study.huhao.demo.domain.models.blog.exceptions.NoNeedToPublishException;
+import study.huhao.demo.domain.blogcontext.blog.exceptions.NoNeedToPublishException;
 
 import java.time.Instant;
 import java.util.UUID;

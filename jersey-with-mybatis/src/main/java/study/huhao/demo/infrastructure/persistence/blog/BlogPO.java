@@ -1,7 +1,7 @@
 package study.huhao.demo.infrastructure.persistence.blog;
 
 import lombok.*;
-import study.huhao.demo.domain.models.blog.Blog;
+import study.huhao.demo.domain.blogcontext.blog.Blog;
 import study.huhao.demo.infrastructure.persistence.PersistenceObject;
 
 import java.time.Instant;
