@@ -2,9 +2,9 @@ package study.huhao.demo.domain.blogcontext.blog;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import study.huhao.demo.domain.blogcontext.blog.exceptions.NoNeedToPublishException;
 import study.huhao.demo.domain.core.AggregateRoot;
 import study.huhao.demo.domain.core.ValueObject;
-import study.huhao.demo.domain.blogcontext.blog.exceptions.NoNeedToPublishException;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -19,16 +19,7 @@ public class Blog implements AggregateRoot {
     private Status status;
     private Instant createdAt;
     private Instant savedAt;
-
     private PublishedBlog published;
-
-    public PublishedBlog getPublished() {
-        // return immutable object to follow the encapsulation principle
-        return new PublishedBlog(
-                this.published.getTitle(),
-                this.published.getBody(),
-                this.published.getPublishedAt());
-    }
 
     Blog(String title, String body, UUID authorId) {
         validateTitle(title);
@@ -40,6 +31,14 @@ public class Blog implements AggregateRoot {
         this.authorId = authorId;
         this.status = Status.Draft;
         this.savedAt = this.createdAt = Instant.now();
+    }
+
+    public PublishedBlog getPublished() {
+        // return immutable object to follow the encapsulation principle
+        return this.published == null ? null : new PublishedBlog(
+                this.published.getTitle(),
+                this.published.getBody(),
+                this.published.getPublishedAt());
     }
 
     void publish() {
