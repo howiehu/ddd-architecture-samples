@@ -1,4 +1,1 @@
 rootProject.name = 'ddd-sample-jersey-with-mybatis'
-
-include 'domain'
-project(':domain').projectDir = new File(settingsDir, '../domain')
