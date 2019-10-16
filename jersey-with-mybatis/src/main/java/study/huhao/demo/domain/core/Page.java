@@ -20,6 +20,11 @@ public class Page<T> implements ReadModel {
         this.total = total;
     }
 
+    public List<T> getResults() {
+        // return immutable list to follow the encapsulation principle
+        return List.copyOf(this.results);
+    }
+
     public <U> Page<U> map(Function<? super T, ? extends U> converter) {
         return new Page<>(getConvertedContent(converter), limit, offset, total);
     }
