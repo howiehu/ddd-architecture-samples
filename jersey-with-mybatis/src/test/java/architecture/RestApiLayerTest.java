@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RestController;
 import study.huhao.demo.adapters.restapi.resources.RequestDto;
 import study.huhao.demo.adapters.restapi.resources.ResponseDto;
-import study.huhao.demo.domain.core.HumbleObject;
+import study.huhao.demo.domain.core.concepts.HumbleObject;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.theClass;

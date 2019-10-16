@@ -3,7 +3,7 @@ package study.huhao.demo.infrastructure.persistence.blog;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
-import study.huhao.demo.domain.blogcontext.blog.BlogCriteria;
+import study.huhao.demo.domain.contexts.blogcontext.blog.BlogCriteria;
 
 import java.util.List;
 import java.util.Optional;

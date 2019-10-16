@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import study.huhao.demo.adapters.restapi.resources.ResourceTest;
-import study.huhao.demo.domain.blogcontext.blog.Blog;
+import study.huhao.demo.domain.contexts.blogcontext.blog.Blog;
 
 import java.util.Map;
 import java.util.UUID;

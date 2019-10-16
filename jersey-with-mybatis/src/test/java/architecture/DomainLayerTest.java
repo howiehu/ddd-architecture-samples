@@ -6,8 +6,9 @@ import com.tngtech.archunit.core.importer.ImportOption;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import study.huhao.demo.domain.core.*;
-import study.huhao.demo.domain.core.excpetions.DomainException;
+import study.huhao.demo.domain.core.common.Criteria;
+import study.huhao.demo.domain.core.concepts.*;
+import study.huhao.demo.domain.core.common.excpetions.DomainException;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 

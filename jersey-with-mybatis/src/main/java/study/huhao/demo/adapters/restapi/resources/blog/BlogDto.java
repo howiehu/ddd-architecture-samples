@@ -1,7 +1,7 @@
 package study.huhao.demo.adapters.restapi.resources.blog;
 
 import study.huhao.demo.adapters.restapi.resources.ResponseDto;
-import study.huhao.demo.domain.blogcontext.blog.Blog;
+import study.huhao.demo.domain.contexts.blogcontext.blog.Blog;
 
 import java.time.Instant;
 import java.util.UUID;

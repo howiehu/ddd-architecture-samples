@@ -8,8 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.stereotype.Component;
-import study.huhao.demo.domain.core.HumbleObject;
-import study.huhao.demo.domain.core.Repository;
+import study.huhao.demo.domain.core.concepts.HumbleObject;
+import study.huhao.demo.domain.core.concepts.Repository;
 import study.huhao.demo.infrastructure.persistence.PersistenceObject;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;

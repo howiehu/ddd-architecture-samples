@@ -2,10 +2,10 @@ package study.huhao.demo.infrastructure.persistence.blog;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import study.huhao.demo.domain.core.Page;
-import study.huhao.demo.domain.blogcontext.blog.Blog;
-import study.huhao.demo.domain.blogcontext.blog.BlogCriteria;
-import study.huhao.demo.domain.blogcontext.blog.BlogRepository;
+import study.huhao.demo.domain.core.common.Page;
+import study.huhao.demo.domain.contexts.blogcontext.blog.Blog;
+import study.huhao.demo.domain.contexts.blogcontext.blog.BlogCriteria;
+import study.huhao.demo.domain.contexts.blogcontext.blog.BlogRepository;
 
 import java.util.Optional;
 import java.util.UUID;

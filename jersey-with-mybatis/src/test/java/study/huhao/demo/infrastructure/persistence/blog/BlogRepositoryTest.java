@@ -3,11 +3,11 @@ package study.huhao.demo.infrastructure.persistence.blog;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import study.huhao.demo.domain.core.excpetions.EntityNotFoundException;
-import study.huhao.demo.domain.blogcontext.blog.Blog;
-import study.huhao.demo.domain.blogcontext.blog.BlogCriteria;
-import study.huhao.demo.domain.blogcontext.blog.BlogRepository;
-import study.huhao.demo.domain.blogcontext.blog.BlogService;
+import study.huhao.demo.domain.core.common.excpetions.EntityNotFoundException;
+import study.huhao.demo.domain.contexts.blogcontext.blog.Blog;
+import study.huhao.demo.domain.contexts.blogcontext.blog.BlogCriteria;
+import study.huhao.demo.domain.contexts.blogcontext.blog.BlogRepository;
+import study.huhao.demo.domain.contexts.blogcontext.blog.BlogService;
 import study.huhao.demo.infrastructure.persistence.RepositoryTest;
 
 import java.util.UUID;
