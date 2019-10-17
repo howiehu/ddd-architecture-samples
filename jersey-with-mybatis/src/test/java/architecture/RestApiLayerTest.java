@@ -26,30 +26,6 @@ class RestApiLayerTest {
     }
 
     @Nested
-    class controller {
-
-        @Test
-        void resources_should_be_annotated_with_Component() {
-            classes()
-                    .that().resideInAPackage("..restapi..")
-                    .and().haveSimpleNameEndingWith("Resource")
-                    .should().beAnnotatedWith(Component.class)
-                    .as("The resources should be annotated with 'Component'.")
-                    .check(classes);
-        }
-
-        @Test
-        void resources_should_be_named_ending_with_Resource() {
-            classes()
-                    .that().resideInAPackage("..restapi..")
-                    .and().areAnnotatedWith(RestController.class)
-                    .should().haveSimpleNameEndingWith("Resource")
-                    .as("The resources should be named ending with 'Resource'.")
-                    .check(classes);
-        }
-    }
-
-    @Nested
     class request_dto {
 
         @Test

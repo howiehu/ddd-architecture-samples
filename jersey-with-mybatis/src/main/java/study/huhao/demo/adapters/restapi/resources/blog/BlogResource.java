@@ -13,9 +13,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.util.UUID;
 
-import static javax.ws.rs.core.Response.Status.CREATED;
 import static javax.ws.rs.core.Response.created;
-import static javax.ws.rs.core.Response.status;
 
 @Path("blog")
 @Produces(MediaType.APPLICATION_JSON)
@@ -34,13 +32,13 @@ public class BlogResource {
     }
 
     @GET
-    public Page<BlogDto> allBlog(@QueryParam("limit") int limit, @QueryParam("offset") int offset) {
+    public Page<BlogDto> get(@QueryParam("limit") int limit, @QueryParam("offset") int offset) {
         return blogQuery.query(limit, offset).map(blog -> mapper.map(blog, BlogDto.class));
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createBlog(BlogCreateRequest data) {
+    public Response post(BlogCreateRequest data) {
         var entity = mapper.map(
                 blogEdit.create(data.title, data.body, UUID.fromString(data.authorId)),
                 BlogDto.class
@@ -50,30 +48,8 @@ public class BlogResource {
         return created(uri).entity(entity).build();
     }
 
-    @GET
     @Path("{id}")
-    public BlogDto getBlog(@PathParam("id") UUID id) {
-        return mapper.map(blogQuery.get(id), BlogDto.class);
-    }
-
-    @PUT
-    @Path("{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void saveBlog(@PathParam("id") UUID id, BlogSaveRequest data) {
-        blogEdit.saveDraft(id, data.title, data.body);
-    }
-
-    @DELETE
-    @Path("{id}")
-    public void deleteBlog(@PathParam("id") UUID id) {
-        blogEdit.delete(id);
-    }
-
-    @POST
-    @Path("{id}/published")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response publishBlog(@PathParam("id") UUID id) {
-        blogEdit.publish(id);
-        return status(CREATED).build();
+    public BlogSubResource blogSubResource(@PathParam("id") UUID id) {
+        return new BlogSubResource(id, blogQuery, blogEdit, mapper);
     }
 }
