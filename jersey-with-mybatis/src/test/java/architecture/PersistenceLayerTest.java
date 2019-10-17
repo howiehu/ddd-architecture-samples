@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.springframework.stereotype.Component;
 import study.huhao.demo.domain.core.concepts.HumbleObject;
 import study.huhao.demo.domain.core.concepts.Repository;
 import study.huhao.demo.infrastructure.persistence.PersistenceObject;
@@ -39,11 +38,11 @@ class PersistenceLayerTest {
         }
 
         @Test
-        void repository_impls_be_annotated_with_Component() {
+        void repository_impls_be_annotated_with_Repository() {
             classes()
                     .that().resideInAPackage("..persistence..")
                     .and().implement(Repository.class)
-                    .should().beAnnotatedWith(Component.class)
+                    .should().beAnnotatedWith(org.springframework.stereotype.Repository.class)
                     .as("The repository impls should be annotated with 'Component'.")
                     .check(classes);
         }

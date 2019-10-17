@@ -32,7 +32,7 @@ class BlogServiceTest {
         @Test
         void should_create_correctly() {
             var createdUser = blogService
-                    .createBlog("Test Blog", "Something...", UUID.randomUUID());
+                    .create("Test Blog", "Something...", UUID.randomUUID());
 
             verify(blogRepository).save(any(Blog.class));
             assertThat(createdUser.getId()).isNotNull();
@@ -47,7 +47,7 @@ class BlogServiceTest {
             var mockBlog = mock(Blog.class);
             when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.of(mockBlog));
 
-            var foundBlog = blogService.getBlog(mockBlog.getId());
+            var foundBlog = blogService.get(mockBlog.getId());
 
             assertThat(foundBlog).isEqualTo(mockBlog);
         }
@@ -58,7 +58,7 @@ class BlogServiceTest {
 
             when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.empty());
 
-            assertThatThrownBy(() -> blogService.getBlog(mockBlog.getId()))
+            assertThatThrownBy(() -> blogService.get(mockBlog.getId()))
                     .isInstanceOf(EntityNotFoundException.class)
                     .hasMessage("cannot find the blog with id " + mockBlog.getId());
         }
@@ -72,10 +72,10 @@ class BlogServiceTest {
             var mockBlog = mock(Blog.class);
             when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.of(mockBlog));
 
-            blogService.saveBlog(mockBlog.getId(), "Updated Title", "Updated...");
+            blogService.saveDraft(mockBlog.getId(), "Updated Title", "Updated...");
 
             InOrder inOrder = inOrder(mockBlog, blogRepository);
-            inOrder.verify(mockBlog).save("Updated Title", "Updated...");
+            inOrder.verify(mockBlog).saveDraft("Updated Title", "Updated...");
             inOrder.verify(blogRepository).save(mockBlog);
         }
 
@@ -85,7 +85,7 @@ class BlogServiceTest {
 
             when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.empty());
 
-            assertThatThrownBy(() -> blogService.saveBlog(mockBlog.getId(), "Updated Title", "Updated..."))
+            assertThatThrownBy(() -> blogService.saveDraft(mockBlog.getId(), "Updated Title", "Updated..."))
                     .isInstanceOf(EntityNotFoundException.class)
                     .hasMessage("cannot find the blog with id " + mockBlog.getId());
         }
@@ -99,7 +99,7 @@ class BlogServiceTest {
             var mockBlog = mock(Blog.class);
             when(blogRepository.existsById(mockBlog.getId())).thenReturn(true);
 
-            blogService.deleteBlog(mockBlog.getId());
+            blogService.delete(mockBlog.getId());
 
             verify(blogRepository).deleteById(mockBlog.getId());
         }
@@ -110,7 +110,7 @@ class BlogServiceTest {
 
             when(blogRepository.existsById(mockBlog.getId())).thenReturn(false);
 
-            assertThatThrownBy(() -> blogService.deleteBlog(mockBlog.getId()))
+            assertThatThrownBy(() -> blogService.delete(mockBlog.getId()))
                     .isInstanceOf(EntityNotFoundException.class)
                     .hasMessage("cannot find the blog with id " + mockBlog.getId());
         }
@@ -124,7 +124,7 @@ class BlogServiceTest {
             var mockBlog = mock(Blog.class);
             when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.of(mockBlog));
 
-            blogService.publishBlog(mockBlog.getId());
+            blogService.publish(mockBlog.getId());
 
             InOrder inOrder = inOrder(mockBlog, blogRepository);
             inOrder.verify(mockBlog).publish();
@@ -137,7 +137,7 @@ class BlogServiceTest {
 
             when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.empty());
 
-            assertThatThrownBy(() -> blogService.publishBlog(mockBlog.getId()))
+            assertThatThrownBy(() -> blogService.publish(mockBlog.getId()))
                     .isInstanceOf(EntityNotFoundException.class)
                     .hasMessage("cannot find the blog with id " + mockBlog.getId());
         }
@@ -150,7 +150,7 @@ class BlogServiceTest {
         void should_get_all_with_pagination() {
             var mockCriteria = mock(BlogCriteria.class);
 
-            blogService.getAllBlog(mockCriteria);
+            blogService.query(mockCriteria);
 
             verify(blogRepository).findAllWithPagination(mockCriteria);
         }

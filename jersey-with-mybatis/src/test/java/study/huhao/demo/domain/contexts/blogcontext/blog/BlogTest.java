@@ -66,7 +66,7 @@ class BlogTest {
         void should_save_correctly() throws InterruptedException {
             Thread.sleep(1);
 
-            blog.save("Updated Title", "Updated...");
+            blog.saveDraft("Updated Title", "Updated...");
 
             assertThat(blog.getTitle()).isEqualTo("Updated Title");
             assertThat(blog.getBody()).isEqualTo("Updated...");
@@ -75,10 +75,10 @@ class BlogTest {
 
         @Test
         void should_throw_IllegalArgumentException_when_title_is_null_or_no_content() {
-            assertThatThrownBy(() -> blog.save(null, "Updated..."))
+            assertThatThrownBy(() -> blog.saveDraft(null, "Updated..."))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("the title cannot be null or no content");
-            assertThatThrownBy(() -> blog.save("   ", "Updated..."))
+            assertThatThrownBy(() -> blog.saveDraft("   ", "Updated..."))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("the title cannot be null or no content");
         }
@@ -109,7 +109,7 @@ class BlogTest {
         @Test
         void should_throw_NoNeedToPublishException_when_no_change() {
             blog.publish();
-            blog.save(blog.getTitle(), blog.getBody());
+            blog.saveDraft(blog.getTitle(), blog.getBody());
 
             assertThatThrownBy(blog::publish)
                     .isInstanceOf(NoNeedToPublishException.class)

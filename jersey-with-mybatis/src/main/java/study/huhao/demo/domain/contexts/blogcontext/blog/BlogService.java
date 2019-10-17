@@ -14,35 +14,35 @@ public class BlogService implements Service {
         this.blogRepository = blogRepository;
     }
 
-    public Blog createBlog(String title, String body, UUID authorId) {
+    public Blog create(String title, String body, UUID authorId) {
         var blog = new Blog(title, body, authorId);
         blogRepository.save(blog);
         return blog;
     }
 
-    public Blog getBlog(UUID id) {
+    public Blog get(UUID id) {
         return blogRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Blog.class, id));
     }
 
-    public void saveBlog(UUID id, String title, String body) {
+    public void saveDraft(UUID id, String title, String body) {
         var blog = blogRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Blog.class, id));
-        blog.save(title, body);
+        blog.saveDraft(title, body);
         blogRepository.save(blog);
     }
 
-    public void deleteBlog(UUID id) {
+    public void delete(UUID id) {
         var existed = blogRepository.existsById(id);
         if (!existed) throw new EntityNotFoundException(Blog.class, id);
         blogRepository.deleteById(id);
     }
 
-    public void publishBlog(UUID id) {
+    public void publish(UUID id) {
         var blog = blogRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Blog.class, id));
         blog.publish();
         blogRepository.save(blog);
     }
 
-    public Page<Blog> getAllBlog(BlogCriteria criteria) {
+    public Page<Blog> query(BlogCriteria criteria) {
         return blogRepository.findAllWithPagination(criteria);
     }
 }
