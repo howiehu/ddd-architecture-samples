@@ -7,7 +7,7 @@ buildscript {
 
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '2.1.4.RELEASE'
+    id 'org.springframework.boot' version '2.1.9.RELEASE'
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -35,7 +35,7 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-jersey'
     implementation 'org.springframework.boot:spring-boot-starter-undertow'
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0'
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
@@ -45,7 +45,7 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java'
 
     implementation 'org.flywaydb:flyway-core'
-    testImplementation 'org.flywaydb.flyway-test-extensions:flyway-spring-test:5.2.1'
+    testImplementation 'org.flywaydb.flyway-test-extensions:flyway-spring-test:5.2.4'
 
     // just use to show how to use REST Assured to improve test
     // should place rest-assured before the JUnit dependency declaration in order to make sure
@@ -56,8 +56,8 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.4.1'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.4.1'
 
-    testImplementation 'com.tngtech.archunit:archunit-junit5-api:0.10.2'
-    testRuntimeOnly 'com.tngtech.archunit:archunit-junit5-engine:0.10.2'
+    testImplementation 'com.tngtech.archunit:archunit-junit5-api:0.11.0'
+    testRuntimeOnly 'com.tngtech.archunit:archunit-junit5-engine:0.11.0'
 }
 
 test {
