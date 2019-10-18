@@ -3,7 +3,7 @@ package study.huhao.demo.adapters.restapi.resources.publishedblog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import study.huhao.demo.application.EditBlogUseCase;
-import study.huhao.demo.application.QueryBlogUseCase;
+import study.huhao.demo.application.QueryPublishedBlogUseCase;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -19,12 +19,12 @@ import static javax.ws.rs.core.Response.created;
 public class PublishedBlogResource {
 
     private final EditBlogUseCase editBlogUseCase;
-    private final QueryBlogUseCase queryBlogUseCase;
+    private final QueryPublishedBlogUseCase queryPublishedBlogUseCase;
 
     @Autowired
-    public PublishedBlogResource(EditBlogUseCase editBlogUseCase, QueryBlogUseCase queryBlogUseCase) {
+    public PublishedBlogResource(EditBlogUseCase editBlogUseCase, QueryPublishedBlogUseCase queryPublishedBlogUseCase) {
         this.editBlogUseCase = editBlogUseCase;
-        this.queryBlogUseCase = queryBlogUseCase;
+        this.queryPublishedBlogUseCase = queryPublishedBlogUseCase;
     }
 
     @POST
@@ -38,6 +38,6 @@ public class PublishedBlogResource {
 
     @Path("{id}")
     public PublishedBlogSubResource publishedBlogSubResource(@PathParam("id") UUID id) {
-        return new PublishedBlogSubResource(id, queryBlogUseCase);
+        return new PublishedBlogSubResource(id, queryPublishedBlogUseCase);
     }
 }

@@ -7,31 +7,36 @@ import study.huhao.demo.adapters.restapi.resources.ResourceTest;
 
 import java.util.UUID;
 
-import static org.hamcrest.Matchers.*;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 import static study.huhao.demo.adapters.restapi.resources.BasePath.PUBLISHED_BLOG_BASE_PATH;
 import static study.huhao.demo.adapters.restapi.resources.BaseRequestSpecification.createBlog;
 import static study.huhao.demo.adapters.restapi.resources.BaseRequestSpecification.publishBlog;
-import static study.huhao.demo.adapters.restapi.resources.BaseResponseSpecification.*;
+import static study.huhao.demo.adapters.restapi.resources.BaseResponseSpecification.NOT_FOUND_SPEC;
+import static study.huhao.demo.adapters.restapi.resources.BaseResponseSpecification.OK_SPEC;
 
-@DisplayName(PUBLISHED_BLOG_BASE_PATH)
-class PublishedBlogResourceTest extends ResourceTest {
-
+@DisplayName(PUBLISHED_BLOG_BASE_PATH + "/{id}")
+class PublishedBlogSubResourceTest extends ResourceTest {
     @Nested
-    @DisplayName("POST /published-blog")
-    class post {
+    @DisplayName("GET " + PUBLISHED_BLOG_BASE_PATH + "/{id}")
+    class get {
 
         @Test
-        void should_publish_blog() {
+        void should_get_blog() {
             var authorId = UUID.randomUUID();
 
             var createdBlogId = createBlog("Test Blog", "Something...", authorId)
                     .jsonPath()
                     .getUUID("id");
 
-            publishBlog(createdBlogId)
+            publishBlog(createdBlogId);
+
+            given()
+                    .when()
+                    .get(buildPath(createdBlogId))
                     .then()
-                    .spec(CREATED_SPEC)
-                    .header("Location", containsString(PUBLISHED_BLOG_BASE_PATH + "/" + createdBlogId))
+                    .spec(OK_SPEC)
                     .body("id", is(createdBlogId.toString()))
                     .body("title", is("Test Blog"))
                     .body("body", is("Something..."))
@@ -42,26 +47,32 @@ class PublishedBlogResourceTest extends ResourceTest {
         @Test
         void should_return_404_when_blog_not_found() {
             var blogId = UUID.randomUUID();
-            publishBlog(blogId)
+            given()
+                    .when()
+                    .get(buildPath(blogId))
                     .then()
                     .spec(NOT_FOUND_SPEC)
-                    .body("message", is("cannot find the blog with id " + blogId));
+                    .body("message", is("cannot find the published blog with id " + blogId));
         }
 
         @Test
-        void should_return_409_when_no_need_to_publish() {
+        void should_return_404_when_published_blog_not_found() {
             var authorId = UUID.randomUUID();
+
             var createdBlogId = createBlog("Test Blog", "Something...", authorId)
                     .jsonPath()
                     .getUUID("id");
 
-            publishBlog(createdBlogId);
-
-            publishBlog(createdBlogId)
+            given()
+                    .when()
+                    .get(buildPath(createdBlogId))
                     .then()
-                    .spec(CONFLICT_SPEC)
-                    .body("message", is("no need to publish"));
+                    .spec(NOT_FOUND_SPEC)
+                    .body("message", is("cannot find the published blog with id " + createdBlogId));
         }
     }
 
+    private String buildPath(UUID blogId) {
+        return PUBLISHED_BLOG_BASE_PATH + "/" + blogId;
+    }
 }

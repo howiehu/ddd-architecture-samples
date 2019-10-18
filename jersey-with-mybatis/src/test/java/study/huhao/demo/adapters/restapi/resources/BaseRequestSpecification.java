@@ -7,7 +7,9 @@ import java.util.Map;
 import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.http.ContentType.JSON;
 import static study.huhao.demo.adapters.restapi.resources.BasePath.BLOG_BASE_PATH;
+import static study.huhao.demo.adapters.restapi.resources.BasePath.PUBLISHED_BLOG_BASE_PATH;
 
 public class BaseRequestSpecification {
 
@@ -27,5 +29,13 @@ public class BaseRequestSpecification {
         return given()
                 .when()
                 .get(BLOG_BASE_PATH + "/" + blogId);
+    }
+
+    public static Response publishBlog(UUID createdBlogId) {
+        return given()
+                .contentType(JSON)
+                .body(Map.of("blogId", createdBlogId))
+                .when()
+                .post(PUBLISHED_BLOG_BASE_PATH);
     }
 }

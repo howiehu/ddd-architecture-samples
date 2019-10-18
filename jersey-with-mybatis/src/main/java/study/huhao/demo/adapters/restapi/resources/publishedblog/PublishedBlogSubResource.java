@@ -1,6 +1,7 @@
 package study.huhao.demo.adapters.restapi.resources.publishedblog;
 
 import study.huhao.demo.application.QueryBlogUseCase;
+import study.huhao.demo.application.QueryPublishedBlogUseCase;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
@@ -11,15 +12,15 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 @Produces(APPLICATION_JSON)
 public class PublishedBlogSubResource {
     private UUID id;
-    private QueryBlogUseCase queryBlogUseCase;
+    private QueryPublishedBlogUseCase queryPublishedBlogUseCase;
 
-    PublishedBlogSubResource(UUID id, QueryBlogUseCase queryBlogUseCase) {
+    PublishedBlogSubResource(UUID id, QueryPublishedBlogUseCase queryPublishedBlogUseCase) {
         this.id = id;
-        this.queryBlogUseCase = queryBlogUseCase;
+        this.queryPublishedBlogUseCase = queryPublishedBlogUseCase;
     }
 
     @GET
     public PublishedBlogDto get() {
-        return PublishedBlogDto.of(queryBlogUseCase.get(id));
+        return PublishedBlogDto.of(queryPublishedBlogUseCase.get(id));
     }
 }

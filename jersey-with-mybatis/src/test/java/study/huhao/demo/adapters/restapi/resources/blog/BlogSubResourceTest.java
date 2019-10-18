@@ -14,11 +14,11 @@ import java.util.UUID;
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
 import static study.huhao.demo.adapters.restapi.resources.BasePath.BLOG_BASE_PATH;
-import static study.huhao.demo.adapters.restapi.resources.BaseResponseSpecification.*;
 import static study.huhao.demo.adapters.restapi.resources.BaseRequestSpecification.createBlog;
 import static study.huhao.demo.adapters.restapi.resources.BaseRequestSpecification.getBlog;
+import static study.huhao.demo.adapters.restapi.resources.BaseResponseSpecification.*;
 
 @DisplayName(BLOG_BASE_PATH + "/{id}")
 class BlogSubResourceTest extends ResourceTest {
@@ -49,7 +49,7 @@ class BlogSubResourceTest extends ResourceTest {
             var blogId = UUID.randomUUID();
             given()
                     .when()
-                    .get(BLOG_BASE_PATH + "/" + blogId)
+                    .get(buildPath(blogId))
                     .then()
                     .spec(NOT_FOUND_SPEC)
                     .body("message", is("cannot find the blog with id " + blogId));
@@ -74,7 +74,7 @@ class BlogSubResourceTest extends ResourceTest {
                             "body", "Updated..."
                     ))
                     .when()
-                    .put(BLOG_BASE_PATH + "/" + createdBlogId)
+                    .put(buildPath(createdBlogId))
                     .then()
                     .spec(NO_CONTENT_SPEC);
 
@@ -100,7 +100,7 @@ class BlogSubResourceTest extends ResourceTest {
                             "body", "Updated..."
                     ))
                     .when()
-                    .put(BLOG_BASE_PATH + "/" + blogId)
+                    .put(buildPath(blogId))
                     .then()
                     .spec(NOT_FOUND_SPEC)
                     .body("message", is("cannot find the blog with id " + blogId));
@@ -120,13 +120,13 @@ class BlogSubResourceTest extends ResourceTest {
 
             given()
                     .when()
-                    .delete(BLOG_BASE_PATH + "/" + createdBlogId)
+                    .delete(buildPath(createdBlogId))
                     .then()
                     .spec(NO_CONTENT_SPEC);
 
             given()
                     .when()
-                    .get(BLOG_BASE_PATH + "/" + createdBlogId)
+                    .get(buildPath(createdBlogId))
                     .then()
                     .spec(NOT_FOUND_SPEC);
         }
@@ -136,10 +136,14 @@ class BlogSubResourceTest extends ResourceTest {
             var blogId = UUID.randomUUID();
             given()
                     .when()
-                    .delete(BLOG_BASE_PATH + "/" + blogId)
+                    .delete(buildPath(blogId))
                     .then()
                     .spec(NOT_FOUND_SPEC)
                     .body("message", is("cannot find the blog with id " + blogId));
         }
+    }
+
+    private String buildPath(UUID blogId) {
+        return BLOG_BASE_PATH + "/" + blogId;
     }
 }

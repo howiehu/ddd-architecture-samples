@@ -1,8 +1,8 @@
 package study.huhao.demo.domain.contexts.blogcontext.blog;
 
 import study.huhao.demo.domain.core.common.Page;
-import study.huhao.demo.domain.core.concepts.Service;
 import study.huhao.demo.domain.core.common.excpetions.EntityNotFoundException;
+import study.huhao.demo.domain.core.concepts.Service;
 
 import java.util.UUID;
 
@@ -22,6 +22,14 @@ public class BlogService implements Service {
 
     public Blog get(UUID id) {
         return blogRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Blog.class, id));
+    }
+
+    public Blog getPublished(UUID id) {
+        return blogRepository.findById(id)
+                .filter(blog -> blog.getPublished() != null)
+                .orElseGet(() -> {
+                    throw new EntityNotFoundException("cannot find the published blog with id " + id);
+                });
     }
 
     public void saveDraft(UUID id, String title, String body) {
