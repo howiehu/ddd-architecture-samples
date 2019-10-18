@@ -244,8 +244,8 @@ class BlogResourceTest extends ResourceTest {
             createBlog("Test Blog 1", "Something...", authorId);
             createBlog("Test Blog 2", "Something...", authorId);
             createBlog("Test Blog 3", "Something...", authorId);
+            createBlog("Test Blog 4", "Something...", authorId);
             createBlog("Test Blog 5", "Something...", authorId);
-            createBlog("Test Blog 6", "Something...", authorId);
 
             given()
                     .when()
