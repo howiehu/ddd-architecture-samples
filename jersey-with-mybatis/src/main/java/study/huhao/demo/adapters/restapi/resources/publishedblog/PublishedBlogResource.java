@@ -2,8 +2,8 @@ package study.huhao.demo.adapters.restapi.resources.publishedblog;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import study.huhao.demo.application.EditBlogUseCase;
-import study.huhao.demo.application.QueryPublishedBlogUseCase;
+import study.huhao.demo.application.usecases.EditBlogUseCase;
+import study.huhao.demo.application.usecases.QueryPublishedBlogUseCase;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;

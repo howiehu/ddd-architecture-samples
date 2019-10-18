@@ -1,7 +1,7 @@
 package study.huhao.demo.adapters.restapi.resources.blog;
 
-import study.huhao.demo.application.EditBlogUseCase;
-import study.huhao.demo.application.QueryBlogUseCase;
+import study.huhao.demo.application.usecases.EditBlogUseCase;
+import study.huhao.demo.application.usecases.QueryBlogUseCase;
 
 import javax.ws.rs.*;
 import java.util.UUID;
