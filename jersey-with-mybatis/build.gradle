@@ -20,7 +20,10 @@ targetCompatibility = JavaVersion.VERSION_11
 configurations {
     compile {
         exclude module: 'spring-boot-starter-tomcat'
-        exclude module: 'junit'
+    }
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
     }
     compileOnly {
         extendsFrom annotationProcessor
@@ -36,9 +39,12 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-jersey'
     implementation 'org.springframework.boot:spring-boot-starter-undertow'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0'
-    runtimeOnly 'org.springframework.boot:spring-boot-devtools'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
 
+    compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     implementation 'ma.glasnost.orika:orika-core:1.5.4'
 
@@ -53,16 +59,10 @@ dependencies {
     testImplementation 'io.rest-assured:rest-assured'
     testImplementation 'io.rest-assured:spring-mock-mvc'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.4.1'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.4.1'
-
     testImplementation 'com.tngtech.archunit:archunit-junit5-api:0.11.0'
     testRuntimeOnly 'com.tngtech.archunit:archunit-junit5-engine:0.11.0'
 }
 
 test {
     useJUnitPlatform()
-    testLogging {
-        events 'passed', 'skipped', 'failed'
-    }
 }
