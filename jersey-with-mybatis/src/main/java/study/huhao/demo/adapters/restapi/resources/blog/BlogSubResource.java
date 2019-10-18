@@ -1,7 +1,7 @@
 package study.huhao.demo.adapters.restapi.resources.blog;
 
-import study.huhao.demo.application.BlogEdit;
-import study.huhao.demo.application.BlogQuery;
+import study.huhao.demo.application.EditBlogUseCase;
+import study.huhao.demo.application.QueryBlogUseCase;
 
 import javax.ws.rs.*;
 import java.util.UUID;
@@ -11,28 +11,28 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 @Produces(APPLICATION_JSON)
 public class BlogSubResource {
     private UUID id;
-    private BlogQuery blogQuery;
-    private BlogEdit blogEdit;
+    private QueryBlogUseCase queryBlogUseCase;
+    private EditBlogUseCase editBlogUseCase;
 
-    BlogSubResource(UUID id, BlogQuery blogQuery, BlogEdit blogEdit) {
+    BlogSubResource(UUID id, QueryBlogUseCase queryBlogUseCase, EditBlogUseCase editBlogUseCase) {
         this.id = id;
-        this.blogQuery = blogQuery;
-        this.blogEdit = blogEdit;
+        this.queryBlogUseCase = queryBlogUseCase;
+        this.editBlogUseCase = editBlogUseCase;
     }
 
     @GET
     public BlogDto get() {
-        return BlogDto.of(blogQuery.get(id));
+        return BlogDto.of(queryBlogUseCase.get(id));
     }
 
     @PUT
     @Consumes(APPLICATION_JSON)
     public void put(SaveDraftRequest data) {
-        blogEdit.saveDraft(id, data.title, data.body);
+        editBlogUseCase.saveDraft(id, data.title, data.body);
     }
 
     @DELETE
     public void delete() {
-        blogEdit.delete(id);
+        editBlogUseCase.delete(id);
     }
 }

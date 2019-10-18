@@ -1,7 +1,7 @@
 package study.huhao.demo.application;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import study.huhao.demo.domain.contexts.blogcontext.blog.Blog;
 import study.huhao.demo.domain.contexts.blogcontext.blog.BlogRepository;
@@ -9,13 +9,13 @@ import study.huhao.demo.domain.contexts.blogcontext.blog.BlogService;
 
 import java.util.UUID;
 
-@Service
-public class BlogEdit {
+@Component
+public class EditBlogUseCase {
 
     private final BlogService blogService;
 
     @Autowired
-    public BlogEdit(BlogRepository blogRepository) {
+    public EditBlogUseCase(BlogRepository blogRepository) {
         this.blogService = new BlogService(blogRepository);
     }
 

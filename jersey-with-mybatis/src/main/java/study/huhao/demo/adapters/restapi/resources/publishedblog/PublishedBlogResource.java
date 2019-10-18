@@ -2,8 +2,8 @@ package study.huhao.demo.adapters.restapi.resources.publishedblog;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import study.huhao.demo.application.BlogEdit;
-import study.huhao.demo.application.BlogQuery;
+import study.huhao.demo.application.EditBlogUseCase;
+import study.huhao.demo.application.QueryBlogUseCase;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -18,19 +18,19 @@ import static javax.ws.rs.core.Response.created;
 @Component
 public class PublishedBlogResource {
 
-    private final BlogEdit blogEdit;
-    private final BlogQuery blogQuery;
+    private final EditBlogUseCase editBlogUseCase;
+    private final QueryBlogUseCase queryBlogUseCase;
 
     @Autowired
-    public PublishedBlogResource(BlogEdit blogEdit, BlogQuery blogQuery) {
-        this.blogEdit = blogEdit;
-        this.blogQuery = blogQuery;
+    public PublishedBlogResource(EditBlogUseCase editBlogUseCase, QueryBlogUseCase queryBlogUseCase) {
+        this.editBlogUseCase = editBlogUseCase;
+        this.queryBlogUseCase = queryBlogUseCase;
     }
 
     @POST
     @Consumes(APPLICATION_JSON)
-    public Response post(PublishRequest data) {
-        var entity = PublishedBlogDto.of(blogEdit.publish(data.blogId));
+    public Response post(PublishBlogRequest data) {
+        var entity = PublishedBlogDto.of(editBlogUseCase.publish(data.blogId));
 
         var uri = UriBuilder.fromResource(PublishedBlogResource.class).path("{id}").build(entity.getId());
         return created(uri).entity(entity).build();
@@ -38,6 +38,6 @@ public class PublishedBlogResource {
 
     @Path("{id}")
     public PublishedBlogSubResource publishedBlogSubResource(@PathParam("id") UUID id) {
-        return new PublishedBlogSubResource(id, blogQuery);
+        return new PublishedBlogSubResource(id, queryBlogUseCase);
     }
 }

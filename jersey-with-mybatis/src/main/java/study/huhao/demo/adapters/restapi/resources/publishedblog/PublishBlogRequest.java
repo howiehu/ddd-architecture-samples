@@ -4,6 +4,6 @@ import study.huhao.demo.adapters.restapi.resources.RequestDto;
 
 import java.util.UUID;
 
-class PublishRequest implements RequestDto {
+class PublishBlogRequest implements RequestDto {
     public UUID blogId;
 }
