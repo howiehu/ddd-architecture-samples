@@ -6,8 +6,6 @@ import com.tngtech.archunit.core.importer.ImportOption;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RestController;
 import study.huhao.demo.adapters.restapi.resources.RequestDto;
 import study.huhao.demo.adapters.restapi.resources.ResponseDto;
 import study.huhao.demo.domain.core.concepts.HumbleObject;

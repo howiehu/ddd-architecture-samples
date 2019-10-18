@@ -1,6 +1,5 @@
 package study.huhao.demo.adapters.restapi.resources.publishedblog;
 
-import study.huhao.demo.application.QueryBlogUseCase;
 import study.huhao.demo.application.QueryPublishedBlogUseCase;
 
 import javax.ws.rs.GET;

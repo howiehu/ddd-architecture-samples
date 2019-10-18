@@ -11,9 +11,9 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static study.huhao.demo.adapters.restapi.resources.BasePath.BLOG_BASE_PATH;
+import static study.huhao.demo.adapters.restapi.resources.BaseRequestSpecification.createBlog;
 import static study.huhao.demo.adapters.restapi.resources.BaseResponseSpecification.CREATED_SPEC;
 import static study.huhao.demo.adapters.restapi.resources.BaseResponseSpecification.OK_SPEC;
-import static study.huhao.demo.adapters.restapi.resources.BaseRequestSpecification.createBlog;
 
 @DisplayName(BLOG_BASE_PATH)
 class BlogResourceTest extends ResourceTest {
