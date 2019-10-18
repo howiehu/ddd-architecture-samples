@@ -26,7 +26,7 @@ public class BlogService implements Service {
 
     public Blog getPublished(UUID id) {
         return blogRepository.findById(id)
-                .filter(blog -> blog.getPublished() != null)
+                .filter(Blog::isPublished)
                 .orElseGet(() -> {
                     throw new EntityNotFoundException("cannot find the published blog with id " + id);
                 });

@@ -56,6 +56,10 @@ public class Blog implements AggregateRoot {
         this.savedAt = Instant.now();
     }
 
+    boolean isPublished() {
+        return this.published != null;
+    }
+
     private void validateAuthor(UUID author) {
         if (author == null) {
             throw new IllegalArgumentException("the author cannot be null");

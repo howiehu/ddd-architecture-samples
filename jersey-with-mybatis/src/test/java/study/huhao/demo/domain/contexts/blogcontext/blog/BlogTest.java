@@ -51,7 +51,7 @@ class BlogTest {
     }
 
     @Nested
-    class save {
+    class saveDraft {
 
         private Blog blog;
         private Instant pastSavedAt;
@@ -116,4 +116,23 @@ class BlogTest {
                     .hasMessage("no need to publish");
         }
     }
+
+    @Nested
+    class isPublished {
+
+        private Blog blog;
+
+        @BeforeEach
+        void setUp() {
+            blog = new Blog("Test Blog", "Something...", UUID.randomUUID());
+        }
+
+        @Test
+        void should_return_correct_result() {
+            assertThat(blog.isPublished()).isFalse();
+            blog.publish();
+            assertThat(blog.isPublished()).isTrue();
+        }
+    }
+
 }
