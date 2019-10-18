@@ -7,10 +7,9 @@ import java.util.Map;
 import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
+import static study.huhao.demo.adapters.restapi.resources.BasePath.BLOG_BASE_PATH;
 
 public class BlogTestSpec {
-
-    static final String BASE_PATH = "/blog";
 
     public static Response createBlog(String title, String body, UUID authorId) {
         return given()
@@ -21,12 +20,12 @@ public class BlogTestSpec {
                         "authorId", authorId
                 ))
                 .when()
-                .post(BASE_PATH);
+                .post(BLOG_BASE_PATH);
     }
 
     static Response getBlog(UUID blogId) {
         return given()
                 .when()
-                .get(BASE_PATH + "/" + blogId);
+                .get(BLOG_BASE_PATH + "/" + blogId);
     }
 }

@@ -16,14 +16,16 @@ import static io.restassured.http.ContentType.JSON;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static study.huhao.demo.adapters.restapi.resources.BasePath.BLOG_BASE_PATH;
 import static study.huhao.demo.adapters.restapi.resources.BaseResponseSpecification.*;
-import static study.huhao.demo.adapters.restapi.resources.blog.BlogTestSpec.*;
+import static study.huhao.demo.adapters.restapi.resources.blog.BlogTestSpec.createBlog;
+import static study.huhao.demo.adapters.restapi.resources.blog.BlogTestSpec.getBlog;
 
-@DisplayName("/blog/{id}")
+@DisplayName(BLOG_BASE_PATH + "/{id}")
 class BlogSubResourceTest extends ResourceTest {
 
     @Nested
-    @DisplayName("GET /blog/{id}")
+    @DisplayName("GET " + BLOG_BASE_PATH + "/{id}")
     class get {
 
         @Test
@@ -49,7 +51,7 @@ class BlogSubResourceTest extends ResourceTest {
             var blogId = UUID.randomUUID();
             given()
                     .when()
-                    .get(BASE_PATH + "/" + blogId)
+                    .get(BLOG_BASE_PATH + "/" + blogId)
                     .then()
                     .spec(NOT_FOUND_SPEC)
                     .body("message", is("cannot find the blog with id " + blogId));
@@ -57,7 +59,7 @@ class BlogSubResourceTest extends ResourceTest {
     }
 
     @Nested
-    @DisplayName("POST /blog/{id}/published")
+    @DisplayName("POST " + BLOG_BASE_PATH + "/{id}/published")
     class publish {
 
         @Test
@@ -70,7 +72,7 @@ class BlogSubResourceTest extends ResourceTest {
             given()
                     .contentType(JSON)
                     .when()
-                    .post(BASE_PATH + "/" + createdBlogId + "/published")
+                    .post(BLOG_BASE_PATH + "/" + createdBlogId + "/published")
                     .then()
                     .spec(NO_CONTENT_SPEC);
 
@@ -92,7 +94,7 @@ class BlogSubResourceTest extends ResourceTest {
             given()
                     .contentType(JSON)
                     .when()
-                    .post(BASE_PATH + "/" + blogId + "/published")
+                    .post(BLOG_BASE_PATH + "/" + blogId + "/published")
                     .then()
                     .spec(NOT_FOUND_SPEC)
                     .body("message", is("cannot find the blog with id " + blogId));
@@ -108,12 +110,12 @@ class BlogSubResourceTest extends ResourceTest {
             given()
                     .when()
                     .contentType(JSON)
-                    .post(BASE_PATH + "/" + createdBlogId + "/published");
+                    .post(BLOG_BASE_PATH + "/" + createdBlogId + "/published");
 
             given()
                     .when()
                     .contentType(JSON)
-                    .post(BASE_PATH + "/" + createdBlogId + "/published")
+                    .post(BLOG_BASE_PATH + "/" + createdBlogId + "/published")
                     .then()
                     .spec(CONFLICT_SPEC)
                     .body("message", is("no need to publish"));
@@ -121,7 +123,7 @@ class BlogSubResourceTest extends ResourceTest {
     }
 
     @Nested
-    @DisplayName("PUT /blog/{id}")
+    @DisplayName("PUT " + BLOG_BASE_PATH + "/{id}")
     class put {
 
         @Test
@@ -138,7 +140,7 @@ class BlogSubResourceTest extends ResourceTest {
                             "body", "Updated..."
                     ))
                     .when()
-                    .put(BASE_PATH + "/" + createdBlogId)
+                    .put(BLOG_BASE_PATH + "/" + createdBlogId)
                     .then()
                     .spec(NO_CONTENT_SPEC);
 
@@ -165,7 +167,7 @@ class BlogSubResourceTest extends ResourceTest {
                             "body", "Updated..."
                     ))
                     .when()
-                    .put(BASE_PATH + "/" + blogId)
+                    .put(BLOG_BASE_PATH + "/" + blogId)
                     .then()
                     .spec(NOT_FOUND_SPEC)
                     .body("message", is("cannot find the blog with id " + blogId));
@@ -173,7 +175,7 @@ class BlogSubResourceTest extends ResourceTest {
     }
 
     @Nested
-    @DisplayName("DELETE /blog/{id}")
+    @DisplayName("DELETE " + BLOG_BASE_PATH + "/{id}")
     class delete {
 
         @Test
@@ -185,13 +187,13 @@ class BlogSubResourceTest extends ResourceTest {
 
             given()
                     .when()
-                    .delete(BASE_PATH + "/" + createdBlogId)
+                    .delete(BLOG_BASE_PATH + "/" + createdBlogId)
                     .then()
                     .spec(NO_CONTENT_SPEC);
 
             given()
                     .when()
-                    .get(BASE_PATH + "/" + createdBlogId)
+                    .get(BLOG_BASE_PATH + "/" + createdBlogId)
                     .then()
                     .spec(NOT_FOUND_SPEC);
         }
@@ -201,7 +203,7 @@ class BlogSubResourceTest extends ResourceTest {
             var blogId = UUID.randomUUID();
             given()
                     .when()
-                    .delete(BASE_PATH + "/" + blogId)
+                    .delete(BLOG_BASE_PATH + "/" + blogId)
                     .then()
                     .spec(NOT_FOUND_SPEC)
                     .body("message", is("cannot find the blog with id " + blogId));

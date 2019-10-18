@@ -10,11 +10,12 @@ import java.util.UUID;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.IsEqual.equalTo;
+import static study.huhao.demo.adapters.restapi.resources.BasePath.BLOG_BASE_PATH;
 import static study.huhao.demo.adapters.restapi.resources.BaseResponseSpecification.CREATED_SPEC;
 import static study.huhao.demo.adapters.restapi.resources.BaseResponseSpecification.OK_SPEC;
 import static study.huhao.demo.adapters.restapi.resources.blog.BlogTestSpec.createBlog;
 
-@DisplayName("/blog")
+@DisplayName(BLOG_BASE_PATH)
 class BlogResourceTest extends ResourceTest {
 
     @Nested
@@ -36,7 +37,7 @@ class BlogResourceTest extends ResourceTest {
     }
 
     @Nested
-    @DisplayName("GET /blog?limit={limit}&offset={offset}")
+    @DisplayName("GET " + BLOG_BASE_PATH + "?limit={limit}&offset={offset}")
     class allBlog {
 
         @Test
@@ -50,7 +51,7 @@ class BlogResourceTest extends ResourceTest {
 
             given()
                     .when()
-                    .get("/blog?limit=3&offset=3")
+                    .get(BLOG_BASE_PATH + "?limit=3&offset=3")
                     .then()
                     .spec(OK_SPEC)
                     .body("results", hasSize(2))
@@ -63,7 +64,7 @@ class BlogResourceTest extends ResourceTest {
         void should_return_empty_results_when_not_found_any_blog() {
             given()
                     .when()
-                    .get("/blog?limit=3&offset=4")
+                    .get(BLOG_BASE_PATH + "?limit=3&offset=4")
                     .then()
                     .spec(OK_SPEC)
                     .body("results", hasSize(0))
