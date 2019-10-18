@@ -1,6 +1,9 @@
 package study.huhao.demo.infrastructure.persistence.blog;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import study.huhao.demo.domain.contexts.blogcontext.blog.Blog;
 import study.huhao.demo.infrastructure.persistence.PersistenceObject;
 
@@ -11,7 +14,6 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Builder
 public class BlogPO implements PersistenceObject<Blog> {
 
     private String id;
@@ -45,16 +47,14 @@ public class BlogPO implements PersistenceObject<Blog> {
     // So, manual to convert between them is better than use object mapper like Orika.
     static BlogPO of(Blog blog) {
         if (blog == null) return null;
-
-        return BlogPO.builder()
-                .id(blog.getId().toString())
-                .title(blog.getTitle())
-                .body(blog.getBody())
-                .authorId(blog.getAuthorId().toString())
-                .status(blog.getStatus().toString())
-                .createdAt(blog.getCreatedAt())
-                .savedAt(blog.getSavedAt())
-                .published(PublishedBlogPO.of(blog.getPublished()))
-                .build();
+        return new BlogPO(
+                blog.getId().toString(),
+                blog.getTitle(),
+                blog.getBody(),
+                blog.getAuthorId().toString(),
+                blog.getStatus().toString(),
+                blog.getCreatedAt(),
+                blog.getSavedAt(),
+                PublishedBlogPO.of(blog.getPublished()));
     }
 }

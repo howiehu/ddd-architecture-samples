@@ -46,7 +46,6 @@ dependencies {
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-    implementation 'ma.glasnost.orika:orika-core:1.5.4'
 
     runtimeOnly 'mysql:mysql-connector-java'
 

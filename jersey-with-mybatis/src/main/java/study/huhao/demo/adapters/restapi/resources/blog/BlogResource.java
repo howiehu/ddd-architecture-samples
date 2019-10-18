@@ -1,6 +1,5 @@
 package study.huhao.demo.adapters.restapi.resources.blog;
 
-import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import study.huhao.demo.application.BlogEdit;
@@ -22,34 +21,29 @@ public class BlogResource {
 
     private final BlogQuery blogQuery;
     private final BlogEdit blogEdit;
-    private final MapperFacade mapper;
 
     @Autowired
-    public BlogResource(BlogQuery blogQuery, BlogEdit blogEdit, MapperFacade mapper) {
+    public BlogResource(BlogQuery blogQuery, BlogEdit blogEdit) {
         this.blogQuery = blogQuery;
         this.blogEdit = blogEdit;
-        this.mapper = mapper;
     }
 
     @GET
     public Page<BlogDto> get(@QueryParam("limit") int limit, @QueryParam("offset") int offset) {
-        return blogQuery.query(limit, offset).map(blog -> mapper.map(blog, BlogDto.class));
+        return blogQuery.query(limit, offset).map(BlogDto::of);
     }
 
     @POST
     @Consumes(APPLICATION_JSON)
     public Response post(CreateBlogRequest data) {
-        var entity = mapper.map(
-                blogEdit.create(data.title, data.body, UUID.fromString(data.authorId)),
-                BlogDto.class
-        );
+        var blog = blogEdit.create(data.title, data.body, UUID.fromString(data.authorId));
 
-        var uri = UriBuilder.fromResource(BlogResource.class).path("{id}").build(entity.id);
-        return created(uri).entity(entity).build();
+        var uri = UriBuilder.fromResource(BlogResource.class).path("{id}").build(blog.getId());
+        return created(uri).entity(BlogDto.of(blog)).build();
     }
 
     @Path("{id}")
     public BlogSubResource blogSubResource(@PathParam("id") UUID id) {
-        return new BlogSubResource(id, blogQuery, blogEdit, mapper);
+        return new BlogSubResource(id, blogQuery, blogEdit);
     }
 }
