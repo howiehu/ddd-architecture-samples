@@ -9,7 +9,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
-import static javax.ws.rs.core.Response.Status.CREATED;
+import static javax.ws.rs.core.Response.Status.NO_CONTENT;
 import static javax.ws.rs.core.Response.status;
 
 @Produces(MediaType.APPLICATION_JSON)
@@ -47,6 +47,6 @@ public class BlogSubResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response publish() {
         blogEdit.publish(id);
-        return status(CREATED).build();
+        return status(NO_CONTENT).build();
     }
 }
