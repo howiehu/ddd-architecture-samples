@@ -8,11 +8,11 @@ import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
 
-class BlogTestSpec {
+public class BlogTestSpec {
 
-    static final String BASE_PATH = "/blog/";
+    static final String BASE_PATH = "/blog";
 
-    static Response createBlog(String title, String body, UUID authorId) {
+    public static Response createBlog(String title, String body, UUID authorId) {
         return given()
                 .contentType(ContentType.JSON)
                 .body(Map.of(
@@ -21,12 +21,12 @@ class BlogTestSpec {
                         "authorId", authorId
                 ))
                 .when()
-                .post("/blog");
+                .post(BASE_PATH);
     }
 
     static Response getBlog(UUID blogId) {
         return given()
                 .when()
-                .get("/blog/" + blogId);
+                .get(BASE_PATH + "/" + blogId);
     }
 }
