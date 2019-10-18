@@ -13,14 +13,14 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static study.huhao.demo.adapters.restapi.resources.BasePath.BLOG_BASE_PATH;
 import static study.huhao.demo.adapters.restapi.resources.BaseResponseSpecification.CREATED_SPEC;
 import static study.huhao.demo.adapters.restapi.resources.BaseResponseSpecification.OK_SPEC;
-import static study.huhao.demo.adapters.restapi.resources.blog.BlogTestSpec.createBlog;
+import static study.huhao.demo.adapters.restapi.resources.BaseRequestSpecification.createBlog;
 
 @DisplayName(BLOG_BASE_PATH)
 class BlogResourceTest extends ResourceTest {
 
     @Nested
     @DisplayName("POST /blog")
-    class createBlog {
+    class post {
 
         @Test
         void should_create_blog() {
@@ -28,17 +28,18 @@ class BlogResourceTest extends ResourceTest {
 
             createBlog("Test Blog", "Something...", authorId)
                     .then()
-                    .body(notNullValue())
                     .spec(CREATED_SPEC)
+                    .body("id", notNullValue())
                     .body("title", is("Test Blog"))
                     .body("body", is("Something..."))
-                    .body("authorId", is(authorId.toString()));
+                    .body("authorId", is(authorId.toString()))
+                    .header("Location", response -> containsString(BLOG_BASE_PATH + "/" + response.path("id")));
         }
     }
 
     @Nested
     @DisplayName("GET " + BLOG_BASE_PATH + "?limit={limit}&offset={offset}")
-    class allBlog {
+    class get {
 
         @Test
         void should_get_blog_with_pagination() {

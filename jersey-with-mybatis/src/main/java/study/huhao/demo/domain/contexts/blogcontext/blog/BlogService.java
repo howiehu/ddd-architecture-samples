@@ -36,10 +36,11 @@ public class BlogService implements Service {
         blogRepository.deleteById(id);
     }
 
-    public void publish(UUID id) {
+    public Blog publish(UUID id) {
         var blog = blogRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Blog.class, id));
         blog.publish();
         blogRepository.save(blog);
+        return blog;
     }
 
     public Page<Blog> query(BlogCriteria criteria) {

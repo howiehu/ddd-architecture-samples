@@ -8,15 +8,15 @@ import study.huhao.demo.application.BlogQuery;
 import study.huhao.demo.domain.core.common.Page;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.util.UUID;
 
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.Response.created;
 
 @Path("blog")
-@Produces(MediaType.APPLICATION_JSON)
+@Produces(APPLICATION_JSON)
 @Component
 public class BlogResource {
 
@@ -37,8 +37,8 @@ public class BlogResource {
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response post(BlogCreateRequest data) {
+    @Consumes(APPLICATION_JSON)
+    public Response post(CreateBlogRequest data) {
         var entity = mapper.map(
                 blogEdit.create(data.title, data.body, UUID.fromString(data.authorId)),
                 BlogDto.class

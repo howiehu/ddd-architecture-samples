@@ -1,4 +1,4 @@
-package study.huhao.demo.adapters.restapi.resources.blog;
+package study.huhao.demo.adapters.restapi.resources;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -9,7 +9,7 @@ import java.util.UUID;
 import static io.restassured.RestAssured.given;
 import static study.huhao.demo.adapters.restapi.resources.BasePath.BLOG_BASE_PATH;
 
-public class BlogTestSpec {
+public class BaseRequestSpecification {
 
     public static Response createBlog(String title, String body, UUID authorId) {
         return given()
@@ -23,7 +23,7 @@ public class BlogTestSpec {
                 .post(BLOG_BASE_PATH);
     }
 
-    static Response getBlog(UUID blogId) {
+    public static Response getBlog(UUID blogId) {
         return given()
                 .when()
                 .get(BLOG_BASE_PATH + "/" + blogId);

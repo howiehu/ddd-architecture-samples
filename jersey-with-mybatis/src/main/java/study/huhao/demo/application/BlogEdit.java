@@ -35,7 +35,7 @@ public class BlogEdit {
     }
 
     @Transactional
-    public void publish(UUID id) {
-        blogService.publish(id);
+    public Blog publish(UUID id) {
+        return blogService.publish(id);
     }
 }

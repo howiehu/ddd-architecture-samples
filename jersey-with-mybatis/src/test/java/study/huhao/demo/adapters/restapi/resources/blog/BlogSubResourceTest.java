@@ -14,12 +14,11 @@ import java.util.UUID;
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.*;
 import static study.huhao.demo.adapters.restapi.resources.BasePath.BLOG_BASE_PATH;
 import static study.huhao.demo.adapters.restapi.resources.BaseResponseSpecification.*;
-import static study.huhao.demo.adapters.restapi.resources.blog.BlogTestSpec.createBlog;
-import static study.huhao.demo.adapters.restapi.resources.blog.BlogTestSpec.getBlog;
+import static study.huhao.demo.adapters.restapi.resources.BaseRequestSpecification.createBlog;
+import static study.huhao.demo.adapters.restapi.resources.BaseRequestSpecification.getBlog;
 
 @DisplayName(BLOG_BASE_PATH + "/{id}")
 class BlogSubResourceTest extends ResourceTest {
@@ -39,7 +38,6 @@ class BlogSubResourceTest extends ResourceTest {
             getBlog(createdBlogId)
                     .then()
                     .spec(OK_SPEC)
-                    .body(notNullValue())
                     .body("id", is(createdBlogId.toString()))
                     .body("title", is("Test Blog"))
                     .body("body", is("Something..."))
@@ -55,70 +53,6 @@ class BlogSubResourceTest extends ResourceTest {
                     .then()
                     .spec(NOT_FOUND_SPEC)
                     .body("message", is("cannot find the blog with id " + blogId));
-        }
-    }
-
-    @Nested
-    @DisplayName("POST " + BLOG_BASE_PATH + "/{id}/published")
-    class publish {
-
-        @Test
-        void should_publish_blog() {
-            var authorId = UUID.randomUUID();
-            var createdBlogId = createBlog("Test Blog", "Something...", authorId)
-                    .jsonPath()
-                    .getUUID("id");
-
-            given()
-                    .contentType(JSON)
-                    .when()
-                    .post(BLOG_BASE_PATH + "/" + createdBlogId + "/published")
-                    .then()
-                    .spec(NO_CONTENT_SPEC);
-
-            getBlog(createdBlogId)
-                    .then()
-                    .spec(OK_SPEC)
-                    .body(notNullValue())
-                    .body("id", is(createdBlogId.toString()))
-                    .body("status", is("Published"))
-                    .body("published", notNullValue())
-                    .body("published.title", is("Test Blog"))
-                    .body("published.body", is("Something..."))
-                    .body("published.publishedAt", notNullValue());
-        }
-
-        @Test
-        void should_return_404_when_blog_not_found() {
-            var blogId = UUID.randomUUID();
-            given()
-                    .contentType(JSON)
-                    .when()
-                    .post(BLOG_BASE_PATH + "/" + blogId + "/published")
-                    .then()
-                    .spec(NOT_FOUND_SPEC)
-                    .body("message", is("cannot find the blog with id " + blogId));
-        }
-
-        @Test
-        void should_return_409_when_no_need_to_publish() {
-            var authorId = UUID.randomUUID();
-            var createdBlogId = createBlog("Test Blog", "Something...", authorId)
-                    .jsonPath()
-                    .getUUID("id");
-
-            given()
-                    .when()
-                    .contentType(JSON)
-                    .post(BLOG_BASE_PATH + "/" + createdBlogId + "/published");
-
-            given()
-                    .when()
-                    .contentType(JSON)
-                    .post(BLOG_BASE_PATH + "/" + createdBlogId + "/published")
-                    .then()
-                    .spec(CONFLICT_SPEC)
-                    .body("message", is("no need to publish"));
         }
     }
 
@@ -148,7 +82,6 @@ class BlogSubResourceTest extends ResourceTest {
             response
                     .then()
                     .spec(OK_SPEC)
-                    .body(notNullValue())
                     .body("id", is(createdBlogId.toString()))
                     .body("title", is("Updated Title"))
                     .body("body", is("Updated..."));
