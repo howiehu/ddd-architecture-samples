@@ -27,7 +27,7 @@ class BlogServiceTest {
     }
 
     @Nested
-    class createBlog {
+    class create {
 
         @Test
         void should_create_correctly() {
@@ -40,7 +40,7 @@ class BlogServiceTest {
     }
 
     @Nested
-    class getBlog {
+    class get {
 
         @Test
         void should_get_correctly() {
@@ -65,7 +65,7 @@ class BlogServiceTest {
     }
 
     @Nested
-    class saveBlog {
+    class saveDraft {
 
         @Test
         void should_save_correctly() {
@@ -92,7 +92,7 @@ class BlogServiceTest {
     }
 
     @Nested
-    class deleteBlog {
+    class delete {
 
         @Test
         void should_delete_correctly() {
@@ -117,18 +117,20 @@ class BlogServiceTest {
     }
 
     @Nested
-    class publishBlog {
+    class publish {
 
         @Test
-        void should_delete_correctly() {
+        void should_publish_correctly() {
             var mockBlog = mock(Blog.class);
             when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.of(mockBlog));
 
-            blogService.publish(mockBlog.getId());
+            Blog createdBlog = blogService.publish(mockBlog.getId());
 
             InOrder inOrder = inOrder(mockBlog, blogRepository);
             inOrder.verify(mockBlog).publish();
             inOrder.verify(blogRepository).save(mockBlog);
+
+            assertThat(createdBlog).isSameAs(mockBlog);
         }
 
         @Test
@@ -144,7 +146,7 @@ class BlogServiceTest {
     }
 
     @Nested
-    class getAllBlog {
+    class query {
 
         @Test
         void should_get_all_with_pagination() {
