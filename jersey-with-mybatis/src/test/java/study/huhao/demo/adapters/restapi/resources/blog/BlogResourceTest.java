@@ -1,19 +1,21 @@
 package study.huhao.demo.adapters.restapi.resources.blog;
 
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import study.huhao.demo.adapters.restapi.resources.ResourceTest;
-import study.huhao.demo.domain.contexts.blogcontext.blog.Blog;
 
+import java.time.Instant;
 import java.util.Map;
 import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.IsEqual.equalTo;
 
 @DisplayName("/blog")
@@ -27,12 +29,14 @@ class BlogResourceTest extends ResourceTest {
         void should_create_blog() {
             var authorId = UUID.randomUUID();
 
-            var blog = createBlog("Test Blog", "Something...", authorId);
-
-            assertThat(blog).isNotNull();
-            assertThat(blog.title).isEqualTo("Test Blog");
-            assertThat(blog.body).isEqualTo("Something...");
-            assertThat(blog.authorId).isEqualTo(authorId);
+            createBlog("Test Blog", "Something...", authorId)
+                    .then()
+                    .body(notNullValue())
+                    .statusCode(HttpStatus.CREATED.value())
+                    .contentType(ContentType.JSON)
+                    .body("title", is("Test Blog"))
+                    .body("body", is("Something..."))
+                    .body("authorId", is(authorId.toString()));
         }
     }
 
@@ -43,15 +47,20 @@ class BlogResourceTest extends ResourceTest {
         @Test
         void should_get_blog() {
             var authorId = UUID.randomUUID();
-            var createdBlog = createBlog("Test Blog", "Something...", authorId);
 
-            var blog = getBlog(createdBlog.id);
+            var createdBlogId = createBlog("Test Blog", "Something...", authorId)
+                    .jsonPath()
+                    .getUUID("id");
 
-            assertThat(blog).isNotNull();
-            assertThat(blog.id).isEqualTo(createdBlog.id);
-            assertThat(blog.title).isEqualTo("Test Blog");
-            assertThat(blog.body).isEqualTo("Something...");
-            assertThat(blog.authorId).isEqualTo(authorId);
+            getBlog(createdBlogId)
+                    .then()
+                    .statusCode(HttpStatus.OK.value())
+                    .contentType(ContentType.JSON)
+                    .body(notNullValue())
+                    .body("id", is(createdBlogId.toString()))
+                    .body("title", is("Test Blog"))
+                    .body("body", is("Something..."))
+                    .body("authorId", is(authorId.toString()));
         }
 
         @Test
@@ -63,7 +72,7 @@ class BlogResourceTest extends ResourceTest {
                     .then()
                     .statusCode(HttpStatus.NOT_FOUND.value())
                     .contentType(ContentType.JSON)
-                    .body("message", equalTo("cannot find the blog with id " + blogId));
+                    .body("message", is("cannot find the blog with id " + blogId));
         }
     }
 
@@ -74,24 +83,28 @@ class BlogResourceTest extends ResourceTest {
         @Test
         void should_publish_blog() {
             var authorId = UUID.randomUUID();
-            var createdBlog = createBlog("Test Blog", "Something...", authorId);
+            var createdBlogId = createBlog("Test Blog", "Something...", authorId)
+                    .jsonPath()
+                    .getUUID("id");
 
             given()
                     .contentType(ContentType.JSON)
                     .when()
-                    .post("/blog/" + createdBlog.id + "/published")
+                    .post("/blog/" + createdBlogId + "/published")
                     .then()
                     .statusCode(HttpStatus.CREATED.value());
 
-            var publishedBlot = getBlog(createdBlog.id);
-
-            assertThat(publishedBlot).isNotNull();
-            assertThat(publishedBlot.id).isEqualTo(createdBlog.id);
-            assertThat(publishedBlot.status).isEqualTo(Blog.Status.Published);
-            assertThat(publishedBlot.published).isNotNull();
-            assertThat(publishedBlot.published.title).isEqualTo("Test Blog");
-            assertThat(publishedBlot.published.body).isEqualTo("Something...");
-            assertThat(publishedBlot.published.publishedAt).isNotNull();
+            getBlog(createdBlogId)
+                    .then()
+                    .statusCode(HttpStatus.OK.value())
+                    .contentType(ContentType.JSON)
+                    .body(notNullValue())
+                    .body("id", is(createdBlogId.toString()))
+                    .body("status", is("Published"))
+                    .body("published", notNullValue())
+                    .body("published.title", is("Test Blog"))
+                    .body("published.body", is("Something..."))
+                    .body("published.publishedAt", notNullValue());
         }
 
         @Test
@@ -104,27 +117,29 @@ class BlogResourceTest extends ResourceTest {
                     .then()
                     .statusCode(HttpStatus.NOT_FOUND.value())
                     .contentType(ContentType.JSON)
-                    .body("message", equalTo("cannot find the blog with id " + blogId));
+                    .body("message", is("cannot find the blog with id " + blogId));
         }
 
         @Test
         void should_return_409_when_no_need_to_publish() {
             var authorId = UUID.randomUUID();
-            var createdBlog = createBlog("Test Blog", "Something...", authorId);
+            var createdBlogId = createBlog("Test Blog", "Something...", authorId)
+                    .jsonPath()
+                    .getUUID("id");
 
             given()
                     .when()
                     .contentType(ContentType.JSON)
-                    .post("/blog/" + createdBlog.id + "/published");
+                    .post("/blog/" + createdBlogId + "/published");
 
             given()
                     .when()
                     .contentType(ContentType.JSON)
-                    .post("/blog/" + createdBlog.id + "/published")
+                    .post("/blog/" + createdBlogId + "/published")
                     .then()
                     .statusCode(HttpStatus.CONFLICT.value())
                     .contentType(ContentType.JSON)
-                    .body("message", equalTo("no need to publish"));
+                    .body("message", is("no need to publish"));
         }
     }
 
@@ -135,7 +150,9 @@ class BlogResourceTest extends ResourceTest {
         @Test
         void should_save_blog() {
             var authorId = UUID.randomUUID();
-            var createdBlog = createBlog("Test Blog", "Something...", authorId);
+            JsonPath jsonPath = createBlog("Test Blog", "Something...", authorId).jsonPath();
+            var createdBlogId = jsonPath.getUUID("id");
+            var createdBlogSavedAt = jsonPath.getString("savedAt");
 
             given()
                     .contentType(ContentType.JSON)
@@ -144,17 +161,22 @@ class BlogResourceTest extends ResourceTest {
                             "body", "Updated..."
                     ))
                     .when()
-                    .put("/blog/" + createdBlog.id)
+                    .put("/blog/" + createdBlogId)
                     .then()
                     .statusCode(HttpStatus.NO_CONTENT.value());
 
-            var updatedBlog = getBlog(createdBlog.id);
+            Response response = getBlog(createdBlogId);
+            response
+                    .then()
+                    .statusCode(HttpStatus.OK.value())
+                    .contentType(ContentType.JSON)
+                    .body(notNullValue())
+                    .body("id", is(createdBlogId.toString()))
+                    .body("title", is("Updated Title"))
+                    .body("body", is("Updated..."));
 
-            assertThat(updatedBlog).isNotNull();
-            assertThat(updatedBlog.id).isEqualTo(createdBlog.id);
-            assertThat(updatedBlog.title).isEqualTo("Updated Title");
-            assertThat(updatedBlog.body).isEqualTo("Updated...");
-            assertThat(updatedBlog.savedAt).isAfter(createdBlog.savedAt);
+            String savedAt = response.jsonPath().getString("savedAt");
+            assertThat(Instant.parse(savedAt)).isAfter(Instant.parse(createdBlogSavedAt));
         }
 
         @Test
@@ -182,17 +204,19 @@ class BlogResourceTest extends ResourceTest {
         @Test
         void should_delete_blog() {
             var authorId = UUID.randomUUID();
-            var createdBlog = createBlog("Test Blog", "Something...", authorId);
+            var createdBlogId = createBlog("Test Blog", "Something...", authorId)
+                    .jsonPath()
+                    .getUUID("id");
 
             given()
                     .when()
-                    .delete("/blog/" + createdBlog.id)
+                    .delete("/blog/" + createdBlogId)
                     .then()
                     .statusCode(HttpStatus.NO_CONTENT.value());
 
             given()
                     .when()
-                    .get("/blog/" + createdBlog.id)
+                    .get("/blog/" + createdBlogId)
                     .then()
                     .statusCode(HttpStatus.NOT_FOUND.value());
         }
@@ -250,7 +274,7 @@ class BlogResourceTest extends ResourceTest {
         }
     }
 
-    private BlogDto createBlog(String title, String body, UUID authorId) {
+    private Response createBlog(String title, String body, UUID authorId) {
         return given()
                 .contentType(ContentType.JSON)
                 .body(Map.of(
@@ -259,22 +283,12 @@ class BlogResourceTest extends ResourceTest {
                         "authorId", authorId
                 ))
                 .when()
-                .post("/blog")
-                .then()
-                .statusCode(HttpStatus.CREATED.value())
-                .contentType(ContentType.JSON)
-                .extract()
-                .as(BlogDto.class);
+                .post("/blog");
     }
 
-    private BlogDto getBlog(UUID blogId) {
+    private Response getBlog(UUID blogId) {
         return given()
                 .when()
-                .get("/blog/" + blogId)
-                .then()
-                .statusCode(HttpStatus.OK.value())
-                .contentType(ContentType.JSON)
-                .extract()
-                .as(BlogDto.class);
+                .get("/blog/" + blogId);
     }
 }
