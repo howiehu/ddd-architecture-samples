@@ -34,7 +34,6 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-jersey'
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
@@ -44,6 +43,9 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
 
     runtimeOnly 'mysql:mysql-connector-java'
+
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0'
+    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.1.0'
 
     implementation 'org.flywaydb:flyway-core'
     testImplementation 'org.flywaydb.flyway-test-extensions:flyway-spring-test:6.0.0'
