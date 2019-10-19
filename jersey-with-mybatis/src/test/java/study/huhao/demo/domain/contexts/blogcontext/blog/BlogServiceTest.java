@@ -49,7 +49,7 @@ class BlogServiceTest {
 
             var foundBlog = blogService.get(mockBlog.getId());
 
-            assertThat(foundBlog).isEqualTo(mockBlog);
+            assertThat(foundBlog).isSameAs(mockBlog);
         }
 
         @Test
@@ -61,6 +61,45 @@ class BlogServiceTest {
             assertThatThrownBy(() -> blogService.get(mockBlog.getId()))
                     .isInstanceOf(EntityNotFoundException.class)
                     .hasMessage("cannot find the blog with id " + mockBlog.getId());
+        }
+    }
+
+    @Nested
+    class getPublished {
+
+        @Test
+        void should_get_published_blog() {
+            var mockPublishedBlog = mock(Blog.class);
+            when(mockPublishedBlog.isPublished()).thenReturn(true);
+
+            when(blogRepository.findById(mockPublishedBlog.getId())).thenReturn(Optional.of(mockPublishedBlog));
+
+            var foundPublishedBlog = blogService.getPublished(mockPublishedBlog.getId());
+
+            assertThat(foundPublishedBlog).isSameAs(mockPublishedBlog);
+        }
+
+        @Test
+        void should_throw_EntityNotFoundException_when_blog_not_found() {
+            var mockPublishedBlog = mock(Blog.class);
+
+            when(blogRepository.findById(mockPublishedBlog.getId())).thenReturn(Optional.empty());
+
+            assertThatThrownBy(() -> blogService.getPublished(mockPublishedBlog.getId()))
+                    .isInstanceOf(EntityNotFoundException.class)
+                    .hasMessage("cannot find the published blog with id " + mockPublishedBlog.getId());
+        }
+
+        @Test
+        void should_throw_EntityNotFoundException_when_published_blog_not_found() {
+            var mockPublishedBlog = mock(Blog.class);
+            when(mockPublishedBlog.isPublished()).thenReturn(false);
+
+            when(blogRepository.findById(mockPublishedBlog.getId())).thenReturn(Optional.of(mockPublishedBlog));
+
+            assertThatThrownBy(() -> blogService.getPublished(mockPublishedBlog.getId()))
+                    .isInstanceOf(EntityNotFoundException.class)
+                    .hasMessage("cannot find the published blog with id " + mockPublishedBlog.getId());
         }
     }
 
