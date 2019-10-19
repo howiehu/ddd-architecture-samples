@@ -30,8 +30,7 @@ public class PublishedBlogPO implements PersistenceObject<PublishedBlog> {
     // The domain model and persistence object may have much different.
     // So, manual to convert between them is better than use object mapper like Orika.
     static PublishedBlogPO of(PublishedBlog published) {
-        if (published == null) return null;
-        return new PublishedBlogPO(
+        return published == null ? null : new PublishedBlogPO(
                 published.getTitle(),
                 published.getBody(),
                 published.getPublishedAt());
