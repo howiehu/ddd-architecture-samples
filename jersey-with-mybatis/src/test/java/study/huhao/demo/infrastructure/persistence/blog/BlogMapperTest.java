@@ -18,7 +18,7 @@ class BlogMapperTest extends MapperTest {
 
     @Test
     void insert() {
-        BlogPO newBlog = insertBlog();
+        var newBlog = insertBlog();
 
         var result = blogMapper.findById(newBlog.getId());
 
@@ -30,7 +30,7 @@ class BlogMapperTest extends MapperTest {
 
     @Test
     void update() {
-        BlogPO newBlog = insertBlog();
+        var newBlog = insertBlog();
 
         var updatedBlog = new BlogPO(
                 newBlog.getId(),
@@ -59,7 +59,7 @@ class BlogMapperTest extends MapperTest {
 
     @Test
     void existsById() {
-        BlogPO newBlog = insertBlog();
+        var newBlog = insertBlog();
 
         var result = blogMapper.existsById(newBlog.getId());
 
@@ -68,7 +68,7 @@ class BlogMapperTest extends MapperTest {
 
     @Test
     void deleteById() {
-        BlogPO newBlog = insertBlog();
+        var newBlog = insertBlog();
 
         blogMapper.deleteById(newBlog.getId());
 
