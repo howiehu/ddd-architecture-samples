@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import study.huhao.demo.adapters.restapi.resources.ResponseDto;
 import study.huhao.demo.domain.contexts.blogcontext.blog.Blog;
+import study.huhao.demo.domain.contexts.blogcontext.blog.PublishedBlog;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -18,11 +19,12 @@ class PublishedBlogDto implements ResponseDto {
     private Instant publishedAt;
 
     static PublishedBlogDto of(Blog blog) {
+        PublishedBlog published = blog.getPublished();
         return new PublishedBlogDto(
                 blog.getId(),
-                blog.getPublished().getTitle(),
-                blog.getPublished().getBody(),
+                published.getTitle(),
+                published.getBody(),
                 blog.getAuthorId(),
-                blog.getPublished().getPublishedAt());
+                published.getPublishedAt());
     }
 }
