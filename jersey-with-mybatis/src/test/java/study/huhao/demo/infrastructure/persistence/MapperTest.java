@@ -21,7 +21,7 @@ public abstract class MapperTest { //抽象的测试基类用于减少每一个�
     // - 只在基类标注 @FlywayTest 注解实现每个测试类运行时运行一次数据迁移重置数据库
     // - 通过事务回滚的方式实现测试隔离和加速数据库测试
     @BeforeEach
-    //使用了 https://github.com/flyway/flyway-test-extensions 来实现测试时重置数据库
+    // 使用了 https://github.com/flyway/flyway-test-extensions 来实现测试时重置数据库
     @FlywayTest
     void init() {
 
