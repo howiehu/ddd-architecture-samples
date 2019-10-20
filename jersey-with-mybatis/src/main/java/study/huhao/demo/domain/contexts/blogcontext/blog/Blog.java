@@ -33,15 +33,15 @@ public class Blog implements AggregateRoot {
         this.savedAt = this.createdAt = Instant.now();
     }
 
-    //    这是一个反例，因为PublishedBlog已经做了严格的访问控制符和封装，所以可以使用新实例来实现Immutable Object，
-    //    但是集合类型因为Java提供了能够修改其内容的API，所以一定要使用Immutable List
-    //    public PublishedBlog getPublished() {
-    //        // return immutable object to follow the encapsulation principle
-    //        return this.published == null ? null : new PublishedBlog(
-    //                this.published.getTitle(),
-    //                this.published.getBody(),
-    //                this.published.getPublishedAt());
-    //    }
+    /* 这是一个反例，因为PublishedBlog已经做了严格的访问控制符和封装，所以可以使用新实例来实现Immutable Object，
+       但是集合类型因为Java提供了能够修改其内容的API，所以一定要使用Immutable List
+    public PublishedBlog getPublished() {
+        // return immutable object to follow the encapsulation principle
+        return this.published == null ? null : new PublishedBlog(
+                this.published.getTitle(),
+                this.published.getBody(),
+                this.published.getPublishedAt());
+    }*/
 
     void publish() {
         validateIsNeedToPublish();
