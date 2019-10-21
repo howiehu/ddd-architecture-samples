@@ -21,13 +21,11 @@ class LayeredArchitectureTest {
     void layer_dependencies_must_be_respected_include_the_tests() {
         layeredArchitecture()
 
-                .layer("Configurations").definedBy("study.huhao.demo.configurations..")
                 .layer("Adapters").definedBy("study.huhao.demo.adapters..")
                 .layer("Infrastructure").definedBy("study.huhao.demo.infrastructure..")
                 .layer("Application").definedBy("study.huhao.demo.application..")
                 .layer("Domain").definedBy("study.huhao.demo.domain..")
 
-                .whereLayer("Configurations").mayNotBeAccessedByAnyLayer()
                 .whereLayer("Adapters").mayNotBeAccessedByAnyLayer()
                 .whereLayer("Infrastructure").mayNotBeAccessedByAnyLayer()
                 .whereLayer("Application").mayOnlyBeAccessedByLayers("Adapters")
