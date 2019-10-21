@@ -22,14 +22,14 @@ class LayeredArchitectureTest {
         layeredArchitecture()
 
                 .layer("Interfaces").definedBy("study.huhao.demo.interfaces..")
-                .layer("Infrastructure").definedBy("study.huhao.demo.infrastructure..")
+                .layer("Infrastructures").definedBy("study.huhao.demo.infrastructures..")
                 .layer("Application").definedBy("study.huhao.demo.application..")
                 .layer("Domain").definedBy("study.huhao.demo.domain..")
 
                 .whereLayer("Interfaces").mayNotBeAccessedByAnyLayer()
-                .whereLayer("Infrastructure").mayNotBeAccessedByAnyLayer()
+                .whereLayer("Infrastructures").mayNotBeAccessedByAnyLayer()
                 .whereLayer("Application").mayOnlyBeAccessedByLayers("Interfaces")
-                .whereLayer("Domain").mayOnlyBeAccessedByLayers("Interfaces", "Infrastructure", "Application")
+                .whereLayer("Domain").mayOnlyBeAccessedByLayers("Interfaces", "Infrastructures", "Application")
 
                 .as("The layer dependencies must be respected (include the tests)")
                 .because("we must follow the DIP principle.")

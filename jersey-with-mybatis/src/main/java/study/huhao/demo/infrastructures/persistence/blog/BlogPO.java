@@ -1,11 +1,11 @@
-package study.huhao.demo.infrastructure.persistence.blog;
+package study.huhao.demo.infrastructures.persistence.blog;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import study.huhao.demo.domain.contexts.blogcontext.blog.Blog;
-import study.huhao.demo.infrastructure.persistence.PersistenceObject;
+import study.huhao.demo.infrastructures.persistence.PersistenceObject;
 
 import java.time.Instant;
 import java.util.UUID;

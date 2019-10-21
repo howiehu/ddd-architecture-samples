@@ -1,10 +1,10 @@
-package study.huhao.demo.infrastructure.persistence.blog;
+package study.huhao.demo.infrastructures.persistence.blog;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import study.huhao.demo.domain.contexts.blogcontext.blog.Blog;
 import study.huhao.demo.domain.contexts.blogcontext.blog.BlogCriteria;
-import study.huhao.demo.infrastructure.persistence.MapperTest;
+import study.huhao.demo.infrastructures.persistence.MapperTest;
 
 import java.time.Instant;
 import java.util.UUID;

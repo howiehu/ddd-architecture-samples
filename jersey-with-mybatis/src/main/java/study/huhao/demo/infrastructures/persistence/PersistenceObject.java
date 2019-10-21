@@ -1,4 +1,4 @@
-package study.huhao.demo.infrastructure.persistence;
+package study.huhao.demo.infrastructures.persistence;
 
 import study.huhao.demo.domain.core.concepts.HumbleObject;
 

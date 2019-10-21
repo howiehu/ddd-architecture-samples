@@ -1,4 +1,4 @@
-package study.huhao.demo.infrastructure.persistence;
+package study.huhao.demo.infrastructures.persistence;
 
 import org.flywaydb.test.FlywayTestExecutionListener;
 import org.flywaydb.test.annotation.FlywayTest;
