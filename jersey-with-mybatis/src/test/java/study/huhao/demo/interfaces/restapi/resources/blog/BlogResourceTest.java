@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import study.huhao.demo.interfaces.restapi.resources.ResourceTest;
-import study.huhao.demo.interfaces.restapi.resources.BaseRequestSpecification;
 
 import java.util.UUID;
 
@@ -12,6 +11,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static study.huhao.demo.interfaces.restapi.resources.BasePath.BLOG_BASE_PATH;
+import static study.huhao.demo.interfaces.restapi.resources.BaseRequestSpecification.createBlog;
 import static study.huhao.demo.interfaces.restapi.resources.BaseResponseSpecification.CREATED_SPEC;
 import static study.huhao.demo.interfaces.restapi.resources.BaseResponseSpecification.OK_SPEC;
 
@@ -26,7 +26,7 @@ class BlogResourceTest extends ResourceTest {
         void should_create_blog() {
             var authorId = UUID.randomUUID();
 
-            BaseRequestSpecification.createBlog("Test Blog", "Something...", authorId)
+            createBlog("Test Blog", "Something...", authorId)
                     .then()
                     .spec(CREATED_SPEC)
                     .body("id", notNullValue())
@@ -44,11 +44,11 @@ class BlogResourceTest extends ResourceTest {
         @Test
         void should_get_blog_with_pagination() {
             var authorId = UUID.randomUUID();
-            BaseRequestSpecification.createBlog("Test Blog 1", "Something...", authorId);
-            BaseRequestSpecification.createBlog("Test Blog 2", "Something...", authorId);
-            BaseRequestSpecification.createBlog("Test Blog 3", "Something...", authorId);
-            BaseRequestSpecification.createBlog("Test Blog 4", "Something...", authorId);
-            BaseRequestSpecification.createBlog("Test Blog 5", "Something...", authorId);
+            createBlog("Test Blog 1", "Something...", authorId);
+            createBlog("Test Blog 2", "Something...", authorId);
+            createBlog("Test Blog 3", "Something...", authorId);
+            createBlog("Test Blog 4", "Something...", authorId);
+            createBlog("Test Blog 5", "Something...", authorId);
 
             given()
                     .when()
