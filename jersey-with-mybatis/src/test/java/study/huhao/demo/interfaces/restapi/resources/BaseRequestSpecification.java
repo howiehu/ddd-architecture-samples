@@ -25,6 +25,12 @@ public class BaseRequestSpecification {
                 .post(BLOG_BASE_PATH);
     }
 
+    public static UUID createBlogAndGetId(String title, String body, UUID authorId) {
+        return createBlog(title, body, authorId)
+                .jsonPath()
+                .getUUID("id");
+    }
+
     public static Response getBlog(UUID blogId) {
         return given()
                 .when()

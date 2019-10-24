@@ -42,13 +42,28 @@ class BlogResourceTest extends ResourceTest {
     class get {
 
         @Test
-        void should_get_blog_with_pagination() {
-            var authorId = UUID.randomUUID();
-            createBlog("Test Blog 1", "Something...", authorId);
-            createBlog("Test Blog 2", "Something...", authorId);
-            createBlog("Test Blog 3", "Something...", authorId);
-            createBlog("Test Blog 4", "Something...", authorId);
-            createBlog("Test Blog 5", "Something...", authorId);
+        void should_order_by_createdAt_desc_by_default() {
+            createMultiBlog();
+
+            given()
+                    .when()
+                    .get(BLOG_BASE_PATH + "?limit=5")
+                    .then()
+                    .spec(OK_SPEC)
+                    .body("results", hasSize(5))
+                    .body("limit", equalTo(5))
+                    .body("offset", equalTo(0))
+                    .body("total", equalTo(5))
+                    .body("results[0].title", is("Test Blog 1"))
+                    .body("results[1].title", is("Test Blog 2"))
+                    .body("results[2].title", is("Test Blog 3"))
+                    .body("results[3].title", is("Test Blog 4"))
+                    .body("results[4].title", is("Test Blog 5"));
+        }
+
+        @Test
+        void should_get_second_page_blog() {
+            createMultiBlog();
 
             given()
                     .when()
@@ -58,7 +73,9 @@ class BlogResourceTest extends ResourceTest {
                     .body("results", hasSize(2))
                     .body("limit", equalTo(3))
                     .body("offset", equalTo(3))
-                    .body("total", equalTo(5));
+                    .body("total", equalTo(5))
+                    .body("results[0].title", is("Test Blog 4"))
+                    .body("results[1].title", is("Test Blog 5"));
         }
 
         @Test
@@ -73,6 +90,12 @@ class BlogResourceTest extends ResourceTest {
                     .body("offset", equalTo(4))
                     .body("total", equalTo(0));
         }
-    }
 
+        private void createMultiBlog() {
+            for (int i = 0; i < 5; i++) {
+                createBlog("Test Blog " + (i + 1), "Something...", UUID.randomUUID());
+            }
+        }
+
+    }
 }

@@ -69,6 +69,7 @@
     <select id="selectAllByCriteria" resultMap="records.blog">
         select *
         from blog
+        order by created_at
         limit #{criteria.limit} offset #{criteria.offset}
     </select>
 

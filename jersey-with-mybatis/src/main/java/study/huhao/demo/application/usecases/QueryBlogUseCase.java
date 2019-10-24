@@ -25,7 +25,6 @@ public class QueryBlogUseCase implements UseCase {
     }
 
     public Page<Blog> query(int limit, int offset) {
-        BlogCriteria criteria = BlogCriteria.builder().limit(limit).offset(offset).build();
-        return blogService.query(criteria);
+        return blogService.query(new BlogCriteria(limit, offset));
     }
 }

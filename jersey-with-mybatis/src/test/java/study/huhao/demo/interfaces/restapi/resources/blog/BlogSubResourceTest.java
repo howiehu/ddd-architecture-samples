@@ -2,6 +2,7 @@ package study.huhao.demo.interfaces.restapi.resources.blog;
 
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -16,12 +17,18 @@ import static io.restassured.http.ContentType.JSON;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
 import static study.huhao.demo.interfaces.restapi.resources.BasePath.BLOG_BASE_PATH;
-import static study.huhao.demo.interfaces.restapi.resources.BaseRequestSpecification.createBlog;
-import static study.huhao.demo.interfaces.restapi.resources.BaseRequestSpecification.getBlog;
+import static study.huhao.demo.interfaces.restapi.resources.BaseRequestSpecification.*;
 import static study.huhao.demo.interfaces.restapi.resources.BaseResponseSpecification.*;
 
 @DisplayName(BLOG_BASE_PATH + "/{id}")
 class BlogSubResourceTest extends ResourceTest {
+
+    private UUID authorId;
+
+    @BeforeEach
+    void setUp() {
+        authorId = UUID.randomUUID();
+    }
 
     @Nested
     @DisplayName("GET " + BLOG_BASE_PATH + "/{id}")
@@ -29,11 +36,7 @@ class BlogSubResourceTest extends ResourceTest {
 
         @Test
         void should_get_blog() {
-            var authorId = UUID.randomUUID();
-
-            var createdBlogId = createBlog("Test Blog", "Something...", authorId)
-                    .jsonPath()
-                    .getUUID("id");
+            var createdBlogId = createBlogAndGetId("Test Blog", "Something...", authorId);
 
             getBlog(createdBlogId)
                     .then()
@@ -47,9 +50,7 @@ class BlogSubResourceTest extends ResourceTest {
         @Test
         void should_return_404_when_blog_not_found() {
             var blogId = UUID.randomUUID();
-            given()
-                    .when()
-                    .get(buildPath(blogId))
+            getBlog(blogId)
                     .then()
                     .spec(NOT_FOUND_SPEC)
                     .body("message", is("cannot find the blog with id " + blogId));
@@ -62,7 +63,6 @@ class BlogSubResourceTest extends ResourceTest {
 
         @Test
         void should_save_blog() {
-            var authorId = UUID.randomUUID();
             JsonPath jsonPath = createBlog("Test Blog", "Something...", authorId).jsonPath();
             var createdBlogId = jsonPath.getUUID("id");
             var createdBlogSavedAt = jsonPath.getString("savedAt");
@@ -105,6 +105,7 @@ class BlogSubResourceTest extends ResourceTest {
                     .spec(NOT_FOUND_SPEC)
                     .body("message", is("cannot find the blog with id " + blogId));
         }
+
     }
 
     @Nested
@@ -113,10 +114,7 @@ class BlogSubResourceTest extends ResourceTest {
 
         @Test
         void should_delete_blog() {
-            var authorId = UUID.randomUUID();
-            var createdBlogId = createBlog("Test Blog", "Something...", authorId)
-                    .jsonPath()
-                    .getUUID("id");
+            var createdBlogId = createBlogAndGetId("Test Blog", "Something...", authorId);
 
             given()
                     .when()
@@ -141,9 +139,11 @@ class BlogSubResourceTest extends ResourceTest {
                     .spec(NOT_FOUND_SPEC)
                     .body("message", is("cannot find the blog with id " + blogId));
         }
+
     }
 
     private String buildPath(UUID blogId) {
         return BLOG_BASE_PATH + "/" + blogId;
     }
+
 }

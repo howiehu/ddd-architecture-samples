@@ -1,21 +1,28 @@
 package study.huhao.demo.interfaces.restapi.resources.publishedblog;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import study.huhao.demo.interfaces.restapi.resources.BasePath;
 import study.huhao.demo.interfaces.restapi.resources.ResourceTest;
 
 import java.util.UUID;
 
 import static org.hamcrest.Matchers.*;
-import static study.huhao.demo.interfaces.restapi.resources.BasePath.*;
-import static study.huhao.demo.interfaces.restapi.resources.BaseRequestSpecification.createBlog;
+import static study.huhao.demo.interfaces.restapi.resources.BasePath.PUBLISHED_BLOG_BASE_PATH;
+import static study.huhao.demo.interfaces.restapi.resources.BaseRequestSpecification.createBlogAndGetId;
 import static study.huhao.demo.interfaces.restapi.resources.BaseRequestSpecification.publishBlog;
 import static study.huhao.demo.interfaces.restapi.resources.BaseResponseSpecification.*;
 
 @DisplayName(PUBLISHED_BLOG_BASE_PATH)
 class PublishedBlogResourceTest extends ResourceTest {
+
+    private UUID authorId;
+
+    @BeforeEach
+    void setUp() {
+        authorId = UUID.randomUUID();
+    }
 
     @Nested
     @DisplayName("POST /published-blog")
@@ -23,11 +30,7 @@ class PublishedBlogResourceTest extends ResourceTest {
 
         @Test
         void should_publish_blog() {
-            var authorId = UUID.randomUUID();
-
-            var createdBlogId = createBlog("Test Blog", "Something...", authorId)
-                    .jsonPath()
-                    .getUUID("id");
+            var createdBlogId = createBlogAndGetId("Test Blog", "Something...", authorId);
 
             publishBlog(createdBlogId)
                     .then()
@@ -51,10 +54,7 @@ class PublishedBlogResourceTest extends ResourceTest {
 
         @Test
         void should_return_409_when_no_need_to_publish() {
-            var authorId = UUID.randomUUID();
-            var createdBlogId = createBlog("Test Blog", "Something...", authorId)
-                    .jsonPath()
-                    .getUUID("id");
+            var createdBlogId = createBlogAndGetId("Test Blog", "Something...", authorId);
 
             publishBlog(createdBlogId);
 
