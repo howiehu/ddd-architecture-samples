@@ -21,15 +21,21 @@ class LayeredArchitectureTest {
     void layer_dependencies_must_be_respected_include_the_tests() {
         layeredArchitecture()
 
-                .layer("Interfaces").definedBy("study.huhao.demo.interfaces..")
-                .layer("Infrastructures").definedBy("study.huhao.demo.infrastructures..")
+                .layer("Rest").definedBy("study.huhao.demo.adapters.inbound.rest..")
+                .layer("Rpc").definedBy("study.huhao.demo.adapters.inbound.rpc..")
+                .layer("Gateway").definedBy("study.huhao.demo.adapters.inbound.gateway..")
+                .layer("Persistence").definedBy("study.huhao.demo.adapters.inbound.persistence..")
                 .layer("Application").definedBy("study.huhao.demo.application..")
-                .layer("Domain").definedBy("study.huhao.demo.domain..")
+                // 由于Domain层位于最内层，可以被所有其它层访问，所以在此不用显式声明和进行测试
+                // .layer("Domain").definedBy("study.huhao.demo.domain..")
 
-                .whereLayer("Interfaces").mayNotBeAccessedByAnyLayer()
-                .whereLayer("Infrastructures").mayNotBeAccessedByAnyLayer()
-                .whereLayer("Application").mayOnlyBeAccessedByLayers("Interfaces")
-                .whereLayer("Domain").mayOnlyBeAccessedByLayers("Interfaces", "Infrastructures", "Application")
+                .whereLayer("Rest").mayNotBeAccessedByAnyLayer()
+                .whereLayer("Rpc").mayNotBeAccessedByAnyLayer()
+                .whereLayer("Gateway").mayNotBeAccessedByAnyLayer()
+                .whereLayer("Persistence").mayNotBeAccessedByAnyLayer()
+                .whereLayer("Application").mayOnlyBeAccessedByLayers("Rest", "Rpc")
+                // 由于Domain层位于最内层，可以被所有其它层访问，所以在此不用显式声明和进行测试
+                // .whereLayer("Domain").mayOnlyBeAccessedByLayers("Adapters", "Application")
 
                 .as("The layer dependencies must be respected (include the tests)")
                 .because("we must follow the DIP principle.")
