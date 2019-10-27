@@ -2,9 +2,9 @@ package study.huhao.demo.adapters.outbound.persistence.blog;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import study.huhao.demo.adapters.outbound.persistence.MapperTest;
 import study.huhao.demo.domain.contexts.blogcontext.blog.Blog;
 import study.huhao.demo.domain.contexts.blogcontext.blog.BlogCriteria;
-import study.huhao.demo.adapters.outbound.persistence.MapperTest;
 
 import java.time.Instant;
 import java.util.UUID;

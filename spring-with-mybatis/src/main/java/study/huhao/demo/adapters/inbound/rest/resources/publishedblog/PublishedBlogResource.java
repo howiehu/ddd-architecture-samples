@@ -1,21 +1,20 @@
 package study.huhao.demo.adapters.inbound.rest.resources.publishedblog;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 import study.huhao.demo.application.usecases.EditBlogUseCase;
 import study.huhao.demo.application.usecases.QueryPublishedBlogUseCase;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
-import java.util.UUID;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import static javax.ws.rs.core.Response.created;
-
-@Path("published-blog")
-@Produces(APPLICATION_JSON)
-@Component
+@RestController
+@RequestMapping(value = "/published-blog", produces = APPLICATION_JSON_VALUE)
 public class PublishedBlogResource {
 
     private final EditBlogUseCase editBlogUseCase;
@@ -27,17 +26,11 @@ public class PublishedBlogResource {
         this.queryPublishedBlogUseCase = queryPublishedBlogUseCase;
     }
 
-    @POST
-    @Consumes(APPLICATION_JSON)
-    public Response post(PublishBlogRequest data) {
-        var entity = PublishedBlogDto.of(editBlogUseCase.publish(data.blogId));
+    @PostMapping(consumes = APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> post(@RequestBody PublishBlogRequest data, UriComponentsBuilder uriComponentsBuilder) {
+        var blog = editBlogUseCase.publish(data.blogId);
 
-        var uri = UriBuilder.fromResource(PublishedBlogResource.class).path("{id}").build(entity.getId());
-        return created(uri).entity(entity).build();
-    }
-
-    @Path("{id}")
-    public PublishedBlogSubResource publishedBlogSubResource(@PathParam("id") UUID id) {
-        return new PublishedBlogSubResource(id, queryPublishedBlogUseCase);
+        UriComponents uriComponents = uriComponentsBuilder.path("/published-blog/{id}").buildAndExpand(blog.getId());
+        return ResponseEntity.created(uriComponents.toUri()).body(PublishedBlogDto.of(blog));
     }
 }

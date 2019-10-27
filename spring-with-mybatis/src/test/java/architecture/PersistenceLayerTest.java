@@ -7,9 +7,9 @@ import org.apache.ibatis.annotations.Mapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import study.huhao.demo.adapters.outbound.persistence.PersistenceObject;
 import study.huhao.demo.domain.core.concepts.HumbleObject;
 import study.huhao.demo.domain.core.concepts.Repository;
-import study.huhao.demo.adapters.outbound.persistence.PersistenceObject;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.theClass;

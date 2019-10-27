@@ -1,38 +1,39 @@
 package study.huhao.demo.adapters.inbound.rest.resources.blog;
 
+import org.springframework.web.bind.annotation.*;
 import study.huhao.demo.application.usecases.EditBlogUseCase;
 import study.huhao.demo.application.usecases.QueryBlogUseCase;
 
-import javax.ws.rs.*;
 import java.util.UUID;
 
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@Produces(APPLICATION_JSON)
+@RestController
+@RequestMapping(value = "/blog/{id}", produces = APPLICATION_JSON_VALUE)
 public class BlogSubResource {
-    private UUID id;
     private QueryBlogUseCase queryBlogUseCase;
     private EditBlogUseCase editBlogUseCase;
 
-    BlogSubResource(UUID id, QueryBlogUseCase queryBlogUseCase, EditBlogUseCase editBlogUseCase) {
-        this.id = id;
+    BlogSubResource(QueryBlogUseCase queryBlogUseCase, EditBlogUseCase editBlogUseCase) {
         this.queryBlogUseCase = queryBlogUseCase;
         this.editBlogUseCase = editBlogUseCase;
     }
 
-    @GET
-    public BlogDto get() {
+    @GetMapping
+    public BlogDto get(@PathVariable UUID id) {
         return BlogDto.of(queryBlogUseCase.get(id));
     }
 
-    @PUT
-    @Consumes(APPLICATION_JSON)
-    public void put(SaveDraftRequest data) {
+    @PutMapping(consumes = APPLICATION_JSON_VALUE)
+    @ResponseStatus(NO_CONTENT)
+    public void put(@PathVariable UUID id, @RequestBody SaveDraftRequest data) {
         editBlogUseCase.saveDraft(id, data.title, data.body);
     }
 
-    @DELETE
-    public void delete() {
+    @DeleteMapping
+    @ResponseStatus(NO_CONTENT)
+    public void delete(@PathVariable UUID id) {
         editBlogUseCase.delete(id);
     }
 }

@@ -1,22 +1,20 @@
 package study.huhao.demo.adapters.inbound.rest.resources.blog;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 import study.huhao.demo.application.usecases.EditBlogUseCase;
 import study.huhao.demo.application.usecases.QueryBlogUseCase;
 import study.huhao.demo.domain.core.common.Page;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
 import java.util.UUID;
 
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import static javax.ws.rs.core.Response.created;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@Path("blog")
-@Produces(APPLICATION_JSON)
-@Component
+@RestController
+@RequestMapping(value = "/blog", produces = APPLICATION_JSON_VALUE)
 public class BlogResource {
 
     private final QueryBlogUseCase queryBlogUseCase;
@@ -28,22 +26,15 @@ public class BlogResource {
         this.editBlogUseCase = editBlogUseCase;
     }
 
-    @GET
-    public Page<BlogDto> get(@QueryParam("limit") int limit, @QueryParam("offset") int offset) {
+    @GetMapping
+    public Page<BlogDto> get(@RequestParam int limit, @RequestParam int offset) {
         return queryBlogUseCase.query(limit, offset).map(BlogDto::of);
     }
 
-    @POST
-    @Consumes(APPLICATION_JSON)
-    public Response post(CreateBlogRequest data) {
+    @PostMapping(consumes = APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> post(@RequestBody CreateBlogRequest data, UriComponentsBuilder uriComponentsBuilder) {
         var blog = editBlogUseCase.create(data.title, data.body, UUID.fromString(data.authorId));
-
-        var uri = UriBuilder.fromResource(BlogResource.class).path("{id}").build(blog.getId());
-        return created(uri).entity(BlogDto.of(blog)).build();
-    }
-
-    @Path("{id}")
-    public BlogSubResource blogSubResource(@PathParam("id") UUID id) {
-        return new BlogSubResource(id, queryBlogUseCase, editBlogUseCase);
+        UriComponents uriComponents = uriComponentsBuilder.path("/blog/{id}").buildAndExpand(blog.getId());
+        return ResponseEntity.created(uriComponents.toUri()).body(BlogDto.of(blog));
     }
 }

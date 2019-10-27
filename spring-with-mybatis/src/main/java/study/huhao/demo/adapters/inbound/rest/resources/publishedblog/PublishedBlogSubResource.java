@@ -1,25 +1,26 @@
 package study.huhao.demo.adapters.inbound.rest.resources.publishedblog;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import study.huhao.demo.application.usecases.QueryPublishedBlogUseCase;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Produces;
 import java.util.UUID;
 
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@Produces(APPLICATION_JSON)
+@RestController
+@RequestMapping(value = "/published-blog/{id}", produces = APPLICATION_JSON_VALUE)
 public class PublishedBlogSubResource {
-    private UUID id;
     private QueryPublishedBlogUseCase queryPublishedBlogUseCase;
 
-    PublishedBlogSubResource(UUID id, QueryPublishedBlogUseCase queryPublishedBlogUseCase) {
-        this.id = id;
+    PublishedBlogSubResource(QueryPublishedBlogUseCase queryPublishedBlogUseCase) {
         this.queryPublishedBlogUseCase = queryPublishedBlogUseCase;
     }
 
-    @GET
-    public PublishedBlogDto get() {
+    @GetMapping
+    public PublishedBlogDto get(@PathVariable UUID id) {
         return PublishedBlogDto.of(queryPublishedBlogUseCase.get(id));
     }
 }

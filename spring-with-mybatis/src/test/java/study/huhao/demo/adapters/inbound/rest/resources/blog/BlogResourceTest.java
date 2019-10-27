@@ -47,7 +47,7 @@ class BlogResourceTest extends ResourceTest {
 
             given()
                     .when()
-                    .get(BLOG_BASE_PATH + "?limit=5")
+                    .get(BLOG_BASE_PATH + "?limit=5&offset=0")
                     .then()
                     .spec(OK_SPEC)
                     .body("results", hasSize(5))
