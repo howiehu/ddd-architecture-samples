@@ -3,7 +3,6 @@ package study.huhao.demo.adapters.inbound.rest.resources.blog;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import study.huhao.demo.adapters.inbound.rest.resources.BaseRequestSpecification;
 import study.huhao.demo.adapters.inbound.rest.resources.ResourceTest;
 
 import java.util.UUID;
@@ -12,6 +11,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static study.huhao.demo.adapters.inbound.rest.resources.BasePath.BLOG_BASE_PATH;
+import static study.huhao.demo.adapters.inbound.rest.resources.BaseRequestSpecification.createBlog;
 import static study.huhao.demo.adapters.inbound.rest.resources.BaseResponseSpecification.CREATED_SPEC;
 import static study.huhao.demo.adapters.inbound.rest.resources.BaseResponseSpecification.OK_SPEC;
 
@@ -26,7 +26,7 @@ class BlogResourceTest extends ResourceTest {
         void should_create_blog() {
             var authorId = UUID.randomUUID();
 
-            BaseRequestSpecification.createBlog("Test Blog", "Something...", authorId)
+            createBlog("Test Blog", "Something...", authorId)
                     .then()
                     .spec(CREATED_SPEC)
                     .body("id", notNullValue())
@@ -93,7 +93,7 @@ class BlogResourceTest extends ResourceTest {
 
         private void createMultiBlog() {
             for (int i = 0; i < 5; i++) {
-                BaseRequestSpecification.createBlog("Test Blog " + (i + 1), "Something...", UUID.randomUUID());
+                createBlog("Test Blog " + (i + 1), "Something...", UUID.randomUUID());
             }
         }
 

@@ -1,7 +1,5 @@
 package study.huhao.demo.adapters.inbound.rest.resources.blog;
 
-import io.restassured.path.json.JsonPath;
-import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -63,7 +61,7 @@ class BlogSubResourceTest extends ResourceTest {
 
         @Test
         void should_save_blog() {
-            JsonPath jsonPath = createBlog("Test Blog", "Something...", authorId).jsonPath();
+            var jsonPath = createBlog("Test Blog", "Something...", authorId).jsonPath();
             var createdBlogId = jsonPath.getUUID("id");
             var createdBlogSavedAt = jsonPath.getString("savedAt");
 
@@ -78,7 +76,7 @@ class BlogSubResourceTest extends ResourceTest {
                     .then()
                     .spec(NO_CONTENT_SPEC);
 
-            Response response = getBlog(createdBlogId);
+            var response = getBlog(createdBlogId);
             response
                     .then()
                     .spec(OK_SPEC)
@@ -86,7 +84,7 @@ class BlogSubResourceTest extends ResourceTest {
                     .body("title", is("Updated Title"))
                     .body("body", is("Updated..."));
 
-            String savedAt = response.jsonPath().getString("savedAt");
+            var savedAt = response.jsonPath().getString("savedAt");
             assertThat(Instant.parse(savedAt)).isAfter(Instant.parse(createdBlogSavedAt));
         }
 

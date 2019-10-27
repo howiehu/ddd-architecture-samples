@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import study.huhao.demo.adapters.inbound.rest.resources.BaseRequestSpecification;
 import study.huhao.demo.adapters.inbound.rest.resources.ResourceTest;
 
 import java.util.UUID;
@@ -14,6 +13,8 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static study.huhao.demo.adapters.inbound.rest.resources.BasePath.PUBLISHED_BLOG_BASE_PATH;
+import static study.huhao.demo.adapters.inbound.rest.resources.BaseRequestSpecification.createBlogAndGetId;
+import static study.huhao.demo.adapters.inbound.rest.resources.BaseRequestSpecification.publishBlog;
 import static study.huhao.demo.adapters.inbound.rest.resources.BaseResponseSpecification.NOT_FOUND_SPEC;
 import static study.huhao.demo.adapters.inbound.rest.resources.BaseResponseSpecification.OK_SPEC;
 
@@ -33,9 +34,9 @@ class PublishedBlogSubResourceTest extends ResourceTest {
 
         @Test
         void should_get_blog() {
-            var createdBlogId = BaseRequestSpecification.createBlogAndGetId("Test Blog", "Something...", authorId);
+            var createdBlogId = createBlogAndGetId("Test Blog", "Something...", authorId);
 
-            BaseRequestSpecification.publishBlog(createdBlogId);
+            publishBlog(createdBlogId);
 
             getPublishedBlogById(createdBlogId)
                     .then()
@@ -59,7 +60,7 @@ class PublishedBlogSubResourceTest extends ResourceTest {
 
         @Test
         void should_return_404_when_published_blog_not_found() {
-            var createdBlogId = BaseRequestSpecification.createBlogAndGetId("Test Blog", "Something...", authorId);
+            var createdBlogId = createBlogAndGetId("Test Blog", "Something...", authorId);
 
             getPublishedBlogById(createdBlogId)
                     .then()
