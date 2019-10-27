@@ -8,10 +8,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableTransactionManagement
 @PropertySource("classpath:flyway.properties")
-public class JerseyWithMyBatisApplication {
+public class SpringWithMyBatisApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(JerseyWithMyBatisApplication.class, args);
+        SpringApplication.run(SpringWithMyBatisApplication.class, args);
     }
 
 }
