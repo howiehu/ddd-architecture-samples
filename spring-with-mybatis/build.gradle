@@ -7,7 +7,7 @@ buildscript {
 
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '2.2.0.RELEASE'
+    id 'org.springframework.boot' version '2.2.1.RELEASE'
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -46,16 +46,16 @@ dependencies {
 
     runtimeOnly 'mysql:mysql-connector-java'
 
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0'
-    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.1.0'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.1'
+    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.1.1'
 
     implementation 'org.flywaydb:flyway-core'
     testImplementation 'org.flywaydb.flyway-test-extensions:flyway-spring-test:6.0.0'
 
     testImplementation 'io.rest-assured:rest-assured'
 
-    testImplementation 'com.tngtech.archunit:archunit-junit5-api:0.11.0'
-    testRuntimeOnly 'com.tngtech.archunit:archunit-junit5-engine:0.11.0'
+    testImplementation 'com.tngtech.archunit:archunit-junit5-api:0.12.0'
+    testRuntimeOnly 'com.tngtech.archunit:archunit-junit5-engine:0.12.0'
 }
 
 test {
