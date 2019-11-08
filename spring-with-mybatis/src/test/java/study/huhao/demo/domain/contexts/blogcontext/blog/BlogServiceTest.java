@@ -12,7 +12,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.BDDMockito.*;
 
 class BlogServiceTest {
 
@@ -44,11 +44,14 @@ class BlogServiceTest {
 
         @Test
         void should_get_correctly() {
+            // Given
             var mockBlog = mock(Blog.class);
-            when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.of(mockBlog));
+            given(blogRepository.findById(mockBlog.getId())).willReturn(Optional.of(mockBlog));
 
+            // When
             var foundBlog = blogService.get(mockBlog.getId());
 
+            // Then
             assertThat(foundBlog).isSameAs(mockBlog);
         }
 
@@ -56,7 +59,7 @@ class BlogServiceTest {
         void should_throw_EntityNotFoundException_when_blog_not_found() {
             var mockBlog = mock(Blog.class);
 
-            when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.empty());
+            given(blogRepository.findById(mockBlog.getId())).willReturn(Optional.empty());
 
             assertThatThrownBy(() -> blogService.get(mockBlog.getId()))
                     .isInstanceOf(EntityNotFoundException.class)
@@ -70,9 +73,8 @@ class BlogServiceTest {
         @Test
         void should_get_published_blog() {
             var mockPublishedBlog = mock(Blog.class);
-            when(mockPublishedBlog.isPublished()).thenReturn(true);
-
-            when(blogRepository.findById(mockPublishedBlog.getId())).thenReturn(Optional.of(mockPublishedBlog));
+            given(mockPublishedBlog.isPublished()).willReturn(true);
+            given(blogRepository.findById(mockPublishedBlog.getId())).willReturn(Optional.of(mockPublishedBlog));
 
             var foundPublishedBlog = blogService.getPublished(mockPublishedBlog.getId());
 
@@ -82,8 +84,7 @@ class BlogServiceTest {
         @Test
         void should_throw_EntityNotFoundException_when_blog_not_found() {
             var mockPublishedBlog = mock(Blog.class);
-
-            when(blogRepository.findById(mockPublishedBlog.getId())).thenReturn(Optional.empty());
+            given(blogRepository.findById(mockPublishedBlog.getId())).willReturn(Optional.empty());
 
             assertThatThrownBy(() -> blogService.getPublished(mockPublishedBlog.getId()))
                     .isInstanceOf(EntityNotFoundException.class)
@@ -93,9 +94,8 @@ class BlogServiceTest {
         @Test
         void should_throw_EntityNotFoundException_when_published_blog_not_found() {
             var mockPublishedBlog = mock(Blog.class);
-            when(mockPublishedBlog.isPublished()).thenReturn(false);
-
-            when(blogRepository.findById(mockPublishedBlog.getId())).thenReturn(Optional.of(mockPublishedBlog));
+            given(mockPublishedBlog.isPublished()).willReturn(false);
+            given(blogRepository.findById(mockPublishedBlog.getId())).willReturn(Optional.of(mockPublishedBlog));
 
             assertThatThrownBy(() -> blogService.getPublished(mockPublishedBlog.getId()))
                     .isInstanceOf(EntityNotFoundException.class)
@@ -109,7 +109,7 @@ class BlogServiceTest {
         @Test
         void should_save_correctly() {
             var mockBlog = mock(Blog.class);
-            when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.of(mockBlog));
+            given(blogRepository.findById(mockBlog.getId())).willReturn(Optional.of(mockBlog));
 
             blogService.saveDraft(mockBlog.getId(), "Updated Title", "Updated...");
 
@@ -121,8 +121,7 @@ class BlogServiceTest {
         @Test
         void should_throw_EntityNotFoundException_when_blog_not_found() {
             var mockBlog = mock(Blog.class);
-
-            when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.empty());
+            given(blogRepository.findById(mockBlog.getId())).willReturn(Optional.empty());
 
             assertThatThrownBy(() -> blogService.saveDraft(mockBlog.getId(), "Updated Title", "Updated..."))
                     .isInstanceOf(EntityNotFoundException.class)
@@ -136,7 +135,7 @@ class BlogServiceTest {
         @Test
         void should_delete_correctly() {
             var mockBlog = mock(Blog.class);
-            when(blogRepository.existsById(mockBlog.getId())).thenReturn(true);
+            given(blogRepository.existsById(mockBlog.getId())).willReturn(true);
 
             blogService.delete(mockBlog.getId());
 
@@ -146,8 +145,7 @@ class BlogServiceTest {
         @Test
         void should_throw_EntityNotFoundException_when_blog_not_found() {
             var mockBlog = mock(Blog.class);
-
-            when(blogRepository.existsById(mockBlog.getId())).thenReturn(false);
+            given(blogRepository.existsById(mockBlog.getId())).willReturn(false);
 
             assertThatThrownBy(() -> blogService.delete(mockBlog.getId()))
                     .isInstanceOf(EntityNotFoundException.class)
@@ -161,7 +159,7 @@ class BlogServiceTest {
         @Test
         void should_publish_correctly() {
             var mockBlog = mock(Blog.class);
-            when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.of(mockBlog));
+            given(blogRepository.findById(mockBlog.getId())).willReturn(Optional.of(mockBlog));
 
             Blog createdBlog = blogService.publish(mockBlog.getId());
 
@@ -175,8 +173,7 @@ class BlogServiceTest {
         @Test
         void should_throw_EntityNotFoundException_when_blog_not_found() {
             var mockBlog = mock(Blog.class);
-
-            when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.empty());
+            given(blogRepository.findById(mockBlog.getId())).willReturn(Optional.empty());
 
             assertThatThrownBy(() -> blogService.publish(mockBlog.getId()))
                     .isInstanceOf(EntityNotFoundException.class)
