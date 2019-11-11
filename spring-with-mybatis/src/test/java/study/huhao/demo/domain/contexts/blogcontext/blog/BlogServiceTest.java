@@ -180,17 +180,4 @@ class BlogServiceTest {
                     .hasMessage("cannot find the blog with id " + mockBlog.getId());
         }
     }
-
-    @Nested
-    class query {
-
-        @Test
-        void should_get_all_with_pagination() {
-            var mockCriteria = mock(BlogCriteria.class);
-
-            blogService.query(mockCriteria);
-
-            verify(blogRepository).findAllWithPagination(mockCriteria);
-        }
-    }
 }

@@ -1,6 +1,5 @@
 package study.huhao.demo.domain.contexts.blogcontext.blog;
 
-import study.huhao.demo.domain.core.common.Page;
 import study.huhao.demo.domain.core.common.excpetions.EntityNotFoundException;
 import study.huhao.demo.domain.core.concepts.Service;
 
@@ -51,7 +50,4 @@ public class BlogService implements Service {
         return blog;
     }
 
-    public Page<Blog> query(BlogCriteria criteria) {
-        return blogRepository.findAllWithPagination(criteria);
-    }
 }

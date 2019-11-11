@@ -5,9 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
+import study.huhao.demo.application.dto.Page;
 import study.huhao.demo.application.usecases.EditBlogUseCase;
 import study.huhao.demo.application.usecases.QueryBlogUseCase;
-import study.huhao.demo.domain.core.common.Page;
 
 import java.util.UUID;
 

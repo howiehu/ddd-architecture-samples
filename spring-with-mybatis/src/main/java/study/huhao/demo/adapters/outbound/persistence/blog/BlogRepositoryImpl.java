@@ -5,8 +5,8 @@ import org.springframework.stereotype.Repository;
 import study.huhao.demo.domain.contexts.blogcontext.blog.Blog;
 import study.huhao.demo.domain.contexts.blogcontext.blog.BlogCriteria;
 import study.huhao.demo.domain.contexts.blogcontext.blog.BlogRepository;
-import study.huhao.demo.domain.core.common.Page;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -49,17 +49,13 @@ public class BlogRepositoryImpl implements BlogRepository {
     }
 
     @Override
-    public Page<Blog> findAllWithPagination(BlogCriteria criteria) {
-        var total = blogMapper.countTotalByCriteria(criteria);
+    public List<Blog> findAll(BlogCriteria criteria) {
+        return blogMapper.selectAllByCriteria(criteria).stream().map(BlogPO::toDomainModel).collect(toList());
+    }
 
-        var pagedBlog = blogMapper.selectAllByCriteria(criteria).stream().map(BlogPO::toDomainModel).collect(toList());
-
-        return new Page<>(
-                pagedBlog,
-                criteria.getLimit(),
-                criteria.getOffset(),
-                total
-        );
+    @Override
+    public long count(BlogCriteria criteria) {
+        return blogMapper.countTotalByCriteria(criteria);
     }
 }
 

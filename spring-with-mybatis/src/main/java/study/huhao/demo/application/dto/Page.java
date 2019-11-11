@@ -1,14 +1,13 @@
-package study.huhao.demo.domain.core.common;
+package study.huhao.demo.application.dto;
 
 import lombok.Getter;
-import study.huhao.demo.domain.core.concepts.ReadModel;
 
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Getter
-public class Page<T> implements ReadModel {
+public class Page<T> {
     private List<T> results;
     private int limit;
     private long offset;
