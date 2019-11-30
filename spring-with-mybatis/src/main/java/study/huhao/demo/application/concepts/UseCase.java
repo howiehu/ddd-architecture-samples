@@ -7,7 +7,7 @@ package study.huhao.demo.application.concepts;
  *     <li>应用需求的输入验证（业务需要的输入验证应放在Domain层中）</li>
  *     <li>依赖注入框架</li>
  *     <li>事务</li>
- *     <li>跨上下文调用</li>
+ *     <li>跨上下文或跨聚合调用</li>
  *     <li>其他应用层面的依赖</li>
  * </ul>
  */

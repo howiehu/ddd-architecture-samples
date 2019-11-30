@@ -33,7 +33,7 @@ class LayeredArchitectureTest {
 //                .whereLayer("Rpc").mayNotBeAccessedByAnyLayer()
 //                .whereLayer("Gateway").mayNotBeAccessedByAnyLayer()
                 .whereLayer("Persistence").mayNotBeAccessedByAnyLayer()
-                .whereLayer("Application").mayOnlyBeAccessedByLayers("Rest")
+                .whereLayer("Application").mayOnlyBeAccessedByLayers("Rest", "Persistence")
 //                .whereLayer("Application").mayOnlyBeAccessedByLayers("Rest", "Rpc")
                 // 由于Domain层位于最内层，可以被所有其它层访问，所以在此不用显式声明和进行测试
                 // .whereLayer("Domain").mayOnlyBeAccessedByLayers("Adapters", "Application")
