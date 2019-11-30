@@ -134,6 +134,30 @@ class DomainLayerTest {
     }
 
     @Nested
+    class processor {
+
+        @Test
+        void processors_should_be_named_ending_with_Processor() {
+            classes().that().resideInAPackage("..domain..")
+                    .and().areAssignableTo(Processor.class)
+                    .should().haveSimpleNameEndingWith("Processor")
+                    .as("The processors should be named ending with 'Processor'.")
+                    .check(classes);
+        }
+
+        @Test
+        void processors_should_extend_Processor() {
+            classes()
+                    .that().resideInAPackage("..domain..")
+                    .and().haveSimpleNameEndingWith("Processor")
+                    .and().doNotHaveSimpleName("Processor")
+                    .should().beAssignableTo(Processor.class)
+                    .as("The processors should extend 'Processor' interface.")
+                    .check(classes);
+        }
+    }
+
+    @Nested
     class domain_exception {
 
         @Test
