@@ -30,7 +30,7 @@ public class PublishedBlogResource {
     public ResponseEntity<?> post(@RequestBody PublishBlogRequest data, UriComponentsBuilder uriComponentsBuilder) {
         var blog = editBlogUseCase.publish(data.blogId);
 
-        UriComponents uriComponents = uriComponentsBuilder.path("/published-blog/{id}").buildAndExpand(blog.getId());
+        var uriComponents = uriComponentsBuilder.path("/published-blog/{id}").buildAndExpand(blog.getId());
         return ResponseEntity.created(uriComponents.toUri()).body(PublishedBlogDto.of(blog));
     }
 }

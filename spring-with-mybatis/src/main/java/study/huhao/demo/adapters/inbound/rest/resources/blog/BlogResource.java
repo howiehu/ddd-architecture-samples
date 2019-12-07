@@ -34,7 +34,7 @@ public class BlogResource {
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> post(@RequestBody CreateBlogRequest data, UriComponentsBuilder uriComponentsBuilder) {
         var blog = editBlogUseCase.create(data.title, data.body, UUID.fromString(data.authorId));
-        UriComponents uriComponents = uriComponentsBuilder.path("/blog/{id}").buildAndExpand(blog.getId());
+        var uriComponents = uriComponentsBuilder.path("/blog/{id}").buildAndExpand(blog.getId());
         return ResponseEntity.created(uriComponents.toUri()).body(BlogDto.of(blog));
     }
 }

@@ -76,7 +76,7 @@ public class Blog implements AggregateRoot {
 
     private void validateIsNeedToPublish() {
         if (this.status == Status.Published) {
-            boolean noChange =
+            var noChange =
                     this.title.equals(this.published.getTitle()) && this.body.equals(this.published.getBody());
             if (noChange) {
                 throw new NoNeedToPublishException();
