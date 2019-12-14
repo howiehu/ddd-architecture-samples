@@ -1,21 +1,10 @@
 package architecture;
 
-import com.tngtech.archunit.core.domain.JavaClasses;
-import com.tngtech.archunit.core.importer.ClassFileImporter;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static com.tngtech.archunit.library.Architectures.layeredArchitecture;
 
-class LayeredArchitectureTest {
-
-    private JavaClasses classes;
-
-    @BeforeEach
-    void setUp() {
-        classes = new ClassFileImporter()
-                .importPackages("study.huhao.demo");
-    }
+class LayeredArchitectureTest extends ArchitectureTest {
 
     @Test
     void layer_dependencies_must_be_respected_include_the_tests() {
@@ -23,7 +12,7 @@ class LayeredArchitectureTest {
 
                 .layer("Rest").definedBy("study.huhao.demo.adapters.inbound.rest..")
 //                .layer("Rpc").definedBy("study.huhao.demo.adapters.inbound.rpc..")
-//                .layer("Gateway").definedBy("study.huhao.demo.adapters.outbound.gateway..")
+                .layer("Gateway").definedBy("study.huhao.demo.adapters.outbound.gateway..")
                 .layer("Persistence").definedBy("study.huhao.demo.adapters.outbound.persistence..")
                 .layer("Application").definedBy("study.huhao.demo.application..")
                 // 由于Domain层位于最内层，可以被所有其它层访问，所以在此不用显式声明和进行测试
@@ -31,10 +20,9 @@ class LayeredArchitectureTest {
 
                 .whereLayer("Rest").mayNotBeAccessedByAnyLayer()
 //                .whereLayer("Rpc").mayNotBeAccessedByAnyLayer()
-//                .whereLayer("Gateway").mayNotBeAccessedByAnyLayer()
+                .whereLayer("Gateway").mayNotBeAccessedByAnyLayer()
                 .whereLayer("Persistence").mayNotBeAccessedByAnyLayer()
-                .whereLayer("Application").mayOnlyBeAccessedByLayers("Rest")
-//                .whereLayer("Application").mayOnlyBeAccessedByLayers("Rest", "Rpc")
+                .whereLayer("Application").mayOnlyBeAccessedByLayers("Rest", "Gateway")
                 // 由于Domain层位于最内层，可以被所有其它层访问，所以在此不用显式声明和进行测试
                 // .whereLayer("Domain").mayOnlyBeAccessedByLayers("Adapters", "Application")
 

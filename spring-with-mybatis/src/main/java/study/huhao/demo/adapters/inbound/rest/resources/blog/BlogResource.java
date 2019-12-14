@@ -3,7 +3,6 @@ package study.huhao.demo.adapters.inbound.rest.resources.blog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import study.huhao.demo.application.dto.Page;
 import study.huhao.demo.application.usecases.EditBlogUseCase;
