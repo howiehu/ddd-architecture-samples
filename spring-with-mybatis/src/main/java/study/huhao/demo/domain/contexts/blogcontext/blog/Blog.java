@@ -30,6 +30,7 @@ public class Blog implements AggregateRoot {
         this.body = body;
         this.authorId = authorId;
         this.status = Status.Draft;
+        // FIXME: Java的Instant精度（纳秒）与MySQL的Timestamp精度（微秒）不一致，会导致从数据库取出的Instant精度降低。
         this.savedAt = this.createdAt = Instant.now();
     }
 

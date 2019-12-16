@@ -10,6 +10,4 @@ CREATE TABLE `blog`
     `published_title` VARCHAR(80),
     `published_body`  TEXT,
     `published_at`    TIMESTAMP(6)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4
-  COLLATE utf8mb4_bin;
+)
