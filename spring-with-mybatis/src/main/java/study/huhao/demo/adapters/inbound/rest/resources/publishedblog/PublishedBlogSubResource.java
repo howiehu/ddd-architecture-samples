@@ -1,6 +1,5 @@
 package study.huhao.demo.adapters.inbound.rest.resources.publishedblog;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +15,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class PublishedBlogSubResource {
     private QueryPublishedBlogUseCase queryPublishedBlogUseCase;
 
-    @Autowired
-    PublishedBlogSubResource(QueryPublishedBlogUseCase queryPublishedBlogUseCase) {
+    public PublishedBlogSubResource(QueryPublishedBlogUseCase queryPublishedBlogUseCase) {
         this.queryPublishedBlogUseCase = queryPublishedBlogUseCase;
     }
 

@@ -1,6 +1,5 @@
 package study.huhao.demo.adapters.inbound.rest.resources.blog;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import study.huhao.demo.application.usecases.EditBlogUseCase;
 import study.huhao.demo.application.usecases.QueryBlogUseCase;
@@ -16,8 +15,7 @@ public class BlogSubResource {
     private QueryBlogUseCase queryBlogUseCase;
     private EditBlogUseCase editBlogUseCase;
 
-    @Autowired
-    BlogSubResource(QueryBlogUseCase queryBlogUseCase, EditBlogUseCase editBlogUseCase) {
+    public BlogSubResource(QueryBlogUseCase queryBlogUseCase, EditBlogUseCase editBlogUseCase) {
         this.queryBlogUseCase = queryBlogUseCase;
         this.editBlogUseCase = editBlogUseCase;
     }

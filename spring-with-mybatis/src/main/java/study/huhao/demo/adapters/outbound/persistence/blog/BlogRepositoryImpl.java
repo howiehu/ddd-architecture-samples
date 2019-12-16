@@ -1,6 +1,5 @@
 package study.huhao.demo.adapters.outbound.persistence.blog;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import study.huhao.demo.domain.contexts.blogcontext.blog.Blog;
 import study.huhao.demo.domain.contexts.blogcontext.blog.BlogCriteria;
@@ -18,7 +17,6 @@ public class BlogRepositoryImpl implements BlogRepository {
 
     private final BlogMapper blogMapper;
 
-    @Autowired
     public BlogRepositoryImpl(BlogMapper blogMapper) {
         this.blogMapper = blogMapper;
     }

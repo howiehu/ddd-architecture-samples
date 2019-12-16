@@ -1,6 +1,5 @@
 package study.huhao.demo.adapters.inbound.rest.resources.blog;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -19,7 +18,6 @@ public class BlogResource {
     private final QueryBlogUseCase queryBlogUseCase;
     private final EditBlogUseCase editBlogUseCase;
 
-    @Autowired
     public BlogResource(QueryBlogUseCase queryBlogUseCase, EditBlogUseCase editBlogUseCase) {
         this.queryBlogUseCase = queryBlogUseCase;
         this.editBlogUseCase = editBlogUseCase;
