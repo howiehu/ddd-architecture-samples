@@ -7,7 +7,7 @@ buildscript {
 
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '2.2.2.RELEASE'
+    id 'org.springframework.boot' version '2.2.6.RELEASE'
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -54,8 +54,8 @@ dependencies {
 
     testImplementation 'io.rest-assured:rest-assured'
 
-    testImplementation 'com.tngtech.archunit:archunit-junit5-api:0.12.0'
-    testRuntimeOnly 'com.tngtech.archunit:archunit-junit5-engine:0.12.0'
+    testImplementation 'com.tngtech.archunit:archunit-junit5-api:0.13.1'
+    testRuntimeOnly 'com.tngtech.archunit:archunit-junit5-engine:0.13.1'
 }
 
 test {
