@@ -1,5 +1,6 @@
 package study.huhao.demo.application.dto;
 
+import com.google.common.collect.ImmutableList;
 import lombok.Getter;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class Page<T> {
 
     public List<T> getResults() {
         // return immutable list to follow the encapsulation principle
-        return List.copyOf(this.results);
+        return ImmutableList.copyOf(this.results);
     }
 
     public <U> Page<U> map(Function<? super T, ? extends U> converter) {

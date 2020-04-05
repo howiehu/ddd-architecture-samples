@@ -18,9 +18,9 @@ class BlogTest {
 
         @Test
         void should_initialize_correctly() {
-            var authorId = UUID.randomUUID();
+            UUID authorId = UUID.randomUUID();
 
-            var blog = new Blog("Test Blog", "Something...", authorId);
+            Blog blog = new Blog("Test Blog", "Something...", authorId);
 
             assertThat(blog.getId()).isNotNull();
             assertThat(blog.getTitle()).isEqualTo("Test Blog");
@@ -100,7 +100,7 @@ class BlogTest {
             blog.publish();
 
             assertThat(blog.getStatus()).isEqualTo(Blog.Status.Published);
-            var published = blog.getPublished();
+            PublishedBlog published = blog.getPublished();
             assertThat(published.getTitle()).isEqualTo("Test Blog");
             assertThat(published.getBody()).isEqualTo("Something...");
             assertThat(published.getPublishedAt()).isNotNull();

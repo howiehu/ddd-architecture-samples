@@ -34,7 +34,7 @@ class PublishedBlogSubResourceTest extends ResourceTest {
 
         @Test
         void should_get_blog() {
-            var createdBlogId = createBlogAndGetId("Test Blog", "Something...", authorId);
+            UUID createdBlogId = createBlogAndGetId("Test Blog", "Something...", authorId);
 
             publishBlog(createdBlogId);
 
@@ -50,7 +50,7 @@ class PublishedBlogSubResourceTest extends ResourceTest {
 
         @Test
         void should_return_404_when_blog_not_found() {
-            var blogId = UUID.randomUUID();
+            UUID blogId = UUID.randomUUID();
             getPublishedBlogById(blogId)
                     .then()
                     .spec(NOT_FOUND_SPEC)
@@ -60,7 +60,7 @@ class PublishedBlogSubResourceTest extends ResourceTest {
 
         @Test
         void should_return_404_when_published_blog_not_found() {
-            var createdBlogId = createBlogAndGetId("Test Blog", "Something...", authorId);
+            UUID createdBlogId = createBlogAndGetId("Test Blog", "Something...", authorId);
 
             getPublishedBlogById(createdBlogId)
                     .then()

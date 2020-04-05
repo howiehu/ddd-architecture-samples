@@ -2,10 +2,12 @@ package study.huhao.demo.adapters.inbound.rest.resources.blog;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import study.huhao.demo.application.dto.Page;
 import study.huhao.demo.application.usecases.EditBlogUseCase;
 import study.huhao.demo.application.usecases.QueryBlogUseCase;
+import study.huhao.demo.domain.contexts.blogcontext.blog.Blog;
 
 import java.util.UUID;
 
@@ -30,8 +32,8 @@ public class BlogResource {
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> post(@RequestBody CreateBlogRequest data, UriComponentsBuilder uriComponentsBuilder) {
-        var blog = editBlogUseCase.create(data.title, data.body, UUID.fromString(data.authorId));
-        var uriComponents = uriComponentsBuilder.path("/blog/{id}").buildAndExpand(blog.getId());
+        Blog blog = editBlogUseCase.create(data.title, data.body, UUID.fromString(data.authorId));
+        UriComponents uriComponents = uriComponentsBuilder.path("/blog/{id}").buildAndExpand(blog.getId());
         return ResponseEntity.created(uriComponents.toUri()).body(BlogDto.of(blog));
     }
 }

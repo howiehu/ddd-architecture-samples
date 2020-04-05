@@ -1,9 +1,9 @@
 package study.huhao.demo.adapters.inbound.rest.resources;
 
+import com.google.common.collect.ImmutableMap;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
-import java.util.Map;
 import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
@@ -16,7 +16,7 @@ public class BaseRequestSpecification {
     public static Response createBlog(String title, String body, UUID authorId) {
         return given()
                 .contentType(ContentType.JSON)
-                .body(Map.of(
+                .body(ImmutableMap.of(
                         "title", title,
                         "body", body,
                         "authorId", authorId
@@ -40,7 +40,7 @@ public class BaseRequestSpecification {
     public static Response publishBlog(UUID createdBlogId) {
         return given()
                 .contentType(JSON)
-                .body(Map.of("blogId", createdBlogId))
+                .body(ImmutableMap.of("blogId", createdBlogId))
                 .when()
                 .post(PUBLISHED_BLOG_BASE_PATH);
     }

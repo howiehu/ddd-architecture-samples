@@ -14,8 +14,8 @@ apply plugin: 'io.spring.dependency-management'
 
 group = 'study.huhao.demo'
 version = '1.0.0'
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 configurations {
     developmentOnly
@@ -40,6 +40,8 @@ dependencies {
         exclude module: 'junit'
     }
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.5.2'
+
+    implementation('com.google.guava:guava:28.2-jre')
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'

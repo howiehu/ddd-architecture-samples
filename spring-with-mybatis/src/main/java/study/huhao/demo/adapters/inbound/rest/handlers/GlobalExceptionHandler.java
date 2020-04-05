@@ -1,5 +1,6 @@
 package study.huhao.demo.adapters.inbound.rest.handlers;
 
+import com.google.common.collect.ImmutableMap;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,8 +11,6 @@ import study.huhao.demo.domain.contexts.blogcontext.blog.exceptions.NoNeedToPubl
 import study.huhao.demo.domain.core.common.excpetions.DomainException;
 import study.huhao.demo.domain.core.common.excpetions.EntityExistedException;
 import study.huhao.demo.domain.core.common.excpetions.EntityNotFoundException;
-
-import java.util.Map;
 
 import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
@@ -35,6 +34,6 @@ class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     private ResponseEntity<Object> handleDomainException(DomainException ex, HttpStatus conflict) {
-        return new ResponseEntity<>(Map.of("message", ex.getMessage()), new HttpHeaders(), conflict);
+        return new ResponseEntity<>(ImmutableMap.of("message", ex.getMessage()), new HttpHeaders(), conflict);
     }
 }

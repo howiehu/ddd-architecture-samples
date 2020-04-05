@@ -24,7 +24,7 @@ class BlogResourceTest extends ResourceTest {
 
         @Test
         void should_create_blog() {
-            var authorId = UUID.randomUUID();
+            UUID authorId = UUID.randomUUID();
 
             createBlog("Test Blog", "Something...", authorId)
                     .then()

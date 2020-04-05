@@ -14,7 +14,7 @@ public class BlogService implements Service {
     }
 
     public Blog create(String title, String body, UUID authorId) {
-        var blog = new Blog(title, body, authorId);
+        Blog blog = new Blog(title, body, authorId);
         blogRepository.save(blog);
         return blog;
     }
@@ -32,19 +32,19 @@ public class BlogService implements Service {
     }
 
     public void saveDraft(UUID id, String title, String body) {
-        var blog = blogRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Blog.class, id));
+        Blog blog = blogRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Blog.class, id));
         blog.saveDraft(title, body);
         blogRepository.save(blog);
     }
 
     public void delete(UUID id) {
-        var existed = blogRepository.existsById(id);
+        boolean existed = blogRepository.existsById(id);
         if (!existed) throw new EntityNotFoundException(Blog.class, id);
         blogRepository.deleteById(id);
     }
 
     public Blog publish(UUID id) {
-        var blog = blogRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Blog.class, id));
+        Blog blog = blogRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Blog.class, id));
         blog.publish();
         blogRepository.save(blog);
         return blog;

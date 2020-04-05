@@ -70,14 +70,14 @@ public class Blog implements AggregateRoot {
     }
 
     private void validateTitle(String title) {
-        if (title == null || title.isBlank()) {
+        if (title == null || title.trim().isEmpty()) {
             throw new IllegalArgumentException("the title cannot be null or no content");
         }
     }
 
     private void validateIsNeedToPublish() {
         if (this.status == Status.Published) {
-            var noChange =
+            boolean noChange =
                     this.title.equals(this.published.getTitle()) && this.body.equals(this.published.getBody());
             if (noChange) {
                 throw new NoNeedToPublishException();

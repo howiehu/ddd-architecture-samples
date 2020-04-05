@@ -31,11 +31,11 @@ class BlogServiceTest {
 
         @Test
         void should_create_correctly() {
-            var createdUser = blogService
+            Blog createdBlog = blogService
                     .create("Test Blog", "Something...", UUID.randomUUID());
 
             verify(blogRepository).save(any(Blog.class));
-            assertThat(createdUser.getId()).isNotNull();
+            assertThat(createdBlog.getId()).isNotNull();
         }
     }
 
@@ -45,11 +45,11 @@ class BlogServiceTest {
         @Test
         void should_get_correctly() {
             // Given
-            var mockBlog = mock(Blog.class);
+            Blog mockBlog = mock(Blog.class);
             given(blogRepository.findById(mockBlog.getId())).willReturn(Optional.of(mockBlog));
 
             // When
-            var foundBlog = blogService.get(mockBlog.getId());
+            Blog foundBlog = blogService.get(mockBlog.getId());
 
             // Then
             assertThat(foundBlog).isSameAs(mockBlog);
@@ -57,7 +57,7 @@ class BlogServiceTest {
 
         @Test
         void should_throw_EntityNotFoundException_when_blog_not_found() {
-            var mockBlog = mock(Blog.class);
+            Blog mockBlog = mock(Blog.class);
 
             given(blogRepository.findById(mockBlog.getId())).willReturn(Optional.empty());
 
@@ -72,18 +72,18 @@ class BlogServiceTest {
 
         @Test
         void should_get_published_blog() {
-            var mockPublishedBlog = mock(Blog.class);
+            Blog mockPublishedBlog = mock(Blog.class);
             given(mockPublishedBlog.isPublished()).willReturn(true);
             given(blogRepository.findById(mockPublishedBlog.getId())).willReturn(Optional.of(mockPublishedBlog));
 
-            var foundPublishedBlog = blogService.getPublished(mockPublishedBlog.getId());
+            Blog foundPublishedBlog = blogService.getPublished(mockPublishedBlog.getId());
 
             assertThat(foundPublishedBlog).isSameAs(mockPublishedBlog);
         }
 
         @Test
         void should_throw_EntityNotFoundException_when_blog_not_found() {
-            var mockPublishedBlog = mock(Blog.class);
+            Blog mockPublishedBlog = mock(Blog.class);
             given(blogRepository.findById(mockPublishedBlog.getId())).willReturn(Optional.empty());
 
             assertThatThrownBy(() -> blogService.getPublished(mockPublishedBlog.getId()))
@@ -93,7 +93,7 @@ class BlogServiceTest {
 
         @Test
         void should_throw_EntityNotFoundException_when_published_blog_not_found() {
-            var mockPublishedBlog = mock(Blog.class);
+            Blog mockPublishedBlog = mock(Blog.class);
             given(mockPublishedBlog.isPublished()).willReturn(false);
             given(blogRepository.findById(mockPublishedBlog.getId())).willReturn(Optional.of(mockPublishedBlog));
 
@@ -108,7 +108,7 @@ class BlogServiceTest {
 
         @Test
         void should_save_correctly() {
-            var mockBlog = mock(Blog.class);
+            Blog mockBlog = mock(Blog.class);
             given(blogRepository.findById(mockBlog.getId())).willReturn(Optional.of(mockBlog));
 
             blogService.saveDraft(mockBlog.getId(), "Updated Title", "Updated...");
@@ -120,7 +120,7 @@ class BlogServiceTest {
 
         @Test
         void should_throw_EntityNotFoundException_when_blog_not_found() {
-            var mockBlog = mock(Blog.class);
+            Blog mockBlog = mock(Blog.class);
             given(blogRepository.findById(mockBlog.getId())).willReturn(Optional.empty());
 
             assertThatThrownBy(() -> blogService.saveDraft(mockBlog.getId(), "Updated Title", "Updated..."))
@@ -134,7 +134,7 @@ class BlogServiceTest {
 
         @Test
         void should_delete_correctly() {
-            var mockBlog = mock(Blog.class);
+            Blog mockBlog = mock(Blog.class);
             given(blogRepository.existsById(mockBlog.getId())).willReturn(true);
 
             blogService.delete(mockBlog.getId());
@@ -144,7 +144,7 @@ class BlogServiceTest {
 
         @Test
         void should_throw_EntityNotFoundException_when_blog_not_found() {
-            var mockBlog = mock(Blog.class);
+            Blog mockBlog = mock(Blog.class);
             given(blogRepository.existsById(mockBlog.getId())).willReturn(false);
 
             assertThatThrownBy(() -> blogService.delete(mockBlog.getId()))
@@ -158,7 +158,7 @@ class BlogServiceTest {
 
         @Test
         void should_publish_correctly() {
-            var mockBlog = mock(Blog.class);
+            Blog mockBlog = mock(Blog.class);
             given(blogRepository.findById(mockBlog.getId())).willReturn(Optional.of(mockBlog));
 
             Blog createdBlog = blogService.publish(mockBlog.getId());
@@ -172,7 +172,7 @@ class BlogServiceTest {
 
         @Test
         void should_throw_EntityNotFoundException_when_blog_not_found() {
-            var mockBlog = mock(Blog.class);
+            Blog mockBlog = mock(Blog.class);
             given(blogRepository.findById(mockBlog.getId())).willReturn(Optional.empty());
 
             assertThatThrownBy(() -> blogService.publish(mockBlog.getId()))

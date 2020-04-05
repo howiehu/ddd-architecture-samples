@@ -1,5 +1,8 @@
 package study.huhao.demo.adapters.inbound.rest.resources.blog;
 
+import com.google.common.collect.ImmutableMap;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -7,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import study.huhao.demo.adapters.inbound.rest.resources.ResourceTest;
 
 import java.time.Instant;
-import java.util.Map;
 import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
@@ -34,7 +36,7 @@ class BlogSubResourceTest extends ResourceTest {
 
         @Test
         void should_get_blog() {
-            var createdBlogId = createBlogAndGetId("Test Blog", "Something...", authorId);
+            UUID createdBlogId = createBlogAndGetId("Test Blog", "Something...", authorId);
 
             getBlog(createdBlogId)
                     .then()
@@ -47,7 +49,7 @@ class BlogSubResourceTest extends ResourceTest {
 
         @Test
         void should_return_404_when_blog_not_found() {
-            var blogId = UUID.randomUUID();
+            UUID blogId = UUID.randomUUID();
             getBlog(blogId)
                     .then()
                     .spec(NOT_FOUND_SPEC)
@@ -61,13 +63,13 @@ class BlogSubResourceTest extends ResourceTest {
 
         @Test
         void should_save_blog() {
-            var jsonPath = createBlog("Test Blog", "Something...", authorId).jsonPath();
-            var createdBlogId = jsonPath.getUUID("id");
-            var createdBlogSavedAt = jsonPath.getString("savedAt");
+            JsonPath jsonPath = createBlog("Test Blog", "Something...", authorId).jsonPath();
+            UUID createdBlogId = jsonPath.getUUID("id");
+            String createdBlogSavedAt = jsonPath.getString("savedAt");
 
             given()
                     .contentType(JSON)
-                    .body(Map.of(
+                    .body(ImmutableMap.of(
                             "title", "Updated Title",
                             "body", "Updated..."
                     ))
@@ -76,7 +78,7 @@ class BlogSubResourceTest extends ResourceTest {
                     .then()
                     .spec(NO_CONTENT_SPEC);
 
-            var response = getBlog(createdBlogId);
+            Response response = getBlog(createdBlogId);
             response
                     .then()
                     .spec(OK_SPEC)
@@ -84,16 +86,16 @@ class BlogSubResourceTest extends ResourceTest {
                     .body("title", is("Updated Title"))
                     .body("body", is("Updated..."));
 
-            var savedAt = response.jsonPath().getString("savedAt");
+            String savedAt = response.jsonPath().getString("savedAt");
             assertThat(Instant.parse(savedAt)).isAfter(Instant.parse(createdBlogSavedAt));
         }
 
         @Test
         void should_return_empty_when_blog_not_found() {
-            var blogId = UUID.randomUUID();
+            UUID blogId = UUID.randomUUID();
             given()
                     .contentType(JSON)
-                    .body(Map.of(
+                    .body(ImmutableMap.of(
                             "title", "Updated Title",
                             "body", "Updated..."
                     ))
@@ -112,7 +114,7 @@ class BlogSubResourceTest extends ResourceTest {
 
         @Test
         void should_delete_blog() {
-            var createdBlogId = createBlogAndGetId("Test Blog", "Something...", authorId);
+            UUID createdBlogId = createBlogAndGetId("Test Blog", "Something...", authorId);
 
             given()
                     .when()
@@ -129,7 +131,7 @@ class BlogSubResourceTest extends ResourceTest {
 
         @Test
         void should_return_404_when_blog_not_found() {
-            var blogId = UUID.randomUUID();
+            UUID blogId = UUID.randomUUID();
             given()
                     .when()
                     .delete(buildPath(blogId))

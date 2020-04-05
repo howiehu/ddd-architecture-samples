@@ -7,6 +7,8 @@ import study.huhao.demo.domain.contexts.blogcontext.blog.Blog;
 import study.huhao.demo.domain.contexts.blogcontext.blog.BlogCriteria;
 
 import java.time.Instant;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,9 +20,9 @@ class BlogMapperTest extends MapperTest {
 
     @Test
     void insert() {
-        var newBlog = insertBlog();
+        BlogPO newBlog = insertBlog();
 
-        var result = blogMapper.findById(newBlog.getId());
+        Optional<BlogPO> result = blogMapper.findById(newBlog.getId());
 
         assertThat(result).hasValueSatisfying(b -> {
             assertThat(b).isEqualToIgnoringGivenFields(newBlog, "published", "createdAt", "savedAt");
@@ -30,9 +32,9 @@ class BlogMapperTest extends MapperTest {
 
     @Test
     void update() {
-        var newBlog = insertBlog();
+        BlogPO newBlog = insertBlog();
 
-        var updatedBlog = new BlogPO(
+        BlogPO updatedBlog = new BlogPO(
                 newBlog.getId(),
                 "Updated Blog",
                 "Updated Something...",
@@ -49,7 +51,7 @@ class BlogMapperTest extends MapperTest {
 
         blogMapper.update(updatedBlog);
 
-        var result = blogMapper.findById(newBlog.getId());
+        Optional<BlogPO> result = blogMapper.findById(newBlog.getId());
 
         assertThat(result).hasValueSatisfying(b -> {
             assertThat(b).isEqualToIgnoringGivenFields(updatedBlog, "published", "createdAt", "savedAt");
@@ -59,20 +61,20 @@ class BlogMapperTest extends MapperTest {
 
     @Test
     void existsById() {
-        var newBlog = insertBlog();
+        BlogPO newBlog = insertBlog();
 
-        var result = blogMapper.existsById(newBlog.getId());
+        boolean result = blogMapper.existsById(newBlog.getId());
 
         assertThat(result).isTrue();
     }
 
     @Test
     void deleteById() {
-        var newBlog = insertBlog();
+        BlogPO newBlog = insertBlog();
 
         blogMapper.deleteById(newBlog.getId());
 
-        var result = blogMapper.findById(newBlog.getId());
+        Optional<BlogPO> result = blogMapper.findById(newBlog.getId());
 
         assertThat(result).isEmpty();
     }
@@ -83,9 +85,9 @@ class BlogMapperTest extends MapperTest {
             insertBlog();
         }
 
-        var criteria = new BlogCriteria(3, 3);
+        BlogCriteria criteria = new BlogCriteria(3, 3);
 
-        var result = blogMapper.selectAllByCriteria(criteria);
+        List<BlogPO> result = blogMapper.selectAllByCriteria(criteria);
 
         assertThat(result).hasSize(2);
     }
@@ -96,15 +98,15 @@ class BlogMapperTest extends MapperTest {
             insertBlog();
         }
 
-        var criteria = new BlogCriteria(3, 3);
+        BlogCriteria criteria = new BlogCriteria(3, 3);
 
-        var result = blogMapper.countTotalByCriteria(criteria);
+        long result = blogMapper.countTotalByCriteria(criteria);
 
         assertThat(result).isEqualTo(5);
     }
 
     private BlogPO insertBlog() {
-        var newBlog = new BlogPO(
+        BlogPO newBlog = new BlogPO(
                 UUID.randomUUID().toString(),
                 "Blog",
                 "Something...",
