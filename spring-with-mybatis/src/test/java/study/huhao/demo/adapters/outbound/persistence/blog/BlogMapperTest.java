@@ -25,8 +25,8 @@ class BlogMapperTest extends MapperTest {
         Optional<BlogPO> result = blogMapper.findById(newBlog.getId());
 
         assertThat(result).hasValueSatisfying(b -> {
-            assertThat(b).isEqualToIgnoringGivenFields(newBlog, "published", "createdAt", "savedAt");
-            assertThat(b.getPublished()).isEqualToIgnoringGivenFields(newBlog.getPublished(), "publishedAt");
+            assertThat(b).isEqualToIgnoringGivenFields(newBlog, "published");
+            assertThat(b.getPublished()).isEqualToComparingFieldByField(newBlog.getPublished());
         });
     }
 
@@ -54,8 +54,8 @@ class BlogMapperTest extends MapperTest {
         Optional<BlogPO> result = blogMapper.findById(newBlog.getId());
 
         assertThat(result).hasValueSatisfying(b -> {
-            assertThat(b).isEqualToIgnoringGivenFields(updatedBlog, "published", "createdAt", "savedAt");
-            assertThat(b.getPublished()).isEqualToIgnoringGivenFields(updatedBlog.getPublished(), "publishedAt");
+            assertThat(b).isEqualToIgnoringGivenFields(updatedBlog, "published");
+            assertThat(b.getPublished()).isEqualToComparingFieldByField(updatedBlog.getPublished());
         });
     }
 
