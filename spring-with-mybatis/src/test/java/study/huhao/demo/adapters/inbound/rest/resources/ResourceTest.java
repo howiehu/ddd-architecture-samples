@@ -5,6 +5,7 @@ import org.flywaydb.test.FlywayTestExecutionListener;
 import org.flywaydb.test.annotation.FlywayTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.TestExecutionListeners;
@@ -14,6 +15,8 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 @ExtendWith(SpringExtension.class)
 // 由于完整启动了 Servlet 进行从 HTTP 请求开始的集成测试，所以需要在测试时随机分配端口以便于测试
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+//由于在 application.properties 中配置了数据库信息，所以关闭自动配置测试数据库的功能
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 /* 使用 flyway-test-extensions 的配置要求，由于覆盖了默认的 @TestExecutionListeners 配置，
    所以需要显式加入 DependencyInjectionTestExecutionListener.class，默认配置请看 @TestExecutionListeners 的实现*/
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, FlywayTestExecutionListener.class})

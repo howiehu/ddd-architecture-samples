@@ -8,10 +8,11 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
+// 使用了 http://mybatis.org/spring-boot-starter/mybatis-spring-boot-test-autoconfigure 便于对 MyBatis 的 Mapper 进行与数据库间的集成测试
 @MybatisTest
 //使用了 https://github.com/flyway/flyway-test-extensions 来实现测试时重置数据库
 @FlywayTest
-// 由于为了保证基础设施的一致性，在测试环境使用了 MySQL 数据库，所以需要显示关闭 mybatis-spring-boot-starter-test 的自动配置内存数据库用于测试的功能。
+//由于在 application.properties 中配置了数据库信息，所以关闭自动配置测试数据库的功能
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 /* 使用 flyway-test-extensions 的配置要求，由于覆盖了默认的 @TestExecutionListeners 配置，
    所以需要显式加入 DependencyInjectionTestExecutionListener.class，
@@ -24,4 +25,3 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 })
 public abstract class MapperTest { //抽象的测试基类用于减少每一个测试类编写时的重复代码，每一个测试类必须继承该基类
 }
-// 使用了 http://mybatis.org/spring-boot-starter/mybatis-spring-boot-test-autoconfigure 便于对 MyBatis 的 Mapper 进行与数据库间的集成测试
