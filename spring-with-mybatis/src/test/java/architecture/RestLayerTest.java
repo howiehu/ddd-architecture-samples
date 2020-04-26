@@ -4,24 +4,13 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import study.huhao.demo.adapters.inbound.rest.resources.RequestDto;
 import study.huhao.demo.adapters.inbound.rest.resources.ResponseDto;
-import study.huhao.demo.domain.core.concepts.HumbleObject;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
-import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.theClass;
 
 class RestLayerTest extends ArchitectureTest {
 
     @Nested
     class request_dto {
-
-        @Test
-        void RequestDto_interface_should_extend_HumbleObject() {
-            theClass(RequestDto.class)
-                    .should().beAssignableTo(HumbleObject.class)
-                    .as("The RequestDto interface should extend HumbleObject.")
-                    .check(classes);
-        }
-
 
         @Test
         void request_dtos_should_be_named_ending_with_Request() {
@@ -48,14 +37,6 @@ class RestLayerTest extends ArchitectureTest {
 
     @Nested
     class response_dto {
-
-        @Test
-        void ResponseDto_interface_should_extend_HumbleObject() {
-            theClass(ResponseDto.class)
-                    .should().beAssignableTo(HumbleObject.class)
-                    .as("The ResponseDto interface should extend HumbleObject.")
-                    .check(classes);
-        }
 
         @Test
         void response_dtos_should_be_named_ending_with_Dto() {
