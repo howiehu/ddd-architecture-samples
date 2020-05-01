@@ -8,6 +8,7 @@ buildscript {
 plugins {
     id 'java'
     id 'org.springframework.boot' version '2.2.6.RELEASE'
+    id 'com.google.protobuf' version '0.8.12'
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -39,7 +40,9 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 
-    implementation('com.google.guava:guava:28.2-jre')
+    implementation 'io.github.lognet:grpc-spring-boot-starter:3.5.3'
+
+    implementation 'com.google.guava:guava:28.2-jre'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
@@ -57,6 +60,48 @@ dependencies {
     testImplementation 'com.tngtech.archunit:archunit-junit5-api:0.13.1'
     testRuntimeOnly 'com.tngtech.archunit:archunit-junit5-engine:0.13.1'
 }
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/protoGen'
+        }
+    }
+}
+
+protobuf {
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.11.4'
+    }
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:1.29.0"
+        }
+    }
+
+    generateProtoTasks {
+        ofSourceSet('main').each { task ->
+            task.builtins {
+                java {
+                    outputSubDir = 'protoGen'
+                }
+            }
+            task.plugins {
+                grpc {
+                    outputSubDir = 'protoGen'
+                }
+            }
+        }
+    }
+    generatedFilesBaseDir = "$projectDir/src"
+}
+
+task cleanProtoGen {
+    doFirst {
+        delete "$projectDir/src/main/protoGen"
+    }
+}
+clean.dependsOn cleanProtoGen
 
 test {
     useJUnitPlatform()
