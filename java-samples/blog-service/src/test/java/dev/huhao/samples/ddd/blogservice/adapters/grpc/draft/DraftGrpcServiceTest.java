@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class DraftGrpcServiceTest extends GrpcServiceIntegrationTestBase {
     @GrpcClient("inProcess")
-    private DraftServiceGrpc.DraftServiceBlockingStub draftService;
+    private DraftServiceGrpc.DraftServiceBlockingStub draftGrpcService;
 
     @Test
     @DirtiesContext
@@ -27,7 +27,7 @@ public class DraftGrpcServiceTest extends GrpcServiceIntegrationTestBase {
                 .build();
 
         // When
-        DraftDto draftDto = draftService.createDraft(request);
+        DraftDto draftDto = draftGrpcService.createDraft(request);
 
         // Then
         assertThat(draftDto.getBlogId()).isNotNull();
