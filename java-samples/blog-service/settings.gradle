@@ -1,1 +1,4 @@
 rootProject.name = 'blog-service'
+
+include 'proto'
+project(':proto').projectDir = new File(settingsDir, '../blog-service-proto')

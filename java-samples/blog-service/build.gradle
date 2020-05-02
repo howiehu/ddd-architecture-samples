@@ -32,6 +32,8 @@ repositories {
 }
 
 dependencies {
+    implementation project(':proto')
+
     implementation 'org.springframework.boot:spring-boot-starter'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -58,8 +60,4 @@ dependencies {
 
 test {
     useJUnitPlatform()
-}
-
-wrapper {
-    gradleVersion = '5.6.4'
 }
