@@ -12,12 +12,19 @@ plugins {
     id 'idea'
 }
 
+group = 'dev.huhao.samples.ddd'
+version = '1.0.0'
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
 repositories {
     mavenCentral()
     jcenter()
 }
 
-def protobufVersion = '1.29.0'
+ext {
+    protobufVersion = '1.29.0'
+}
 
 dependencies {
     implementation "io.grpc:grpc-netty-shaded:${protobufVersion}"
