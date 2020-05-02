@@ -27,7 +27,7 @@ public class DraftGrpcService extends DraftServiceGrpc.DraftServiceImplBase {
                 .createDraft(request.getTitle(), request.getBody(), UUID.fromString(request.getAuthorId()));
 
         DraftDto draftDto = DraftDto.newBuilder()
-                .setBlogId(blog.getBlogId().toString())
+                .setBlogId(blog.getId().toString())
                 .setTitle(blog.getTitle())
                 .setBody(blog.getBody())
                 .setAuthorId(blog.getAuthorId().toString())

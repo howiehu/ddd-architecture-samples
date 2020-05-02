@@ -9,7 +9,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 public class Blog {
-    private final UUID blogId;
+    private final UUID id;
     private String title;
     private String body;
     private final UUID authorId;
@@ -17,7 +17,7 @@ public class Blog {
     private Instant savedAt;
 
     Blog(String title, String body, UUID authorId) {
-        this.blogId = UUID.randomUUID();
+        this.id = UUID.randomUUID();
         this.title = title;
         this.body = body;
         this.authorId = authorId;
