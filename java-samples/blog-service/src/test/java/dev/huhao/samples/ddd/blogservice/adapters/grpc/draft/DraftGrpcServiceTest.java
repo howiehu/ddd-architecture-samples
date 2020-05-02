@@ -35,6 +35,6 @@ public class DraftGrpcServiceTest extends GrpcServiceIntegrationTestBase {
         assertThat(draftDto.getBody()).isEqualTo(request.getBody());
         assertThat(draftDto.getAuthorId()).isEqualTo(request.getAuthorId());
         assertThat(draftDto.getCreatedAt()).isNotBlank();
-        assertThat(draftDto.getSavedAt()).isBlank();
+        assertThat(draftDto.getSavedAt()).isEqualTo(draftDto.getCreatedAt());
     }
 }
