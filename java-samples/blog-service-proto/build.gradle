@@ -34,7 +34,7 @@ dependencies {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:${protobufVersion}"
+        artifact = "com.google.protobuf:protoc:3.11.4"
     }
     generatedFilesBaseDir = "$projectDir/src/generated"
     clean {
@@ -42,7 +42,7 @@ protobuf {
     }
     plugins {
         grpc {
-            artifact = 'io.grpc:protoc-gen-grpc-java'
+            artifact = "io.grpc:protoc-gen-grpc-java:${protobufVersion}"
         }
     }
     generateProtoTasks {
