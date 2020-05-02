@@ -1,8 +1,8 @@
-package dev.huhao.samples.ddd.blogservice.adapters.grpc.draft;
+package dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft;
 
-import dev.huhao.samples.ddd.blogservice.adatpers.grpc.draft.proto.CreateDraftRequest;
-import dev.huhao.samples.ddd.blogservice.adatpers.grpc.draft.proto.DraftDto;
-import dev.huhao.samples.ddd.blogservice.adatpers.grpc.draft.proto.DraftServiceGrpc;
+import dev.huhao.samples.ddd.blogservice.adatpers.inbound.grpc.draft.proto.CreateDraftRequest;
+import dev.huhao.samples.ddd.blogservice.adatpers.inbound.grpc.draft.proto.DraftDto;
+import dev.huhao.samples.ddd.blogservice.adatpers.inbound.grpc.draft.proto.DraftServiceGrpc;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 

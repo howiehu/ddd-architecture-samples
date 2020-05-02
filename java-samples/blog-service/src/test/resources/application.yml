@@ -5,3 +5,4 @@ grpc:
   client:
     inProcess:
       address: "in-process:test" # Configure the client to connect to the inProcess server
+
