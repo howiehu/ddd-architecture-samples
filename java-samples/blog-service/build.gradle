@@ -46,7 +46,7 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 
-    implementation 'net.devh:grpc-server-spring-boot-starter:2.7.0.RELEASE'
+    implementation 'net.devh:grpc-spring-boot-starter:2.7.0.RELEASE'
     testImplementation 'io.grpc:grpc-testing:1.29.0'
 
     implementation 'com.google.guava:guava:28.2-jre'
