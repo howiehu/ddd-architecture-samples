@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package dev.huhao.samples.ddd.blogservice.adatpers.inbound.grpc.draft.proto;
+package dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft.proto;
 
 import "google/protobuf/wrappers.proto";
 

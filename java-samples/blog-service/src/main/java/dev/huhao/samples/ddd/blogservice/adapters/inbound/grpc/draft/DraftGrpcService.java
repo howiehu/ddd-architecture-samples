@@ -1,8 +1,8 @@
 package dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft;
 
-import dev.huhao.samples.ddd.blogservice.adatpers.inbound.grpc.draft.proto.CreateDraftRequest;
-import dev.huhao.samples.ddd.blogservice.adatpers.inbound.grpc.draft.proto.DraftDto;
-import dev.huhao.samples.ddd.blogservice.adatpers.inbound.grpc.draft.proto.DraftServiceGrpc;
+import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft.proto.CreateDraftRequest;
+import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft.proto.DraftDto;
+import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft.proto.DraftServiceGrpc;
 import dev.huhao.samples.ddd.blogservice.application.usecase.EditBlogUseCase;
 import dev.huhao.samples.ddd.blogservice.domain.blogcontext.blog.Blog;
 import io.grpc.stub.StreamObserver;
@@ -16,7 +16,6 @@ public class DraftGrpcService extends DraftServiceGrpc.DraftServiceImplBase {
 
     private final EditBlogUseCase editBlogUseCase;
 
-    @Autowired
     public DraftGrpcService(EditBlogUseCase editBlogUseCase) {
         this.editBlogUseCase = editBlogUseCase;
     }

@@ -1,9 +1,9 @@
-package dev.huhao.samples.ddd.blogservice.adapters.grpc.draft;
+package dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft;
 
-import dev.huhao.samples.ddd.blogservice.adapters.grpc.GrpcServiceIntegrationTestBase;
-import dev.huhao.samples.ddd.blogservice.adatpers.inbound.grpc.draft.proto.CreateDraftRequest;
-import dev.huhao.samples.ddd.blogservice.adatpers.inbound.grpc.draft.proto.DraftDto;
-import dev.huhao.samples.ddd.blogservice.adatpers.inbound.grpc.draft.proto.DraftServiceGrpc;
+import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.GrpcServiceIntegrationTestBase;
+import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft.proto.CreateDraftRequest;
+import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft.proto.DraftDto;
+import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft.proto.DraftServiceGrpc;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.annotation.DirtiesContext;

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dev.huhao.samples.ddd.blogservice.adapters.outbound.persistence.blog.BlogMapper">
+
+    <insert id="insert">
+        insert into blog
+        (
+        id,title, body, author_id, created_at, saved_at
+        )
+        values
+        (
+        #{blog.id}, #{blog.title}, #{blog.body}, #{blog.authorId}, #{blog.createdAt}, #{blog.savedAt}
+        )
+    </insert>
+
+    <select id="findById" resultMap="records.blog">
+        select *
+        from blog
+        where id = #{id}
+    </select>
+
+</mapper>
