@@ -1,3 +1,10 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+}
+
 plugins {
     id 'org.springframework.boot' version '2.2.6.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
@@ -5,7 +12,7 @@ plugins {
 }
 
 group = 'dev.huhao.samples.ddd'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0'
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
@@ -21,21 +28,38 @@ configurations {
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
-    implementation 'org.flywaydb:flyway-core'
-    compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    runtimeOnly 'com.h2database:h2'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-    annotationProcessor 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+
+    implementation 'com.google.guava:guava:28.2-jre'
+
+    runtimeOnly 'com.h2database:h2'
+
+    implementation 'org.flywaydb:flyway-core'
+    testImplementation 'org.flywaydb.flyway-test-extensions:flyway-spring-test:6.0.0'
+
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.1'
+    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.1.1'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation 'com.tngtech.archunit:archunit-junit5-api:0.13.1'
+    testRuntimeOnly 'com.tngtech.archunit:archunit-junit5-engine:0.13.1'
 }
 
 test {
     useJUnitPlatform()
+}
+
+wrapper {
+    gradleVersion = '5.6.4'
 }
