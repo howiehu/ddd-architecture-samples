@@ -1,0 +1,7 @@
+grpc:
+  server:
+    inProcessName: test # Enable inProcess server
+    port: -1 # Disable external server
+  client:
+    inProcess:
+      address: "in-process:test" # Configure the client to connect to the inProcess server
