@@ -2,8 +2,6 @@ HELP.md
 .gradle
 /build/
 !gradle/wrapper/gradle-wrapper.jar
-*.db
-src/main/protoGen/
 
 ### STS ###
 .apt_generated
