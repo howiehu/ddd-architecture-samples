@@ -17,6 +17,9 @@ public class Blog {
     private Instant savedAt;
 
     Blog(String title, String body, UUID authorId) {
+
+        if (authorId == null) throw new IllegalArgumentException("the blog must have author");
+
         this.id = UUID.randomUUID();
         this.title = title;
         this.body = body;

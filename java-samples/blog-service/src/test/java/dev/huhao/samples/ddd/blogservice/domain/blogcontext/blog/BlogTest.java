@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class BlogTest {
 
@@ -24,6 +25,13 @@ class BlogTest {
             assertThat(blog.getAuthorId()).isEqualTo(authorId);
             assertThat(blog.getCreatedAt()).isNotNull();
             assertThat(blog.getSavedAt()).isEqualTo(blog.getCreatedAt());
+        }
+
+        @Test
+        void should_throw_IllegalArgumentException_when_not_have_authorId() {
+            assertThatThrownBy(() -> new Blog("Hello", "A nice day...", null))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("the blog must have author");
         }
     }
 }
