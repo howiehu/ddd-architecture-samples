@@ -16,12 +16,16 @@ public class ExceptionHandlerInterceptor implements ServerInterceptor {
                 try {
                     super.onHalfClose();
                 } catch (EntityNotFoundException e) {
-                    call.close(Status.NOT_FOUND.withCause(e).withDescription(e.getMessage()), new Metadata());
+                    handleCustomException(e, Status.NOT_FOUND);
                 } catch (EntityExistedException e) {
-                    call.close(Status.ALREADY_EXISTS.withCause(e).withDescription(e.getMessage()), new Metadata());
+                    handleCustomException(e, Status.ALREADY_EXISTS);
                 } catch (IllegalArgumentException e) {
-                    call.close(Status.INVALID_ARGUMENT.withCause(e).withDescription(e.getMessage()), new Metadata());
+                    handleCustomException(e, Status.INVALID_ARGUMENT);
                 }
+            }
+
+            private void handleCustomException(RuntimeException e, Status status) {
+                call.close(status.withCause(e).withDescription(e.getMessage()), new Metadata());
             }
         };
     }
