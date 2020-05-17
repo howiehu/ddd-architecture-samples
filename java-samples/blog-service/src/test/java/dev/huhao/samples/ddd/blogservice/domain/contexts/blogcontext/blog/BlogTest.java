@@ -37,7 +37,7 @@ class BlogTest {
 
         @Test
         void should_throw_IllegalArgumentException_when_title_is_blank() {
-            assertThatThrownBy(() -> new Blog("", "", UUID.randomUUID()))
+            assertThatThrownBy(() -> new Blog(" ", " ", UUID.randomUUID()))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("the title cannot be blank");
         }
@@ -68,14 +68,14 @@ class BlogTest {
 
         @Test
         void should_throw_IllegalArgumentException_when_title_is_blank() {
-            assertThatThrownBy(() -> blog.saveDraft("", "Great!"))
+            assertThatThrownBy(() -> blog.saveDraft(" ", "Great!"))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("the title cannot be blank");
         }
 
         @Test
         void should_throw_IllegalArgumentException_when_body_is_blank() {
-            assertThatThrownBy(() -> blog.saveDraft("Hi", ""))
+            assertThatThrownBy(() -> blog.saveDraft("Hi", " "))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("the body cannot be blank");
         }

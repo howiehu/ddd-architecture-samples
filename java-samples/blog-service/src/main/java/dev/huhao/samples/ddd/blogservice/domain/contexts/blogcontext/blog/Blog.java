@@ -33,11 +33,11 @@ public class Blog implements AggregateRoot {
     }
 
     private void verifyTitle(String title) {
-        if (title == null || title.isEmpty()) throw new IllegalArgumentException("the title cannot be blank");
+        if (title == null || title.trim().isEmpty()) throw new IllegalArgumentException("the title cannot be blank");
     }
 
     private void verifyBody(String body) {
-        if (body == null || body.isEmpty()) throw new IllegalArgumentException("the body cannot be blank");
+        if (body == null || body.trim().isEmpty()) throw new IllegalArgumentException("the body cannot be blank");
     }
 
     private void verifyAuthor(UUID authorId) {

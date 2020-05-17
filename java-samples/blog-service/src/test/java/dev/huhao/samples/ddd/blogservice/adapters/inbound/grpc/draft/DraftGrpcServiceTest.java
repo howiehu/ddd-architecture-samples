@@ -52,7 +52,7 @@ public class DraftGrpcServiceTest extends GrpcServiceIntegrationTestBase {
         void should_thrown_INVALID_ARGUMENT_error_when_title_is_blank() {
 
             CreateDraftRequest request =
-                    buildCreateDraftRequest("", "A Nice Day...", UUID.randomUUID().toString());
+                    buildCreateDraftRequest(" ", "A Nice Day...", UUID.randomUUID().toString());
 
             assertThatThrownBy(() -> draftGrpcService.createDraft(request))
                     .isInstanceOf(StatusRuntimeException.class)
@@ -139,7 +139,7 @@ public class DraftGrpcServiceTest extends GrpcServiceIntegrationTestBase {
 
             SaveDraftRequest request = SaveDraftRequest.newBuilder()
                     .setBlogId(createdDraft.getBlogId())
-                    .setTitle("")
+                    .setTitle(" ")
                     .setBody("Great!")
                     .build();
 
@@ -157,7 +157,7 @@ public class DraftGrpcServiceTest extends GrpcServiceIntegrationTestBase {
             SaveDraftRequest request = SaveDraftRequest.newBuilder()
                     .setBlogId(createdDraft.getBlogId())
                     .setTitle("Hi")
-                    .setBody("")
+                    .setBody(" ")
                     .build();
 
             assertThatThrownBy(() -> draftGrpcService.saveDraft(request))
