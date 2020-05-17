@@ -22,7 +22,6 @@ public class BlogGrpcService extends BlogServiceGrpc.BlogServiceImplBase {
 
     @Override
     public void createDraft(CreateDraftRequest request, StreamObserver<DraftDto> responseObserver) {
-
         if (request.getAuthorId() == null || request.getAuthorId().trim().isEmpty()) {
             throw new IllegalArgumentException("the blog must have author");
         }
@@ -36,20 +35,31 @@ public class BlogGrpcService extends BlogServiceGrpc.BlogServiceImplBase {
 
     @Override
     public void getDraft(GetDraftRequest request, StreamObserver<DraftDto> responseObserver) {
-
         Blog blog = queryDraftUseCase.getByBlogId(UUID.fromString(request.getBlogId()));
-
         responseObserver.onNext(buildDraftDto(blog));
         responseObserver.onCompleted();
     }
 
     @Override
     public void saveDraft(SaveDraftRequest request, StreamObserver<DraftDto> responseObserver) {
-
         Blog blog =
                 editDraftUseCase.saveDraft(UUID.fromString(request.getBlogId()), request.getTitle(), request.getBody());
-
         responseObserver.onNext(buildDraftDto(blog));
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void publishBlog(PublishBlogRequest request, StreamObserver<PublishedBlogDto> responseObserver) {
+        Blog blog = editDraftUseCase.publishBlog(UUID.fromString(request.getBlogId()));
+        PublishedBlogDto publishedBlogDto = PublishedBlogDto.newBuilder()
+                .setBlogId(blog.getId().toString())
+                .setAuthorId(blog.getAuthorId().toString())
+                .setTitle(blog.getPublished().getTitle())
+                .setBody(blog.getPublished().getBody())
+                .setPublishedAt(blog.getPublished().getPublishedAt().toString())
+                .setUpdatedAt(blog.getPublished().getUpdatedAt().toString())
+                .build();
+        responseObserver.onNext(publishedBlogDto);
         responseObserver.onCompleted();
     }
 

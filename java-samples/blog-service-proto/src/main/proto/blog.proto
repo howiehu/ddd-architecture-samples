@@ -11,6 +11,7 @@ service BlogService {
   rpc createDraft (CreateDraftRequest) returns (DraftDto);
   rpc getDraft (GetDraftRequest) returns (DraftDto);
   rpc saveDraft (SaveDraftRequest) returns (DraftDto);
+  rpc publishBlog (PublishBlogRequest) returns (PublishedBlogDto);
 }
 
 message CreateDraftRequest {
@@ -36,4 +37,17 @@ message SaveDraftRequest {
   string blogId = 1;
   string title = 2;
   string body = 3;
+}
+
+message PublishBlogRequest {
+  string blogId = 1;
+}
+
+message PublishedBlogDto {
+  string blogId = 1;
+  string title = 2;
+  string body = 3;
+  string authorId = 4;
+  string publishedAt = 5;
+  string updatedAt = 6;
 }

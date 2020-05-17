@@ -8,5 +8,9 @@
         <result property="draftTitle" column="draft_title"/>
         <result property="draftBody" column="draft_body"/>
         <result property="draftSavedAt" column="draft_saved_at" javaType="java.time.Instant"/>
+        <result property="publishedTitle" column="published_title"/>
+        <result property="publishedBody" column="published_body"/>
+        <result property="publishedAt" column="published_at" javaType="java.time.Instant"/>
+        <result property="updatedAt" column="updated_at" javaType="java.time.Instant"/>
     </resultMap>
 </mapper>

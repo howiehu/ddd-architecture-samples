@@ -5,11 +5,15 @@
     <insert id="insert">
         insert into blog
         (
-        id, author_id, created_at, draft_title, draft_body, draft_saved_at
+        id, author_id, created_at,
+        draft_title, draft_body, draft_saved_at,
+        published_title, published_body, published_at, updated_at
         )
         values
         (
-        #{blog.id}, #{blog.authorId}, #{blog.createdAt}, #{blog.draftTitle}, #{blog.draftBody}, #{blog.draftSavedAt}
+        #{blog.id}, #{blog.authorId}, #{blog.createdAt},
+        #{blog.draftTitle}, #{blog.draftBody}, #{blog.draftSavedAt},
+        #{blog.publishedTitle}, #{blog.publishedBody}, #{blog.publishedAt}, #{blog.updatedAt}
         )
     </insert>
 
@@ -26,7 +30,11 @@
         created_at = #{blog.createdAt},
         draft_title = #{blog.draftTitle},
         draft_body = #{blog.draftBody},
-        draft_saved_at = #{blog.draftSavedAt}
+        draft_saved_at = #{blog.draftSavedAt},
+        published_title = #{blog.publishedTitle},
+        published_body = #{blog.publishedBody},
+        published_at = #{blog.publishedAt},
+        updated_at = #{blog.updatedAt}
         where id = #{blog.id}
     </update>
 

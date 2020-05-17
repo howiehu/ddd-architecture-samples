@@ -34,6 +34,10 @@ class BlogMapperTest extends MapperIntegrationTestBase {
                 newBlog.getCreatedAt(),
                 "Hi",
                 "Great!",
+                Instant.now(),
+                "Wow",
+                "Sad",
+                Instant.now(),
                 Instant.now()
         );
 
@@ -51,7 +55,11 @@ class BlogMapperTest extends MapperIntegrationTestBase {
                 Instant.now(),
                 "Blog",
                 "Something...",
-                Instant.now()
+                Instant.now(),
+                null,
+                null,
+                null,
+                null
         );
 
         blogMapper.insert(newBlog);

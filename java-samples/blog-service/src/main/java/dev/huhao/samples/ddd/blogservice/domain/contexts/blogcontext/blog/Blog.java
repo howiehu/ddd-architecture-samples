@@ -1,6 +1,7 @@
 package dev.huhao.samples.ddd.blogservice.domain.contexts.blogcontext.blog;
 
 import dev.huhao.samples.ddd.blogservice.domain.concepts.AggregateRoot;
+import dev.huhao.samples.ddd.blogservice.domain.contexts.blogcontext.blog.exceptions.NoNeedToPublishException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -14,6 +15,7 @@ public class Blog implements AggregateRoot {
     private final UUID authorId;
     private final Instant createdAt;
     private Draft draft;
+    private PublishedBlog published;
 
     Blog(String draftTitle, String draftBody, UUID authorId) {
         verifyAuthor(authorId);
@@ -30,6 +32,25 @@ public class Blog implements AggregateRoot {
         verifyTitle(title);
         verifyBody(body);
         this.draft = new Draft(title, body, Instant.now());
+    }
+
+    void publish() {
+        assert this.draft != null;
+        assert this.draft.getTitle() != null && !this.draft.getTitle().trim().isEmpty();
+
+        verifyBody(this.draft.getBody());
+        verifyIsNeedToPublish();
+
+        Instant now = Instant.now();
+        Instant publishedAt = this.published == null ? now : this.published.getPublishedAt();
+        this.published = new PublishedBlog(this.draft.getTitle(), this.draft.getBody(), publishedAt, now);
+    }
+
+    private void verifyIsNeedToPublish() {
+        if (this.published != null
+                && this.draft.getTitle().equals(this.published.getTitle())
+                && this.draft.getBody().equals(this.published.getBody()))
+            throw new NoNeedToPublishException();
     }
 
     private void verifyTitle(String title) {
