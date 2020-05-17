@@ -10,6 +10,7 @@ option java_outer_classname = "DraftProto";
 service DraftService {
   rpc createDraft (CreateDraftRequest) returns (DraftDto);
   rpc getDraft (GetDraftRequest) returns (DraftDto);
+  rpc saveDraft (SaveDraftRequest) returns (DraftDto);
 }
 
 message CreateDraftRequest {
@@ -29,4 +30,10 @@ message DraftDto {
   string authorId = 4;
   string createdAt = 5;
   string savedAt = 6;
+}
+
+message SaveDraftRequest {
+  string blogId = 1;
+  string title = 2;
+  string body = 3;
 }

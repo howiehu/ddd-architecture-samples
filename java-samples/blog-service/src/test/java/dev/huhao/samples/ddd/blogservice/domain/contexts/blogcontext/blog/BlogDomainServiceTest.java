@@ -4,6 +4,7 @@ import dev.huhao.samples.ddd.blogservice.domain.common.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.mockito.InOrder;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -12,8 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 class BlogDomainServiceTest {
 
@@ -56,7 +56,7 @@ class BlogDomainServiceTest {
 
             Blog result = blogDomainService.getBlog(blogId);
 
-            assertThat(result).isEqualTo(stubBlog);
+            assertThat(result).isSameAs(stubBlog);
         }
 
         @Test
@@ -66,6 +66,38 @@ class BlogDomainServiceTest {
             given(blogRepository.findById(blogId)).willReturn(Optional.empty());
 
             assertThatThrownBy(() -> blogDomainService.getBlog(blogId))
+                    .isInstanceOf(EntityNotFoundException.class)
+                    .hasMessage("cannot find the blog with id " + blogId);
+        }
+    }
+
+    @Nested
+    class saveDraft {
+
+        @Test
+        void should_return_saved_blog() {
+
+            UUID blogId = UUID.randomUUID();
+
+            Blog stubBlog = mock(Blog.class);
+            given(blogRepository.findById(blogId)).willReturn(Optional.of(stubBlog));
+
+            Blog result = blogDomainService.saveDraft(blogId, "Hi", "Great!");
+
+            InOrder inOrder = inOrder(stubBlog, blogRepository);
+            inOrder.verify(stubBlog).saveDraft("Hi", "Great!");
+            inOrder.verify(blogRepository).save(stubBlog);
+
+            assertThat(result).isSameAs(stubBlog);
+        }
+
+        @Test
+        void should_throw_EntityNotFoundException_when_not_found() {
+            UUID blogId = UUID.randomUUID();
+
+            given(blogRepository.findById(blogId)).willReturn(Optional.empty());
+
+            assertThatThrownBy(() -> blogDomainService.saveDraft(blogId, "Hi", "Great!"))
                     .isInstanceOf(EntityNotFoundException.class)
                     .hasMessage("cannot find the blog with id " + blogId);
         }

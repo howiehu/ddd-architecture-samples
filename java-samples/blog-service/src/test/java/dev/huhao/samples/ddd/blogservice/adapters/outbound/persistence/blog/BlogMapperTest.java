@@ -24,6 +24,26 @@ class BlogMapperTest extends MapperIntegrationTestBase {
         assertThat(result).hasValueSatisfying(b -> assertThat(b).isEqualToComparingFieldByField(newBlog));
     }
 
+    @Test
+    void update() {
+        BlogPO newBlog = insertBlog();
+
+        BlogPO updatedBlog = new BlogPO(
+                newBlog.getId(),
+                newBlog.getAuthorId(),
+                newBlog.getCreatedAt(),
+                "Hi",
+                "Great!",
+                Instant.now()
+        );
+
+        blogMapper.update(updatedBlog);
+
+        Optional<BlogPO> result = blogMapper.findById(newBlog.getId());
+
+        assertThat(result).hasValueSatisfying(b -> assertThat(b).isEqualToComparingFieldByField(updatedBlog));
+    }
+
     private BlogPO insertBlog() {
         BlogPO newBlog = new BlogPO(
                 UUID.randomUUID().toString(),

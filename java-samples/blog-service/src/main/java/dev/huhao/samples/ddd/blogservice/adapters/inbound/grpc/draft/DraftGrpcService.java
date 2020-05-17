@@ -1,13 +1,9 @@
 package dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft;
 
-import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft.proto.CreateDraftRequest;
-import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft.proto.DraftDto;
-import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft.proto.DraftServiceGrpc;
-import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft.proto.GetDraftRequest;
+import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft.proto.*;
 import dev.huhao.samples.ddd.blogservice.application.usecase.EditDraftUseCase;
 import dev.huhao.samples.ddd.blogservice.application.usecase.QueryDraftUseCase;
 import dev.huhao.samples.ddd.blogservice.domain.contexts.blogcontext.blog.Blog;
-import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 
@@ -42,6 +38,16 @@ public class DraftGrpcService extends DraftServiceGrpc.DraftServiceImplBase {
     public void getDraft(GetDraftRequest request, StreamObserver<DraftDto> responseObserver) {
 
         Blog blog = queryDraftUseCase.getByBlogId(UUID.fromString(request.getBlogId()));
+
+        responseObserver.onNext(buildDraftDto(blog));
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void saveDraft(SaveDraftRequest request, StreamObserver<DraftDto> responseObserver) {
+
+        Blog blog =
+                editDraftUseCase.saveDraft(UUID.fromString(request.getBlogId()), request.getTitle(), request.getBody());
 
         responseObserver.onNext(buildDraftDto(blog));
         responseObserver.onCompleted();

@@ -20,7 +20,13 @@ public class BlogRepositoryImpl implements BlogRepository {
     public void save(Blog blog) {
         BlogPO blogPO = BlogPO.of(blog);
 
-        blogMapper.insert(blogPO);
+        Optional<BlogPO> record = blogMapper.findById(blog.getId().toString());
+
+        if (record.isPresent()) {
+            blogMapper.update(blogPO);
+        } else {
+            blogMapper.insert(blogPO);
+        }
     }
 
     @Override

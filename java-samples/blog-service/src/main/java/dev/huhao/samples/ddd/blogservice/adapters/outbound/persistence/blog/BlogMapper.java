@@ -12,4 +12,6 @@ public interface BlogMapper {
     void insert(@Param("blog") BlogPO blog);
 
     Optional<BlogPO> findById(@Param("id") String id);
+
+    void update(@Param("blog") BlogPO blogPO);
 }

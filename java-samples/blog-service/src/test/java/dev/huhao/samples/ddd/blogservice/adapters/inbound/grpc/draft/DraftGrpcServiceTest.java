@@ -1,10 +1,7 @@
 package dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft;
 
 import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.GrpcServiceIntegrationTestBase;
-import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft.proto.CreateDraftRequest;
-import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft.proto.DraftDto;
-import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft.proto.DraftServiceGrpc;
-import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft.proto.GetDraftRequest;
+import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft.proto.*;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
 import net.devh.boot.grpc.client.inject.GrpcClient;
@@ -12,6 +9,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.annotation.DirtiesContext;
 
+import java.time.Instant;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -92,6 +90,79 @@ public class DraftGrpcServiceTest extends GrpcServiceIntegrationTestBase {
             assertThatThrownBy(() -> draftGrpcService.getDraft(request))
                     .isInstanceOf(StatusRuntimeException.class)
                     .hasMessage(Status.NOT_FOUND.withDescription("cannot find the blog with id " + blogId)
+                            .asRuntimeException().getMessage());
+        }
+    }
+
+    @Nested
+    class saveDraft {
+
+        @Test
+        void should_return_saved_info() {
+            String authorId = UUID.randomUUID().toString();
+
+            DraftDto createdDraft = createDraft("Hello", "A Nice Day...", authorId);
+
+            SaveDraftRequest request = SaveDraftRequest.newBuilder()
+                    .setBlogId(createdDraft.getBlogId())
+                    .setTitle("Hi")
+                    .setBody("Great!")
+                    .build();
+
+            DraftDto result = draftGrpcService.saveDraft(request);
+
+            assertThat(result.getTitle()).isEqualTo("Hi");
+            assertThat(result.getBody()).isEqualTo("Great!");
+            assertThat(Instant.parse(result.getSavedAt())).isAfter(Instant.parse(createdDraft.getSavedAt()));
+        }
+
+        @Test
+        void should_thrown_NOT_FOUND_error_when_blog_not_found() {
+            String blogId = UUID.randomUUID().toString();
+
+            SaveDraftRequest request = SaveDraftRequest.newBuilder()
+                    .setBlogId(blogId)
+                    .setTitle("Hi")
+                    .setBody("Great!")
+                    .build();
+
+            assertThatThrownBy(() -> draftGrpcService.saveDraft(request))
+                    .isInstanceOf(StatusRuntimeException.class)
+                    .hasMessage(Status.NOT_FOUND.withDescription("cannot find the blog with id " + blogId)
+                            .asRuntimeException().getMessage());
+        }
+
+        @Test
+        void should_thrown_INVALID_ARGUMENT_error_when_title_is_blank() {
+
+            DraftDto createdDraft = createDraft("Hello", "A Nice Day...", UUID.randomUUID().toString());
+
+            SaveDraftRequest request = SaveDraftRequest.newBuilder()
+                    .setBlogId(createdDraft.getBlogId())
+                    .setTitle("")
+                    .setBody("Great!")
+                    .build();
+
+            assertThatThrownBy(() -> draftGrpcService.saveDraft(request))
+                    .isInstanceOf(StatusRuntimeException.class)
+                    .hasMessage(Status.INVALID_ARGUMENT.withDescription("the title cannot be blank")
+                            .asRuntimeException().getMessage());
+        }
+
+        @Test
+        void should_thrown_INVALID_ARGUMENT_error_when_body_is_blank() {
+
+            DraftDto createdDraft = createDraft("Hello", "A Nice Day...", UUID.randomUUID().toString());
+
+            SaveDraftRequest request = SaveDraftRequest.newBuilder()
+                    .setBlogId(createdDraft.getBlogId())
+                    .setTitle("Hi")
+                    .setBody("")
+                    .build();
+
+            assertThatThrownBy(() -> draftGrpcService.saveDraft(request))
+                    .isInstanceOf(StatusRuntimeException.class)
+                    .hasMessage(Status.INVALID_ARGUMENT.withDescription("the body cannot be blank")
                             .asRuntimeException().getMessage());
         }
     }

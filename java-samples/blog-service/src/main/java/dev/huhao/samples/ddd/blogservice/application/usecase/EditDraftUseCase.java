@@ -20,4 +20,9 @@ public class EditDraftUseCase {
     public Blog createDraft(String title, String body, UUID authorId) {
         return blogDomainService.createDraft(title, body, authorId);
     }
+
+    @Transactional
+    public Blog saveDraft(UUID id, String title, String body) {
+        return blogDomainService.saveDraft(id, title, body);
+    }
 }

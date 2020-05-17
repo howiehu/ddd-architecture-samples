@@ -13,7 +13,7 @@ public class Blog implements AggregateRoot {
     private final UUID id;
     private final UUID authorId;
     private final Instant createdAt;
-    private final Draft draft;
+    private Draft draft;
 
     Blog(String draftTitle, String draftBody, UUID authorId) {
         verifyAuthor(authorId);
@@ -26,8 +26,18 @@ public class Blog implements AggregateRoot {
         this.draft = new Draft(draftTitle, draftBody, this.createdAt);
     }
 
-    private void verifyTitle(String draftTitle) {
-        if (draftTitle == null || draftTitle.isEmpty()) throw new IllegalArgumentException("the title cannot be blank");
+    void saveDraft(String title, String body) {
+        verifyTitle(title);
+        verifyBody(body);
+        this.draft = new Draft(title, body, Instant.now());
+    }
+
+    private void verifyTitle(String title) {
+        if (title == null || title.isEmpty()) throw new IllegalArgumentException("the title cannot be blank");
+    }
+
+    private void verifyBody(String body) {
+        if (body == null || body.isEmpty()) throw new IllegalArgumentException("the body cannot be blank");
     }
 
     private void verifyAuthor(UUID authorId) {

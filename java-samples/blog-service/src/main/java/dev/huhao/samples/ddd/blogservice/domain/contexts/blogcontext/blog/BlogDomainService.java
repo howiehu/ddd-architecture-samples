@@ -20,6 +20,17 @@ public class BlogDomainService implements DomainService {
     }
 
     public Blog getBlog(UUID id) {
+        return findBlogById(id);
+    }
+
+    public Blog saveDraft(UUID id, String title, String body) {
+        Blog blog = findBlogById(id);
+        blog.saveDraft(title, body);
+        blogRepository.save(blog);
+        return blog;
+    }
+
+    private Blog findBlogById(UUID id) {
         return blogRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Blog.class, id));
     }
 }

@@ -19,4 +19,15 @@
         where id = #{id}
     </select>
 
+    <update id="update">
+        update blog set
+        id = #{blog.id},
+        author_id = #{blog.authorId},
+        created_at = #{blog.createdAt},
+        draft_title = #{blog.draftTitle},
+        draft_body = #{blog.draftBody},
+        draft_saved_at = #{blog.draftSavedAt}
+        where id = #{blog.id}
+    </update>
+
 </mapper>
