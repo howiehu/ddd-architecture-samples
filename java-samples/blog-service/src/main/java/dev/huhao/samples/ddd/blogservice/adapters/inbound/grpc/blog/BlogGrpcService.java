@@ -1,6 +1,6 @@
-package dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft;
+package dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.blog;
 
-import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft.proto.*;
+import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.blog.proto.*;
 import dev.huhao.samples.ddd.blogservice.application.usecase.EditDraftUseCase;
 import dev.huhao.samples.ddd.blogservice.application.usecase.QueryDraftUseCase;
 import dev.huhao.samples.ddd.blogservice.domain.contexts.blogcontext.blog.Blog;
@@ -10,12 +10,12 @@ import net.devh.boot.grpc.server.service.GrpcService;
 import java.util.UUID;
 
 @GrpcService
-public class DraftGrpcService extends DraftServiceGrpc.DraftServiceImplBase {
+public class BlogGrpcService extends BlogServiceGrpc.BlogServiceImplBase {
 
     private final EditDraftUseCase editDraftUseCase;
     private final QueryDraftUseCase queryDraftUseCase;
 
-    public DraftGrpcService(EditDraftUseCase editDraftUseCase, QueryDraftUseCase queryDraftUseCase) {
+    public BlogGrpcService(EditDraftUseCase editDraftUseCase, QueryDraftUseCase queryDraftUseCase) {
         this.editDraftUseCase = editDraftUseCase;
         this.queryDraftUseCase = queryDraftUseCase;
     }

@@ -1,7 +1,7 @@
-package dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft;
+package dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.blog;
 
 import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.GrpcServiceIntegrationTestBase;
-import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft.proto.*;
+import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.blog.proto.*;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
 import net.devh.boot.grpc.client.inject.GrpcClient;
@@ -15,9 +15,9 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class DraftGrpcServiceTest extends GrpcServiceIntegrationTestBase {
+public class BlogGrpcServiceTest extends GrpcServiceIntegrationTestBase {
     @GrpcClient("inProcess")
-    private DraftServiceGrpc.DraftServiceBlockingStub draftGrpcService;
+    private BlogServiceGrpc.BlogServiceBlockingStub blogGrpcService;
 
     @Nested
     class createDraft {
@@ -42,7 +42,7 @@ public class DraftGrpcServiceTest extends GrpcServiceIntegrationTestBase {
 
             CreateDraftRequest request = buildCreateDraftRequest("Hello", "A Nice Day...", " ");
 
-            assertThatThrownBy(() -> draftGrpcService.createDraft(request))
+            assertThatThrownBy(() -> blogGrpcService.createDraft(request))
                     .isInstanceOf(StatusRuntimeException.class)
                     .hasMessage(Status.INVALID_ARGUMENT.withDescription("the blog must have author")
                             .asRuntimeException().getMessage());
@@ -54,7 +54,7 @@ public class DraftGrpcServiceTest extends GrpcServiceIntegrationTestBase {
             CreateDraftRequest request =
                     buildCreateDraftRequest(" ", "A Nice Day...", UUID.randomUUID().toString());
 
-            assertThatThrownBy(() -> draftGrpcService.createDraft(request))
+            assertThatThrownBy(() -> blogGrpcService.createDraft(request))
                     .isInstanceOf(StatusRuntimeException.class)
                     .hasMessage(Status.INVALID_ARGUMENT.withDescription("the title cannot be blank")
                             .asRuntimeException().getMessage());
@@ -74,7 +74,7 @@ public class DraftGrpcServiceTest extends GrpcServiceIntegrationTestBase {
                     .setBlogId(createdDraft.getBlogId())
                     .build();
 
-            DraftDto result = draftGrpcService.getDraft(request);
+            DraftDto result = blogGrpcService.getDraft(request);
 
             assertThat(result.getBlogId()).isEqualTo(request.getBlogId());
         }
@@ -87,7 +87,7 @@ public class DraftGrpcServiceTest extends GrpcServiceIntegrationTestBase {
                     .setBlogId(blogId)
                     .build();
 
-            assertThatThrownBy(() -> draftGrpcService.getDraft(request))
+            assertThatThrownBy(() -> blogGrpcService.getDraft(request))
                     .isInstanceOf(StatusRuntimeException.class)
                     .hasMessage(Status.NOT_FOUND.withDescription("cannot find the blog with id " + blogId)
                             .asRuntimeException().getMessage());
@@ -109,7 +109,7 @@ public class DraftGrpcServiceTest extends GrpcServiceIntegrationTestBase {
                     .setBody("Great!")
                     .build();
 
-            DraftDto result = draftGrpcService.saveDraft(request);
+            DraftDto result = blogGrpcService.saveDraft(request);
 
             assertThat(result.getTitle()).isEqualTo("Hi");
             assertThat(result.getBody()).isEqualTo("Great!");
@@ -126,7 +126,7 @@ public class DraftGrpcServiceTest extends GrpcServiceIntegrationTestBase {
                     .setBody("Great!")
                     .build();
 
-            assertThatThrownBy(() -> draftGrpcService.saveDraft(request))
+            assertThatThrownBy(() -> blogGrpcService.saveDraft(request))
                     .isInstanceOf(StatusRuntimeException.class)
                     .hasMessage(Status.NOT_FOUND.withDescription("cannot find the blog with id " + blogId)
                             .asRuntimeException().getMessage());
@@ -143,7 +143,7 @@ public class DraftGrpcServiceTest extends GrpcServiceIntegrationTestBase {
                     .setBody("Great!")
                     .build();
 
-            assertThatThrownBy(() -> draftGrpcService.saveDraft(request))
+            assertThatThrownBy(() -> blogGrpcService.saveDraft(request))
                     .isInstanceOf(StatusRuntimeException.class)
                     .hasMessage(Status.INVALID_ARGUMENT.withDescription("the title cannot be blank")
                             .asRuntimeException().getMessage());
@@ -160,7 +160,7 @@ public class DraftGrpcServiceTest extends GrpcServiceIntegrationTestBase {
                     .setBody(" ")
                     .build();
 
-            assertThatThrownBy(() -> draftGrpcService.saveDraft(request))
+            assertThatThrownBy(() -> blogGrpcService.saveDraft(request))
                     .isInstanceOf(StatusRuntimeException.class)
                     .hasMessage(Status.INVALID_ARGUMENT.withDescription("the body cannot be blank")
                             .asRuntimeException().getMessage());
@@ -177,6 +177,6 @@ public class DraftGrpcServiceTest extends GrpcServiceIntegrationTestBase {
 
     private DraftDto createDraft(String title, String body, String authorId) {
         CreateDraftRequest request = buildCreateDraftRequest(title, body, authorId);
-        return draftGrpcService.createDraft(request);
+        return blogGrpcService.createDraft(request);
     }
 }
