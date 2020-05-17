@@ -5,11 +5,11 @@
     <insert id="insert">
         insert into blog
         (
-        id,title, body, author_id, created_at, saved_at
+        id, author_id, created_at, draft_title, draft_body, draft_saved_at
         )
         values
         (
-        #{blog.id}, #{blog.title}, #{blog.body}, #{blog.authorId}, #{blog.createdAt}, #{blog.savedAt}
+        #{blog.id}, #{blog.authorId}, #{blog.createdAt}, #{blog.draftTitle}, #{blog.draftBody}, #{blog.draftSavedAt}
         )
     </insert>
 

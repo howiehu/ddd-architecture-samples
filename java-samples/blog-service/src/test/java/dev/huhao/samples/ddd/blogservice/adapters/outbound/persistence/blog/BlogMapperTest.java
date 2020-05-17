@@ -27,10 +27,10 @@ class BlogMapperTest extends MapperIntegrationTestBase {
     private BlogPO insertBlog() {
         BlogPO newBlog = new BlogPO(
                 UUID.randomUUID().toString(),
-                "Blog",
-                "Something...",
                 UUID.randomUUID().toString(),
                 Instant.now(),
+                "Blog",
+                "Something...",
                 Instant.now()
         );
 

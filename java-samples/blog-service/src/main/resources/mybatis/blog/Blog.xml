@@ -3,10 +3,10 @@
 <mapper namespace="records">
     <resultMap id="blog" type="dev.huhao.samples.ddd.blogservice.adapters.outbound.persistence.blog.BlogPO">
         <id property="id" column="id"/>
-        <result property="title" column="title"/>
-        <result property="body" column="body"/>
         <result property="authorId" column="author_id"/>
         <result property="createdAt" column="created_at" javaType="java.time.Instant"/>
-        <result property="savedAt" column="saved_at" javaType="java.time.Instant"/>
+        <result property="draftTitle" column="draft_title"/>
+        <result property="draftBody" column="draft_body"/>
+        <result property="draftSavedAt" column="draft_saved_at" javaType="java.time.Instant"/>
     </resultMap>
 </mapper>

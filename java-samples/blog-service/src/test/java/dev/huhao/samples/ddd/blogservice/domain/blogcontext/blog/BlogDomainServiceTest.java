@@ -1,12 +1,15 @@
 package dev.huhao.samples.ddd.blogservice.domain.blogcontext.blog;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -22,19 +25,36 @@ class BlogDomainServiceTest {
         blogDomainService = new BlogDomainService(blogRepository);
     }
 
-    @Test
-    void create_draft_should_save_by_repository() {
-        // Given
-        UUID authorId = UUID.randomUUID();
+    @Nested
+    class createDraft {
 
-        // When
-        Blog draft = blogDomainService.createDraft("Hello", "A nice day...", authorId);
+        @Test
+        void should_save_by_repository() {
+            UUID authorId = UUID.randomUUID();
 
-        // Then
-        verify(blogRepository).save(any(Blog.class));
+            Blog blog = blogDomainService.createDraft("Hello", "A nice day...", authorId);
 
-        assertThat(draft.getTitle()).isEqualTo("Hello");
-        assertThat(draft.getBody()).isEqualTo("A nice day...");
-        assertThat(draft.getAuthorId()).isEqualTo(authorId);
+            verify(blogRepository).save(any(Blog.class));
+
+            assertThat(blog.getDraft().getTitle()).isEqualTo("Hello");
+            assertThat(blog.getDraft().getBody()).isEqualTo("A nice day...");
+            assertThat(blog.getAuthorId()).isEqualTo(authorId);
+        }
+    }
+
+    @Nested
+    class getBlog {
+
+        @Test
+        void should_return_blog_with_same_id() {
+            UUID blogId = UUID.randomUUID();
+
+            Blog stubBlog = mock(Blog.class);
+            given(blogRepository.findById(blogId)).willReturn(Optional.of(stubBlog));
+
+            Blog result = blogDomainService.getBlog(blogId);
+
+            assertThat(result).isEqualTo(stubBlog);
+        }
     }
 }

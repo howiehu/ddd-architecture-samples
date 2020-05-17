@@ -1,6 +1,7 @@
 package dev.huhao.samples.ddd.blogservice.adapters.outbound.persistence.blog;
 
 import dev.huhao.samples.ddd.blogservice.domain.blogcontext.blog.Blog;
+import dev.huhao.samples.ddd.blogservice.domain.blogcontext.blog.Draft;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,11 +15,11 @@ import java.util.UUID;
 @Getter
 public class BlogPO {
     private String id;
-    private String title;
-    private String body;
     private String authorId;
     private Instant createdAt;
-    private Instant savedAt;
+    private String draftTitle;
+    private String draftBody;
+    private Instant draftSavedAt;
 
     // The persistence object needs to reflect the table structure.
     // The domain model and persistence object may have much different.
@@ -26,11 +27,9 @@ public class BlogPO {
     public Blog toDomainModel() {
         return new Blog(
                 UUID.fromString(id),
-                title,
-                body,
                 UUID.fromString(authorId),
                 createdAt,
-                savedAt
+                new Draft(draftTitle, draftBody, draftSavedAt)
         );
     }
 
@@ -40,10 +39,10 @@ public class BlogPO {
     static BlogPO of(Blog blog) {
         return blog == null ? null : new BlogPO(
                 blog.getId().toString(),
-                blog.getTitle(),
-                blog.getBody(),
                 blog.getAuthorId().toString(),
                 blog.getCreatedAt(),
-                blog.getSavedAt());
+                blog.getDraft().getTitle(),
+                blog.getDraft().getBody(),
+                blog.getDraft().getSavedAt());
     }
 }

@@ -15,4 +15,8 @@ public class BlogDomainService {
         blogRepository.save(blog);
         return blog;
     }
+
+    public Blog getBlog(UUID id) {
+        return blogRepository.findById(id).get();
+    }
 }

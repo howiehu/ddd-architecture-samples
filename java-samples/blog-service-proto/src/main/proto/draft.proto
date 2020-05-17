@@ -9,12 +9,17 @@ option java_outer_classname = "DraftProto";
 
 service DraftService {
   rpc createDraft (CreateDraftRequest) returns (DraftDto);
+  rpc getDraft (GetDraftRequest) returns (DraftDto);
 }
 
 message CreateDraftRequest {
   string title = 1;
   string body = 2;
   string authorId = 3;
+}
+
+message GetDraftRequest {
+  string blogId = 1;
 }
 
 message DraftDto {

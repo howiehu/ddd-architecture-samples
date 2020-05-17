@@ -4,20 +4,18 @@ import dev.huhao.samples.ddd.blogservice.domain.blogcontext.blog.Blog;
 import dev.huhao.samples.ddd.blogservice.domain.blogcontext.blog.BlogDomainService;
 import dev.huhao.samples.ddd.blogservice.domain.blogcontext.blog.BlogRepository;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
 @Component
-public class EditBlogUseCase {
+public class QueryDraftUseCase {
     private final BlogDomainService blogDomainService;
 
-    public EditBlogUseCase(BlogRepository blogRepository) {
+    public QueryDraftUseCase(BlogRepository blogRepository) {
         this.blogDomainService = new BlogDomainService(blogRepository);
     }
 
-    @Transactional
-    public Blog createDraft(String title, String body, UUID authorId) {
-        return blogDomainService.createDraft(title, body, authorId);
+    public Blog getByBlogId(UUID id) {
+        return blogDomainService.getBlog(id);
     }
 }

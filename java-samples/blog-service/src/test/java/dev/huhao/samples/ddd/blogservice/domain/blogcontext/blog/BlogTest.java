@@ -20,11 +20,11 @@ class BlogTest {
             Blog blog = new Blog("Hello", "A nice day...", authorId);
 
             assertThat(blog.getId()).isNotNull();
-            assertThat(blog.getTitle()).isEqualTo("Hello");
-            assertThat(blog.getBody()).isEqualTo("A nice day...");
+            assertThat(blog.getDraft().getTitle()).isEqualTo("Hello");
+            assertThat(blog.getDraft().getBody()).isEqualTo("A nice day...");
             assertThat(blog.getAuthorId()).isEqualTo(authorId);
             assertThat(blog.getCreatedAt()).isNotNull();
-            assertThat(blog.getSavedAt()).isEqualTo(blog.getCreatedAt());
+            assertThat(blog.getDraft().getSavedAt()).isEqualTo(blog.getCreatedAt());
         }
 
         @Test

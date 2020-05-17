@@ -4,6 +4,9 @@ import dev.huhao.samples.ddd.blogservice.domain.blogcontext.blog.Blog;
 import dev.huhao.samples.ddd.blogservice.domain.blogcontext.blog.BlogRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Repository
 public class BlogRepositoryImpl implements BlogRepository {
 
@@ -18,5 +21,10 @@ public class BlogRepositoryImpl implements BlogRepository {
         BlogPO blogPO = BlogPO.of(blog);
 
         blogMapper.insert(blogPO);
+    }
+
+    @Override
+    public Optional<Blog> findById(UUID id) {
+        return blogMapper.findById(id.toString()).map(BlogPO::toDomainModel);
     }
 }
