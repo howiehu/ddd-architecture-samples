@@ -6,7 +6,6 @@ import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft.proto.Draft
 import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft.proto.GetDraftRequest;
 import dev.huhao.samples.ddd.blogservice.application.usecase.EditDraftUseCase;
 import dev.huhao.samples.ddd.blogservice.application.usecase.QueryDraftUseCase;
-import dev.huhao.samples.ddd.blogservice.domain.common.EntityNotFoundException;
 import dev.huhao.samples.ddd.blogservice.domain.contexts.blogcontext.blog.Blog;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
@@ -29,9 +28,7 @@ public class DraftGrpcService extends DraftServiceGrpc.DraftServiceImplBase {
     public void createDraft(CreateDraftRequest request, StreamObserver<DraftDto> responseObserver) {
 
         if (request.getAuthorId() == null || request.getAuthorId().isEmpty()) {
-            responseObserver
-                    .onError(Status.INVALID_ARGUMENT.withDescription("the blog must have author").asRuntimeException());
-            return;
+            throw new IllegalArgumentException("the blog must have author");
         }
 
         Blog blog = editDraftUseCase
@@ -44,14 +41,7 @@ public class DraftGrpcService extends DraftServiceGrpc.DraftServiceImplBase {
     @Override
     public void getDraft(GetDraftRequest request, StreamObserver<DraftDto> responseObserver) {
 
-        Blog blog;
-
-        try {
-            blog = queryDraftUseCase.getByBlogId(UUID.fromString(request.getBlogId()));
-        } catch (EntityNotFoundException ex) {
-            responseObserver.onError(Status.NOT_FOUND.withDescription(ex.getMessage()).asRuntimeException());
-            return;
-        }
+        Blog blog = queryDraftUseCase.getByBlogId(UUID.fromString(request.getBlogId()));
 
         responseObserver.onNext(buildDraftDto(blog));
         responseObserver.onCompleted();
