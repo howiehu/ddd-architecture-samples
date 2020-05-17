@@ -23,7 +23,7 @@ public class DraftGrpcService extends DraftServiceGrpc.DraftServiceImplBase {
     @Override
     public void createDraft(CreateDraftRequest request, StreamObserver<DraftDto> responseObserver) {
 
-        if (request.getAuthorId() == null || request.getAuthorId().isEmpty()) {
+        if (request.getAuthorId() == null || request.getAuthorId().trim().isEmpty()) {
             throw new IllegalArgumentException("the blog must have author");
         }
 

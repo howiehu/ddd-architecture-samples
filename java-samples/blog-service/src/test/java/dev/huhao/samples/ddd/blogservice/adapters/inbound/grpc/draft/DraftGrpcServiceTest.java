@@ -40,7 +40,7 @@ public class DraftGrpcServiceTest extends GrpcServiceIntegrationTestBase {
         @Test
         void should_thrown_INVALID_ARGUMENT_error_when_not_have_authorId() {
 
-            CreateDraftRequest request = buildCreateDraftRequest("Hello", "A Nice Day...", "");
+            CreateDraftRequest request = buildCreateDraftRequest("Hello", "A Nice Day...", " ");
 
             assertThatThrownBy(() -> draftGrpcService.createDraft(request))
                     .isInstanceOf(StatusRuntimeException.class)
