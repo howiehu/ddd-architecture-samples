@@ -6,7 +6,8 @@ import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft.proto.Draft
 import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.draft.proto.GetDraftRequest;
 import dev.huhao.samples.ddd.blogservice.application.usecase.EditDraftUseCase;
 import dev.huhao.samples.ddd.blogservice.application.usecase.QueryDraftUseCase;
-import dev.huhao.samples.ddd.blogservice.domain.blogcontext.blog.Blog;
+import dev.huhao.samples.ddd.blogservice.domain.common.EntityNotFoundException;
+import dev.huhao.samples.ddd.blogservice.domain.contexts.blogcontext.blog.Blog;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
@@ -43,7 +44,14 @@ public class DraftGrpcService extends DraftServiceGrpc.DraftServiceImplBase {
     @Override
     public void getDraft(GetDraftRequest request, StreamObserver<DraftDto> responseObserver) {
 
-        Blog blog = queryDraftUseCase.getByBlogId(UUID.fromString(request.getBlogId()));
+        Blog blog;
+
+        try {
+            blog = queryDraftUseCase.getByBlogId(UUID.fromString(request.getBlogId()));
+        } catch (EntityNotFoundException ex) {
+            responseObserver.onError(Status.NOT_FOUND.withDescription(ex.getMessage()).asRuntimeException());
+            return;
+        }
 
         responseObserver.onNext(buildDraftDto(blog));
         responseObserver.onCompleted();

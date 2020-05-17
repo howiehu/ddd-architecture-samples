@@ -1,5 +1,6 @@
-package dev.huhao.samples.ddd.blogservice.domain.blogcontext.blog;
+package dev.huhao.samples.ddd.blogservice.domain.contexts.blogcontext.blog;
 
+import dev.huhao.samples.ddd.blogservice.domain.concepts.AggregateRoot;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -8,7 +9,7 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @Getter
-public class Blog {
+public class Blog implements AggregateRoot {
     private final UUID id;
     private final UUID authorId;
     private final Instant createdAt;

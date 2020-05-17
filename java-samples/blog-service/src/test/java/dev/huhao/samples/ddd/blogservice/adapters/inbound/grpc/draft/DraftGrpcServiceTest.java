@@ -40,7 +40,7 @@ public class DraftGrpcServiceTest extends GrpcServiceIntegrationTestBase {
         }
 
         @Test
-        void should_return_error_when_not_have_authorId() {
+        void should_thrown_INVALID_ARGUMENT_error_when_not_have_authorId() {
 
             CreateDraftRequest request = buildCreateDraftRequest("Hello", "A Nice Day...", "");
 
@@ -67,6 +67,20 @@ public class DraftGrpcServiceTest extends GrpcServiceIntegrationTestBase {
             DraftDto result = draftGrpcService.getDraft(request);
 
             assertThat(result.getBlogId()).isEqualTo(request.getBlogId());
+        }
+
+        @Test
+        void should_thrown_NOT_FOUND_error_when_blog_not_found() {
+            String blogId = UUID.randomUUID().toString();
+
+            GetDraftRequest request = GetDraftRequest.newBuilder()
+                    .setBlogId(blogId)
+                    .build();
+
+            assertThatThrownBy(() -> draftGrpcService.getDraft(request))
+                    .isInstanceOf(StatusRuntimeException.class)
+                    .hasMessage(Status.NOT_FOUND.withDescription("cannot find the blog with id " + blogId)
+                            .asRuntimeException().getMessage());
         }
     }
 

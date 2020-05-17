@@ -1,4 +1,4 @@
-package dev.huhao.samples.ddd.blogservice.domain.blogcontext.blog;
+package dev.huhao.samples.ddd.blogservice.domain.contexts.blogcontext.blog;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

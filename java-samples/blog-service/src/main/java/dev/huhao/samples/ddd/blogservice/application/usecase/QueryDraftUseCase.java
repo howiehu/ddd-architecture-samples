@@ -1,8 +1,8 @@
 package dev.huhao.samples.ddd.blogservice.application.usecase;
 
-import dev.huhao.samples.ddd.blogservice.domain.blogcontext.blog.Blog;
-import dev.huhao.samples.ddd.blogservice.domain.blogcontext.blog.BlogDomainService;
-import dev.huhao.samples.ddd.blogservice.domain.blogcontext.blog.BlogRepository;
+import dev.huhao.samples.ddd.blogservice.domain.contexts.blogcontext.blog.Blog;
+import dev.huhao.samples.ddd.blogservice.domain.contexts.blogcontext.blog.BlogDomainService;
+import dev.huhao.samples.ddd.blogservice.domain.contexts.blogcontext.blog.BlogRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
