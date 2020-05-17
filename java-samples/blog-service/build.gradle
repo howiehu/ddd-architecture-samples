@@ -33,7 +33,7 @@ repositories {
 
 ext {
     mybatisVersion = '2.1.1'
-    archunitVersion = '0.13.1'
+//    archunitVersion = '0.13.1'
 }
 
 dependencies {
@@ -62,8 +62,8 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-    testImplementation "com.tngtech.archunit:archunit-junit5-api:${archunitVersion}"
-    testRuntimeOnly "com.tngtech.archunit:archunit-junit5-engine:${archunitVersion}"
+//    testImplementation "com.tngtech.archunit:archunit-junit5-api:${archunitVersion}"
+//    testRuntimeOnly "com.tngtech.archunit:archunit-junit5-engine:${archunitVersion}"
 }
 
 test {
