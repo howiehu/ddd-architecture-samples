@@ -49,6 +49,18 @@ public class DraftGrpcServiceTest extends GrpcServiceIntegrationTestBase {
                     .hasMessage(Status.INVALID_ARGUMENT.withDescription("the blog must have author")
                             .asRuntimeException().getMessage());
         }
+
+        @Test
+        void should_thrown_INVALID_ARGUMENT_error_when_title_is_blank() {
+
+            CreateDraftRequest request =
+                    buildCreateDraftRequest("", "A Nice Day...", UUID.randomUUID().toString());
+
+            assertThatThrownBy(() -> draftGrpcService.createDraft(request))
+                    .isInstanceOf(StatusRuntimeException.class)
+                    .hasMessage(Status.INVALID_ARGUMENT.withDescription("the title cannot be blank")
+                            .asRuntimeException().getMessage());
+        }
     }
 
     @Nested

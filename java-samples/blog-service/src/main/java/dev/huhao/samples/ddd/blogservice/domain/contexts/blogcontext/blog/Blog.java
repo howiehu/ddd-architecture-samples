@@ -16,13 +16,21 @@ public class Blog implements AggregateRoot {
     private final Draft draft;
 
     Blog(String draftTitle, String draftBody, UUID authorId) {
-
-        if (authorId == null) throw new IllegalArgumentException("the blog must have author");
+        verifyAuthor(authorId);
+        verifyTitle(draftTitle);
 
         this.id = UUID.randomUUID();
         this.authorId = authorId;
         // FIXME: Java的Instant精度（纳秒）与MySQL的Timestamp精度（微秒）不一致，会导致从数据库取出的Instant精度降低。
         this.createdAt = Instant.now();
         this.draft = new Draft(draftTitle, draftBody, this.createdAt);
+    }
+
+    private void verifyTitle(String draftTitle) {
+        if (draftTitle == null || draftTitle.isEmpty()) throw new IllegalArgumentException("the title cannot be blank");
+    }
+
+    private void verifyAuthor(UUID authorId) {
+        if (authorId == null) throw new IllegalArgumentException("the blog must have author");
     }
 }

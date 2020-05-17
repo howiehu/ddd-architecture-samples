@@ -33,5 +33,12 @@ class BlogTest {
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("the blog must have author");
         }
+
+        @Test
+        void should_throw_IllegalArgumentException_when_title_is_blank() {
+            assertThatThrownBy(() -> new Blog("", "", UUID.randomUUID()))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("the title cannot be blank");
+        }
     }
 }
