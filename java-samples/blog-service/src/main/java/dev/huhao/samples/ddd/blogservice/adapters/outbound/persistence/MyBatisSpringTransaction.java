@@ -1,4 +1,4 @@
-package dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc;
+package dev.huhao.samples.ddd.blogservice.adapters.outbound.persistence;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
