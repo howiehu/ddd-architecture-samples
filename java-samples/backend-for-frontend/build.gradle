@@ -31,6 +31,10 @@ repositories {
     jcenter()
 }
 
+ext {
+    graphqlSpringBootStarterVersion = '7.0.1'
+}
+
 dependencies {
     implementation project(':blog-service-proto')
 
@@ -40,8 +44,9 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 
-    implementation 'com.graphql-java:graphql-spring-boot-starter:5.0.2'
-    implementation 'com.graphql-java:graphql-java-tools:5.2.4'
+    implementation "com.graphql-java-kickstart:graphql-spring-boot-starter:${graphqlSpringBootStarterVersion}"
+    testImplementation "com.graphql-java-kickstart:graphql-spring-boot-starter-test:${graphqlSpringBootStarterVersion}"
+    implementation 'com.graphql-java-kickstart:graphql-java-tools:6.0.2'
 
     implementation 'net.devh:grpc-client-spring-boot-starter:2.7.0.RELEASE'
 
