@@ -1,1 +1,4 @@
 rootProject.name = 'backend-for-frontend'
+
+include 'blog-service-proto'
+project(':blog-service-proto').projectDir = new File(settingsDir, '../blog-service-proto')
