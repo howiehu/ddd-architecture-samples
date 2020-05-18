@@ -38,6 +38,13 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 
+    implementation 'com.graphql-java:graphql-spring-boot-starter:5.0.2'
+    implementation 'com.graphql-java:graphql-java-tools:5.2.4'
+
+    implementation 'net.devh:grpc-client-spring-boot-starter:2.7.0.RELEASE'
+
+    implementation 'com.google.guava:guava:28.2-jre'
+
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 }
