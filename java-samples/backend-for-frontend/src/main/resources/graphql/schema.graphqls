@@ -2,10 +2,10 @@ type Query {
     draft(blogId: ID!): Draft!
 }
 
-type Mutation {
-#    createDraft(blogId: ID!, title: String!, body: String, authorId: ID!): Draft!
-}
-
-type Subscription {
-
-}
+#type Mutation {
+##    createDraft(blogId: ID!, title: String!, body: String, authorId: ID!): Draft!
+#}
+#
+#type Subscription {
+#
+#}

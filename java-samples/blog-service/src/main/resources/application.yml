@@ -12,3 +12,7 @@ spring:
 
 mybatis:
   mapper-locations: classpath*:/mybatis/**/*.xml
+
+grpc:
+  server:
+    port: 9091
