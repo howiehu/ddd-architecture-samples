@@ -2,22 +2,22 @@ package dev.huhao.samples.ddd.bff.application.service;
 
 import dev.huhao.samples.ddd.bff.adapters.inbound.graphql.blog.Author;
 import dev.huhao.samples.ddd.bff.adapters.inbound.graphql.blog.Draft;
-import dev.huhao.samples.ddd.bff.adapters.outbound.client.BlogClient;
+import dev.huhao.samples.ddd.bff.adapters.outbound.gateway.BlogGateway;
 import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.blog.proto.DraftDto;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BlogService {
 
-    private final BlogClient blogClient;
+    private final BlogGateway blogGateway;
 
-    public BlogService(BlogClient blogClient) {
-        this.blogClient = blogClient;
+    public BlogService(BlogGateway blogGateway) {
+        this.blogGateway = blogGateway;
     }
 
     public Draft getDraft(String blogId) {
 
-        DraftDto draftDto = blogClient.receiveDraft(blogId);
+        DraftDto draftDto = blogGateway.getDraft(blogId);
 
         return Draft.builder()
                 .blogId(draftDto.getBlogId())
