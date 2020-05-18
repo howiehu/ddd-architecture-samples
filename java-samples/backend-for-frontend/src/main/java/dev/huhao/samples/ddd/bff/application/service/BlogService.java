@@ -16,9 +16,14 @@ public class BlogService {
     }
 
     public Draft getDraft(String blogId) {
+        return buildDraft(blogGateway.getDraft(blogId));
+    }
 
-        DraftDto draftDto = blogGateway.getDraft(blogId);
+    public Draft createDraft(String title, String body, String authorId) {
+        return buildDraft(blogGateway.createDraft(title, body, authorId));
+    }
 
+    private Draft buildDraft(DraftDto draftDto) {
         return Draft.builder()
                 .blogId(draftDto.getBlogId())
                 .title(draftDto.getTitle())

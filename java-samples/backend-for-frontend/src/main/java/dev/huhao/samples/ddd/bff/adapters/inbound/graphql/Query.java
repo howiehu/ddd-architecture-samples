@@ -10,7 +10,7 @@ public class Query implements GraphQLQueryResolver {
 
     private final BlogService blogService;
 
-    public Query(BlogService blogService) {
+    Query(BlogService blogService) {
         this.blogService = blogService;
     }
 
