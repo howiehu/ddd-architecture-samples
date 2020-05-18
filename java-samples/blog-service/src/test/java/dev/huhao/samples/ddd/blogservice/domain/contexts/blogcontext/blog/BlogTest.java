@@ -46,7 +46,7 @@ class BlogTest {
     }
 
     @Nested
-    class saveDraft {
+    class updateDraft {
 
         private Blog blog;
 
@@ -56,11 +56,11 @@ class BlogTest {
         }
 
         @Test
-        void should_save_correctly() throws InterruptedException {
+        void should_update_correctly() throws InterruptedException {
             Draft oldDraft = blog.getDraft();
             Thread.sleep(1);// 由于程序运行速度太快，savedAt更改前后时间没有区别，所以需要刻意等1毫秒。
 
-            blog.saveDraft("Hi", "Great!");
+            blog.updateDraft("Hi", "Great!");
 
             assertThat(blog.getDraft()).isNotSameAs(oldDraft); // 值对象不可变，所以只有被替换，不能被修改。
             assertThat(blog.getDraft().getTitle()).isEqualTo("Hi");
@@ -70,14 +70,14 @@ class BlogTest {
 
         @Test
         void should_throw_IllegalArgumentException_when_title_is_blank() {
-            assertThatThrownBy(() -> blog.saveDraft(" ", "Great!"))
+            assertThatThrownBy(() -> blog.updateDraft(" ", "Great!"))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("the title cannot be blank");
         }
 
         @Test
         void should_throw_IllegalArgumentException_when_body_is_blank() {
-            assertThatThrownBy(() -> blog.saveDraft("Hi", " "))
+            assertThatThrownBy(() -> blog.updateDraft("Hi", " "))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("the body cannot be blank");
         }
@@ -105,7 +105,7 @@ class BlogTest {
 
             blog.publish();
             PublishedBlog oldPublished = blog.getPublished();
-            blog.saveDraft("Hi", "Great!");
+            blog.updateDraft("Hi", "Great!");
             Thread.sleep(1);
 
             blog.publish();

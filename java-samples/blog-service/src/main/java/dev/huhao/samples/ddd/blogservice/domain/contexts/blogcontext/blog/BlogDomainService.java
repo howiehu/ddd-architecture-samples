@@ -23,9 +23,9 @@ public class BlogDomainService implements DomainService {
         return findBlogById(id);
     }
 
-    public Blog saveDraft(UUID id, String title, String body) {
+    public Blog updateDraft(UUID id, String title, String body) {
         Blog blog = findBlogById(id);
-        blog.saveDraft(title, body);
+        blog.updateDraft(title, body);
         blogRepository.save(blog);
         return blog;
     }

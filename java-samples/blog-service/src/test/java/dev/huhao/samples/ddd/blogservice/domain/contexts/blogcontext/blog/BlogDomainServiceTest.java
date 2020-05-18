@@ -72,19 +72,19 @@ class BlogDomainServiceTest {
     }
 
     @Nested
-    class saveDraft {
+    class updateDraft {
 
         @Test
-        void should_return_saved_blog() {
+        void should_return_updated_blog() {
             UUID blogId = UUID.randomUUID();
 
             Blog stubBlog = mock(Blog.class);
             given(blogRepository.findById(blogId)).willReturn(Optional.of(stubBlog));
 
-            Blog result = blogDomainService.saveDraft(blogId, "Hi", "Great!");
+            Blog result = blogDomainService.updateDraft(blogId, "Hi", "Great!");
 
             InOrder inOrder = inOrder(stubBlog, blogRepository);
-            inOrder.verify(stubBlog).saveDraft("Hi", "Great!");
+            inOrder.verify(stubBlog).updateDraft("Hi", "Great!");
             inOrder.verify(blogRepository).save(stubBlog);
 
             assertThat(result).isSameAs(stubBlog);
@@ -96,7 +96,7 @@ class BlogDomainServiceTest {
 
             given(blogRepository.findById(blogId)).willReturn(Optional.empty());
 
-            assertThatThrownBy(() -> blogDomainService.saveDraft(blogId, "Hi", "Great!"))
+            assertThatThrownBy(() -> blogDomainService.updateDraft(blogId, "Hi", "Great!"))
                     .isInstanceOf(EntityNotFoundException.class)
                     .hasMessage("cannot find the blog with id " + blogId);
         }

@@ -28,7 +28,7 @@ public class Blog implements AggregateRoot {
         this.draft = new Draft(draftTitle, draftBody, this.createdAt);
     }
 
-    void saveDraft(String title, String body) {
+    void updateDraft(String title, String body) {
         verifyTitle(title);
         verifyBody(body);
         this.draft = new Draft(title, body, Instant.now());

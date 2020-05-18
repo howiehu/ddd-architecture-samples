@@ -41,9 +41,9 @@ public class BlogGrpcService extends BlogServiceGrpc.BlogServiceImplBase {
     }
 
     @Override
-    public void saveDraft(SaveDraftRequest request, StreamObserver<DraftDto> responseObserver) {
+    public void updateDraft(SaveDraftRequest request, StreamObserver<DraftDto> responseObserver) {
         Blog blog =
-                editDraftUseCase.saveDraft(UUID.fromString(request.getBlogId()), request.getTitle(), request.getBody());
+                editDraftUseCase.updateDraft(UUID.fromString(request.getBlogId()), request.getTitle(), request.getBody());
         responseObserver.onNext(buildDraftDto(blog));
         responseObserver.onCompleted();
     }

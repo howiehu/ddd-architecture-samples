@@ -22,8 +22,8 @@ public class EditDraftUseCase {
     }
 
     @Transactional
-    public Blog saveDraft(UUID id, String title, String body) {
-        return blogDomainService.saveDraft(id, title, body);
+    public Blog updateDraft(UUID id, String title, String body) {
+        return blogDomainService.updateDraft(id, title, body);
     }
 
     @Transactional

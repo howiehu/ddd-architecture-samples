@@ -89,10 +89,10 @@ public class BlogGrpcServiceTest extends GrpcServiceIntegrationTestBase {
     }
 
     @Nested
-    class saveDraft {
+    class updateDraft {
 
         @Test
-        void should_return_saved_draft() {
+        void should_return_updated_draft() {
             DraftDto createdDraft = createDraft("Hello", "A Nice Day...", UUID.randomUUID().toString());
             SaveDraftRequest request = SaveDraftRequest.newBuilder()
                     .setBlogId(createdDraft.getBlogId())
@@ -100,7 +100,7 @@ public class BlogGrpcServiceTest extends GrpcServiceIntegrationTestBase {
                     .setBody("Great!")
                     .build();
 
-            DraftDto result = blogGrpcService.saveDraft(request);
+            DraftDto result = blogGrpcService.updateDraft(request);
 
             assertThat(result.getTitle()).isEqualTo("Hi");
             assertThat(result.getBody()).isEqualTo("Great!");
@@ -116,7 +116,7 @@ public class BlogGrpcServiceTest extends GrpcServiceIntegrationTestBase {
                     .setBody("Great!")
                     .build();
 
-            assertThatThrownBy(() -> blogGrpcService.saveDraft(request))
+            assertThatThrownBy(() -> blogGrpcService.updateDraft(request))
                     .isInstanceOf(StatusRuntimeException.class)
                     .hasMessage(Status.NOT_FOUND.withDescription("cannot find the blog with id " + blogId)
                             .asRuntimeException().getMessage());
@@ -131,7 +131,7 @@ public class BlogGrpcServiceTest extends GrpcServiceIntegrationTestBase {
                     .setBody("Great!")
                     .build();
 
-            assertThatThrownBy(() -> blogGrpcService.saveDraft(request))
+            assertThatThrownBy(() -> blogGrpcService.updateDraft(request))
                     .isInstanceOf(StatusRuntimeException.class)
                     .hasMessage(Status.INVALID_ARGUMENT.withDescription("the title cannot be blank")
                             .asRuntimeException().getMessage());
@@ -146,7 +146,7 @@ public class BlogGrpcServiceTest extends GrpcServiceIntegrationTestBase {
                     .setBody(" ")
                     .build();
 
-            assertThatThrownBy(() -> blogGrpcService.saveDraft(request))
+            assertThatThrownBy(() -> blogGrpcService.updateDraft(request))
                     .isInstanceOf(StatusRuntimeException.class)
                     .hasMessage(Status.INVALID_ARGUMENT.withDescription("the body cannot be blank")
                             .asRuntimeException().getMessage());
@@ -183,7 +183,7 @@ public class BlogGrpcServiceTest extends GrpcServiceIntegrationTestBase {
                     .setTitle("Hi")
                     .setBody("Great!")
                     .build();
-            blogGrpcService.saveDraft(saveDraftRequest);
+            blogGrpcService.updateDraft(saveDraftRequest);
 
             PublishedBlogDto result = blogGrpcService.publishBlog(request);
 
