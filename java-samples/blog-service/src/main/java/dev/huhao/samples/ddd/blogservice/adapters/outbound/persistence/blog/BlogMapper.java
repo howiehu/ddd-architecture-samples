@@ -14,4 +14,8 @@ public interface BlogMapper {
     Optional<BlogPO> findById(@Param("id") String id);
 
     void update(@Param("blog") BlogPO blogPO);
+
+    boolean existsById(@Param("id") String id);
+
+    void deleteById(@Param("id") String id);
 }

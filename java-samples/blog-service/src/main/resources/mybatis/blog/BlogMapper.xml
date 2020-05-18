@@ -38,4 +38,16 @@
         where id = #{blog.id}
     </update>
 
+    <select id="existsById" resultType="boolean">
+        select count(id)
+        from blog
+        where id = #{id}
+    </select>
+
+    <delete id="deleteById">
+        delete
+        from blog
+        where id = #{id}
+    </delete>
+
 </mapper>

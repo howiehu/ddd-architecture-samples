@@ -1,5 +1,6 @@
 package dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.blog;
 
+import com.google.protobuf.Empty;
 import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.GrpcServiceIntegrationTestBase;
 import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.blog.proto.*;
 import io.grpc.Status;
@@ -222,6 +223,39 @@ public class BlogGrpcServiceTest extends GrpcServiceIntegrationTestBase {
             assertThatThrownBy(() -> blogGrpcService.publishBlog(request))
                     .isInstanceOf(StatusRuntimeException.class)
                     .hasMessage(Status.INVALID_ARGUMENT.withDescription("the body cannot be blank")
+                            .asRuntimeException().getMessage());
+        }
+    }
+
+    @Nested
+    class deleteBlog {
+
+        @Test
+        void should_delete_blog() {
+            DraftDto createdDraft = createDraft("Hello", "A Nice Day...", UUID.randomUUID().toString());
+            DeleteBlogRequest deleteBlogRequest = DeleteBlogRequest.newBuilder().setBlogId(createdDraft.getBlogId()).build();
+
+            Empty result = blogGrpcService.deleteBlog(deleteBlogRequest);
+            assertThat(result).isNotNull();
+
+            GetDraftRequest getDraftRequest = GetDraftRequest.newBuilder()
+                    .setBlogId(createdDraft.getBlogId())
+                    .build();
+
+            assertThatThrownBy(() -> blogGrpcService.getDraft(getDraftRequest))
+                    .isInstanceOf(StatusRuntimeException.class)
+                    .hasMessage(Status.NOT_FOUND.withDescription("cannot find the blog with id " + createdDraft.getBlogId())
+                            .asRuntimeException().getMessage());
+        }
+
+        @Test
+        void should_thrown_NOT_FOUND_error_when_blog_not_found() {
+            String blogId = UUID.randomUUID().toString();
+            DeleteBlogRequest request = DeleteBlogRequest.newBuilder().setBlogId(blogId).build();
+
+            assertThatThrownBy(() -> blogGrpcService.deleteBlog(request))
+                    .isInstanceOf(StatusRuntimeException.class)
+                    .hasMessage(Status.NOT_FOUND.withDescription("cannot find the blog with id " + blogId)
                             .asRuntimeException().getMessage());
         }
     }

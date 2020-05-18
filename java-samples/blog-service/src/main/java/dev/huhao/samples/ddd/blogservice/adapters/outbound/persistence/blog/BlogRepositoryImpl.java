@@ -33,4 +33,14 @@ public class BlogRepositoryImpl implements BlogRepository {
     public Optional<Blog> findById(UUID id) {
         return blogMapper.findById(id.toString()).map(BlogPO::toDomainModel);
     }
+
+    @Override
+    public boolean existsById(UUID id) {
+        return blogMapper.existsById(id.toString());
+    }
+
+    @Override
+    public void deleteById(UUID id) {
+        blogMapper.deleteById(id.toString());
+    }
 }

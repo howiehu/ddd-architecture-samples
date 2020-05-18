@@ -37,6 +37,11 @@ public class BlogDomainService implements DomainService {
         return blog;
     }
 
+    public void deleteBlog(UUID id) {
+        if (!blogRepository.existsById(id)) throw new EntityNotFoundException(Blog.class, id);
+        blogRepository.deleteById(id);
+    }
+
     private Blog findBlogById(UUID id) {
         return blogRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Blog.class, id));
     }

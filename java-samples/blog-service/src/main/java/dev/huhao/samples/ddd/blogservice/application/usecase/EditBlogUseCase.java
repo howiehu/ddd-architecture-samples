@@ -9,10 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.UUID;
 
 @Component
-public class EditDraftUseCase {
+public class EditBlogUseCase {
     private final BlogDomainService blogDomainService;
 
-    public EditDraftUseCase(BlogRepository blogRepository) {
+    public EditBlogUseCase(BlogRepository blogRepository) {
         this.blogDomainService = new BlogDomainService(blogRepository);
     }
 
@@ -29,5 +29,10 @@ public class EditDraftUseCase {
     @Transactional
     public Blog publishBlog(UUID id) {
         return blogDomainService.publish(id);
+    }
+
+    @Transactional
+    public void deleteBlog(UUID id) {
+        blogDomainService.deleteBlog(id);
     }
 }

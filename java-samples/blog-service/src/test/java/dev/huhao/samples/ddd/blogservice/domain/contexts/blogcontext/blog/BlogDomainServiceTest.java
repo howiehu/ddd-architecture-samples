@@ -132,4 +132,30 @@ class BlogDomainServiceTest {
                     .hasMessage("cannot find the blog with id " + blogId);
         }
     }
+
+    @Nested
+    class deleteBlog {
+
+        @Test
+        void should_find_and_delete() {
+            UUID blogId = UUID.randomUUID();
+            given(blogRepository.existsById(blogId)).willReturn(true);
+
+            blogDomainService.deleteBlog(blogId);
+
+            verify(blogRepository).deleteById(blogId);
+        }
+
+        @Test
+        void should_throw_EntityNotFoundException_when_not_found() {
+            UUID blogId = UUID.randomUUID();
+            given(blogRepository.existsById(blogId)).willReturn(false);
+
+            assertThatThrownBy(() -> blogDomainService.deleteBlog(blogId))
+                    .isInstanceOf(EntityNotFoundException.class)
+                    .hasMessage("cannot find the blog with id " + blogId);
+
+            verify(blogRepository, never()).deleteById(blogId);
+        }
+    }
 }

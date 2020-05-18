@@ -3,6 +3,7 @@ syntax = "proto3";
 package dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.blog.proto;
 
 import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
 
 option java_multiple_files = true;
@@ -31,6 +32,12 @@ service BlogService {
   rpc publishBlog (PublishBlogRequest) returns (PublishedBlogDto) {
     option (google.api.http) = {
       post: "/v1/drafts:publish"
+      body: "*"
+    };
+  }
+  rpc deleteBlog (DeleteBlogRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/blogs/{blogId}"
       body: "*"
     };
   }

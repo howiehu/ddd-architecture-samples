@@ -1,7 +1,8 @@
 package dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.blog;
 
+import com.google.protobuf.Empty;
 import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.blog.proto.*;
-import dev.huhao.samples.ddd.blogservice.application.usecase.EditDraftUseCase;
+import dev.huhao.samples.ddd.blogservice.application.usecase.EditBlogUseCase;
 import dev.huhao.samples.ddd.blogservice.application.usecase.QueryDraftUseCase;
 import dev.huhao.samples.ddd.blogservice.domain.contexts.blogcontext.blog.Blog;
 import io.grpc.stub.StreamObserver;
@@ -12,11 +13,11 @@ import java.util.UUID;
 @GrpcService
 public class BlogGrpcService extends BlogServiceGrpc.BlogServiceImplBase {
 
-    private final EditDraftUseCase editDraftUseCase;
+    private final EditBlogUseCase editBlogUseCase;
     private final QueryDraftUseCase queryDraftUseCase;
 
-    public BlogGrpcService(EditDraftUseCase editDraftUseCase, QueryDraftUseCase queryDraftUseCase) {
-        this.editDraftUseCase = editDraftUseCase;
+    public BlogGrpcService(EditBlogUseCase editBlogUseCase, QueryDraftUseCase queryDraftUseCase) {
+        this.editBlogUseCase = editBlogUseCase;
         this.queryDraftUseCase = queryDraftUseCase;
     }
 
@@ -26,7 +27,7 @@ public class BlogGrpcService extends BlogServiceGrpc.BlogServiceImplBase {
             throw new IllegalArgumentException("the blog must have author");
         }
 
-        Blog blog = editDraftUseCase
+        Blog blog = editBlogUseCase
                 .createDraft(request.getTitle(), request.getBody(), UUID.fromString(request.getAuthorId()));
 
         responseObserver.onNext(buildDraftDto(blog));
@@ -43,14 +44,14 @@ public class BlogGrpcService extends BlogServiceGrpc.BlogServiceImplBase {
     @Override
     public void updateDraft(SaveDraftRequest request, StreamObserver<DraftDto> responseObserver) {
         Blog blog =
-                editDraftUseCase.updateDraft(UUID.fromString(request.getBlogId()), request.getTitle(), request.getBody());
+                editBlogUseCase.updateDraft(UUID.fromString(request.getBlogId()), request.getTitle(), request.getBody());
         responseObserver.onNext(buildDraftDto(blog));
         responseObserver.onCompleted();
     }
 
     @Override
     public void publishBlog(PublishBlogRequest request, StreamObserver<PublishedBlogDto> responseObserver) {
-        Blog blog = editDraftUseCase.publishBlog(UUID.fromString(request.getBlogId()));
+        Blog blog = editBlogUseCase.publishBlog(UUID.fromString(request.getBlogId()));
         PublishedBlogDto publishedBlogDto = PublishedBlogDto.newBuilder()
                 .setBlogId(blog.getId().toString())
                 .setAuthorId(blog.getAuthorId().toString())
@@ -60,6 +61,13 @@ public class BlogGrpcService extends BlogServiceGrpc.BlogServiceImplBase {
                 .setUpdatedAt(blog.getPublished().getUpdatedAt().toString())
                 .build();
         responseObserver.onNext(publishedBlogDto);
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void deleteBlog(DeleteBlogRequest request, StreamObserver<Empty> responseObserver) {
+        editBlogUseCase.deleteBlog(UUID.fromString(request.getBlogId()));
+        responseObserver.onNext(Empty.newBuilder().build());
         responseObserver.onCompleted();
     }
 
