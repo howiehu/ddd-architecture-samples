@@ -1,0 +1,13 @@
+type Draft {
+    blogId: ID!
+    title: String
+    body: String
+    createdAt: String!
+    savedAt: String!
+    author: Author!
+}
+
+type Author {
+    userId: ID!
+    nickname: String!
+}

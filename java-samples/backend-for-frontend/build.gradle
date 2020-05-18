@@ -45,6 +45,7 @@ dependencies {
 
     implementation "com.graphql-java-kickstart:graphql-spring-boot-starter:${graphqlSpringBootStarterVersion}"
     testImplementation "com.graphql-java-kickstart:graphql-spring-boot-starter-test:${graphqlSpringBootStarterVersion}"
+    runtimeOnly "com.graphql-java-kickstart:graphiql-spring-boot-starter:${graphqlSpringBootStarterVersion}"
     implementation 'com.graphql-java-kickstart:graphql-java-tools:6.0.2'
 
     implementation 'net.devh:grpc-client-spring-boot-starter:2.7.0.RELEASE'
