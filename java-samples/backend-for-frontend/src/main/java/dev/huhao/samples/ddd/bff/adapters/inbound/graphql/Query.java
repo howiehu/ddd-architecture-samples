@@ -1,22 +1,20 @@
 package dev.huhao.samples.ddd.bff.adapters.inbound.graphql;
 
+import dev.huhao.samples.ddd.bff.adapters.inbound.graphql.blog.Draft;
+import dev.huhao.samples.ddd.bff.application.service.BlogService;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.springframework.stereotype.Component;
-
-import java.time.Instant;
-import java.util.UUID;
 
 @Component
 public class Query implements GraphQLQueryResolver {
 
+    private final BlogService blogService;
+
+    public Query(BlogService blogService) {
+        this.blogService = blogService;
+    }
+
     Draft draft(String blogId) {
-        return new Draft.DraftBuilder()
-                .blogId(blogId)
-                .title("Hello")
-                .body("A Nice Day...")
-                .createdAt(Instant.now().toString())
-                .savedAt(Instant.now().toString())
-                .author(new Author(UUID.randomUUID().toString(), "Alex"))
-                .build();
+        return blogService.getDraft(blogId);
     }
 }

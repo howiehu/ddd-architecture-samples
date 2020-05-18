@@ -1,4 +1,4 @@
-package dev.huhao.samples.ddd.bff.adapters.inbound.graphql;
+package dev.huhao.samples.ddd.bff.adapters.inbound.graphql.blog;
 
 import lombok.Builder;
 import lombok.Data;

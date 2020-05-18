@@ -5,3 +5,7 @@ type Query {
 type Mutation {
 #    createDraft(blogId: ID!, title: String!, body: String, authorId: ID!): Draft!
 }
+
+type Subscription {
+
+}
