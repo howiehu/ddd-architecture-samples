@@ -5,3 +5,6 @@ grpc:
       enableKeepAlive: true
       keepAliveWithoutCalls: true
       negotiationType: plaintext
+graphql:
+  servlet:
+    exception-handlers-enabled: true

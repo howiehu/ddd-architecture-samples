@@ -1,6 +1,6 @@
 package dev.huhao.samples.ddd.bff.adapters.inbound.graphql;
 
-import dev.huhao.samples.ddd.bff.adapters.inbound.graphql.blog.Draft;
+import dev.huhao.samples.ddd.bff.adapters.inbound.graphql.resolvers.blog.Draft;
 import dev.huhao.samples.ddd.bff.application.service.BlogService;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import org.springframework.stereotype.Component;

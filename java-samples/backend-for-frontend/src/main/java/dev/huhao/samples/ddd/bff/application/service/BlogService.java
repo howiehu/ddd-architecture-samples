@@ -1,7 +1,7 @@
 package dev.huhao.samples.ddd.bff.application.service;
 
-import dev.huhao.samples.ddd.bff.adapters.inbound.graphql.blog.Author;
-import dev.huhao.samples.ddd.bff.adapters.inbound.graphql.blog.Draft;
+import dev.huhao.samples.ddd.bff.adapters.inbound.graphql.resolvers.blog.Author;
+import dev.huhao.samples.ddd.bff.adapters.inbound.graphql.resolvers.blog.Draft;
 import dev.huhao.samples.ddd.bff.adapters.outbound.gateway.BlogGateway;
 import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.blog.proto.DraftDto;
 import org.springframework.stereotype.Service;
