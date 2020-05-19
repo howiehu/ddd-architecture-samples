@@ -1,4 +1,4 @@
-package dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc;
+package dev.huhao.samples.ddd.bff.adapters.inbound.graphql;
 
 import net.devh.boot.grpc.client.autoconfigure.GrpcClientAutoConfiguration;
 import net.devh.boot.grpc.server.autoconfigure.GrpcServerAutoConfiguration;
@@ -10,7 +10,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ImportAutoConfiguration({
         GrpcServerAutoConfiguration.class, // Create required server beans
         GrpcServerFactoryAutoConfiguration.class, // Select server implementation
@@ -19,6 +19,5 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 // Ensures that the grpc-server is properly shutdown after each test
 // Avoids "port already in use" during tests
 @DirtiesContext
-public abstract class GrpcServiceIntegrationTestBase {
-
+public abstract class GraphQLIntegrationTestBase {
 }
