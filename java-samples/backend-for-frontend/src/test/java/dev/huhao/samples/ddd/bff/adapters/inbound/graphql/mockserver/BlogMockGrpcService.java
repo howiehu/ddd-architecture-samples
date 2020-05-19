@@ -14,7 +14,7 @@ class BlogMockGrpcService extends BlogServiceGrpc.BlogServiceImplBase {
                 .setBlogId("95c06541-d58c-482e-9cff-5a0f2a696aac")
                 .setTitle("Hello")
                 .setBody("Hello")
-                .setAuthorId("95c06541-d58c-482e-9cff-5a0f2a696aac")
+                .setAuthorId("3e490af5-085b-48d7-9593-0ceed5fae7af")
                 .setCreatedAt("2020-05-18T13:57:09.635Z")
                 .setSavedAt("2020-05-18T13:57:09.635Z")
                 .build());
