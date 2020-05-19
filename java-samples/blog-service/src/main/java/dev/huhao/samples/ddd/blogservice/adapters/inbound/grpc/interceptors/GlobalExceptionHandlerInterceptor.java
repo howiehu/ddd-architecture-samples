@@ -1,10 +1,10 @@
-package dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc;
+package dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.interceptors;
 
 import dev.huhao.samples.ddd.blogservice.domain.common.EntityExistedException;
 import dev.huhao.samples.ddd.blogservice.domain.common.EntityNotFoundException;
 import io.grpc.*;
 
-public class ExceptionHandlerInterceptor implements ServerInterceptor {
+public class GlobalExceptionHandlerInterceptor implements ServerInterceptor {
     @Override
     public <ReqT, RespT> ServerCall.Listener<ReqT> interceptCall(
             ServerCall<ReqT, RespT> call, Metadata headers, ServerCallHandler<ReqT, RespT> next) {

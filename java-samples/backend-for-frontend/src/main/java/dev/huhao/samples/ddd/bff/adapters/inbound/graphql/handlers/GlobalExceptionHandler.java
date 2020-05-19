@@ -1,4 +1,4 @@
-package dev.huhao.samples.ddd.bff.adapters.inbound.graphql.handler;
+package dev.huhao.samples.ddd.bff.adapters.inbound.graphql.handlers;
 
 import graphql.GraphQLError;
 import graphql.GraphqlErrorBuilder;

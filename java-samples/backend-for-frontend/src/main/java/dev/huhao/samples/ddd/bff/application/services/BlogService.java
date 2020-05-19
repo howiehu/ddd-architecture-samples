@@ -1,4 +1,4 @@
-package dev.huhao.samples.ddd.bff.application.service;
+package dev.huhao.samples.ddd.bff.application.services;
 
 import dev.huhao.samples.ddd.bff.adapters.inbound.graphql.resolvers.blog.Author;
 import dev.huhao.samples.ddd.bff.adapters.inbound.graphql.resolvers.blog.Draft;
