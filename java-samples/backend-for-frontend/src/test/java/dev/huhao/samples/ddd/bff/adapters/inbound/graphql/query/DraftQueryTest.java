@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.util.ResourceUtils.CLASSPATH_URL_PREFIX;
 import static org.springframework.util.ResourceUtils.getFile;
 
-class BlogQueryTest extends GraphQLIntegrationTestBase {
+class DraftQueryTest extends GraphQLIntegrationTestBase {
 
     @Autowired
     private GraphQLTestTemplate graphQLTestTemplate;

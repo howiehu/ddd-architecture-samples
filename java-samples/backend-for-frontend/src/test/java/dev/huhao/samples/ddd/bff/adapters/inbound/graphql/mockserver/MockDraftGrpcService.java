@@ -1,13 +1,13 @@
 package dev.huhao.samples.ddd.bff.adapters.inbound.graphql.mockserver;
 
-import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.blog.proto.BlogServiceGrpc;
-import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.blog.proto.DraftDto;
-import dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.blog.proto.GetDraftRequest;
+import dev.huhao.samples.ddd.protobuf.blog.Draft.DraftDto;
+import dev.huhao.samples.ddd.protobuf.blog.Draft.GetDraftRequest;
+import dev.huhao.samples.ddd.protobuf.blog.DraftServiceGrpc;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 
 @GrpcService
-class BlogMockGrpcService extends BlogServiceGrpc.BlogServiceImplBase {
+class MockDraftGrpcService extends DraftServiceGrpc.DraftServiceImplBase {
     @Override
     public void getDraft(GetDraftRequest request, StreamObserver<DraftDto> responseObserver) {
         responseObserver.onNext(DraftDto.newBuilder()

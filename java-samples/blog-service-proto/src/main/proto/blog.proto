@@ -1,37 +1,16 @@
 syntax = "proto3";
 
-package dev.huhao.samples.ddd.blogservice.adapters.inbound.grpc.blog.proto;
+package dev.huhao.samples.ddd.protobuf.blog;
 
 import "google/protobuf/wrappers.proto";
 import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
 
-option java_multiple_files = true;
-option java_outer_classname = "BlogProto";
-
 // 这里的API设计借鉴并遵循了Google Cloud的API设计规范（https://cloud.google.com/apis/design）
 service BlogService {
-  rpc createDraft (CreateDraftRequest) returns (DraftDto) {
-    option (google.api.http) = {
-      post: "/v1/drafts"
-      body: "*"
-    };
-  }
-  rpc getDraft (GetDraftRequest) returns (DraftDto) {
-    option (google.api.http) = {
-      get: "/v1/drafts/{blogId}"
-      body: "*"
-    };
-  }
-  rpc updateDraft (SaveDraftRequest) returns (DraftDto) {
-    option (google.api.http) = {
-      put: "/v1/drafts/{blogId}"
-      body: "*"
-    };
-  }
   rpc publishBlog (PublishBlogRequest) returns (PublishedBlogDto) {
     option (google.api.http) = {
-      post: "/v1/drafts:publish"
+      post: "/v1/blogs"
       body: "*"
     };
   }
@@ -41,31 +20,6 @@ service BlogService {
       body: "*"
     };
   }
-}
-
-message CreateDraftRequest {
-  string title = 1;
-  string body = 2;
-  string authorId = 3;
-}
-
-message GetDraftRequest {
-  string blogId = 1;
-}
-
-message DraftDto {
-  string blogId = 1;
-  string title = 2;
-  string body = 3;
-  string authorId = 4;
-  string createdAt = 5;
-  string savedAt = 6;
-}
-
-message SaveDraftRequest {
-  string blogId = 1;
-  string title = 2;
-  string body = 3;
 }
 
 message PublishBlogRequest {
