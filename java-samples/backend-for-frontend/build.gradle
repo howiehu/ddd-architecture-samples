@@ -6,7 +6,7 @@ buildscript {
 }
 
 plugins {
-    id 'org.springframework.boot' version '2.2.7.RELEASE'
+    id 'org.springframework.boot' version '2.3.0.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
 }
@@ -49,10 +49,10 @@ dependencies {
     runtimeOnly "com.graphql-java-kickstart:graphiql-spring-boot-starter:${graphqlSpringBootStarterVersion}"
     implementation 'com.graphql-java-kickstart:graphql-java-tools:6.0.2'
 
-    implementation 'net.devh:grpc-spring-boot-starter:2.7.0.RELEASE'
+    implementation 'net.devh:grpc-spring-boot-starter:2.8.0.RELEASE'
     testImplementation 'io.grpc:grpc-testing:1.29.0'
 
-    implementation 'com.google.guava:guava:28.2-jre'
+    implementation 'com.google.guava:guava:29.0-jre'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
