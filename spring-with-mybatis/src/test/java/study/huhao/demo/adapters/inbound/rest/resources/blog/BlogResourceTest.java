@@ -42,7 +42,7 @@ class BlogResourceTest extends ResourceTest {
     class get {
 
         @Test
-        void should_order_by_createdAt_desc_by_default() {
+        void should_order_by_createdAt_desc_by_default() throws InterruptedException {
             createMultiBlog();
 
             given()
@@ -62,7 +62,7 @@ class BlogResourceTest extends ResourceTest {
         }
 
         @Test
-        void should_get_second_page_blog() {
+        void should_get_second_page_blog() throws InterruptedException {
             createMultiBlog();
 
             given()
@@ -91,8 +91,9 @@ class BlogResourceTest extends ResourceTest {
                     .body("total", equalTo(0));
         }
 
-        private void createMultiBlog() {
+        private void createMultiBlog() throws InterruptedException {
             for (int i = 0; i < 5; i++) {
+                Thread.sleep(10);
                 createBlog("Test Blog " + (i + 1), "Something...", UUID.randomUUID());
             }
         }
