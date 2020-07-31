@@ -12,7 +12,6 @@ import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -31,7 +30,6 @@ public class DraftGrpcServiceTest extends GrpcServiceIntegrationTestBase {
     class createDraft {
 
         @Test
-        @DirtiesContext
         void should_return_created_dto() {
             String authorId = UUID.randomUUID().toString();
 
