@@ -1,24 +1,34 @@
 package study.huhao.demo.application.dto;
 
 import com.google.common.collect.ImmutableList;
-import lombok.Getter;
 
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-@Getter
 public class Page<T> {
-    private List<T> results;
-    private int limit;
-    private long offset;
-    private long total;
+    private final List<T> results;
+    private final int limit;
+    private final long offset;
+    private final long total;
 
     public Page(List<T> results, int limit, long offset, long total) {
         this.results = results;
         this.limit = limit;
         this.offset = offset;
         this.total = total;
+    }
+
+    public int getLimit() {
+        return this.limit;
+    }
+
+    public long getOffset() {
+        return this.offset;
+    }
+
+    public long getTotal() {
+        return this.total;
     }
 
     public List<T> getResults() {

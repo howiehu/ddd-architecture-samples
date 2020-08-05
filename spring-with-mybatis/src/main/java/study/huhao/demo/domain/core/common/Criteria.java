@@ -1,11 +1,16 @@
 package study.huhao.demo.domain.core.common;
 
-import lombok.Getter;
-
-@Getter
 public abstract class Criteria {
-    private int limit;
-    private long offset;
+    private final int limit;
+    private final long offset;
+
+    public int getLimit() {
+        return this.limit;
+    }
+
+    public long getOffset() {
+        return this.offset;
+    }
 
     protected Criteria(int limit, long offset) {
         if (limit < 1) throw new IllegalArgumentException("limit must grater than or equal to 1");

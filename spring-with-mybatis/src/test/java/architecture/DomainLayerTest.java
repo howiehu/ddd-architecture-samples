@@ -28,10 +28,6 @@ class DomainLayerTest extends ArchitectureTest {
             classes()
                     .that().resideInAPackage("..domain.models..")
 
-                    // these lines use to ignore lombok's @SuperBuilder generated code
-                    .and().haveSimpleNameNotEndingWith("CriteriaBuilderImpl")
-                    .and().haveSimpleNameNotEndingWith("CriteriaBuilder")
-
                     .should().implement(Entity.class)
                     .orShould().implement(AggregateRoot.class)
                     .orShould().implement(ValueObject.class)

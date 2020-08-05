@@ -1,19 +1,11 @@
 package study.huhao.demo.adapters.outbound.persistence.blog;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import study.huhao.demo.adapters.outbound.persistence.PersistenceObject;
 import study.huhao.demo.domain.contexts.blogcontext.blog.Blog;
 
 import java.time.Instant;
 import java.util.UUID;
 
-// Lombok annotations
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@Getter
 public class BlogPO implements PersistenceObject<Blog> {
 
     private String id;
@@ -24,6 +16,53 @@ public class BlogPO implements PersistenceObject<Blog> {
     private Instant createdAt;
     private Instant savedAt;
     private PublishedBlogPO published;
+
+    // Mybatis 等持久化框架需要一个无参构造函数
+    BlogPO() {
+    }
+
+    BlogPO(String id, String title, String body, String authorId, String status, Instant createdAt, Instant savedAt, PublishedBlogPO published) {
+        this.id = id;
+        this.title = title;
+        this.body = body;
+        this.authorId = authorId;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.savedAt = savedAt;
+        this.published = published;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public String getBody() {
+        return this.body;
+    }
+
+    public String getAuthorId() {
+        return this.authorId;
+    }
+
+    public String getStatus() {
+        return this.status;
+    }
+
+    public Instant getCreatedAt() {
+        return this.createdAt;
+    }
+
+    public Instant getSavedAt() {
+        return this.savedAt;
+    }
+
+    public PublishedBlogPO getPublished() {
+        return this.published;
+    }
 
     // The persistence object needs to reflect the table structure.
     // The domain model and persistence object may have much different.
