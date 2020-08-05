@@ -1,0 +1,17 @@
+mutation {
+    createDraft(
+        title: "Hello"
+        body: "Hello"
+        authorId: "3e490af5-085b-48d7-9593-0ceed5fae7af"
+    ) {
+        blogId
+        title
+        body
+        createdAt
+        savedAt
+        author {
+            userId
+            nickname
+        }
+    }
+}
