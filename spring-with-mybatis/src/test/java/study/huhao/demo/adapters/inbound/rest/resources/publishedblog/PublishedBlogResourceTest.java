@@ -25,7 +25,7 @@ class PublishedBlogResourceTest extends ResourceTest {
     }
 
     @Nested
-    @DisplayName("POST /published-blog")
+    @DisplayName("POST /published-blogs")
     class post {
 
         @Test

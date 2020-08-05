@@ -10,7 +10,7 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(value = "/blog/{id}", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/blogs/{id}", produces = APPLICATION_JSON_VALUE)
 public class BlogSubResource {
     private QueryBlogUseCase queryBlogUseCase;
     private EditBlogUseCase editBlogUseCase;

@@ -13,7 +13,7 @@ import study.huhao.demo.domain.contexts.blogcontext.blog.Blog;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(value = "/published-blog", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/published-blogs", produces = APPLICATION_JSON_VALUE)
 public class PublishedBlogResource {
 
     private final EditBlogUseCase editBlogUseCase;
@@ -26,7 +26,7 @@ public class PublishedBlogResource {
     public ResponseEntity<?> post(@RequestBody PublishBlogRequest data, UriComponentsBuilder uriComponentsBuilder) {
         Blog blog = editBlogUseCase.publish(data.blogId);
 
-        UriComponents uriComponents = uriComponentsBuilder.path("/published-blog/{id}").buildAndExpand(blog.getId());
+        UriComponents uriComponents = uriComponentsBuilder.path("/published-blogs/{id}").buildAndExpand(blog.getId());
         return ResponseEntity.created(uriComponents.toUri()).body(PublishedBlogDto.of(blog));
     }
 }

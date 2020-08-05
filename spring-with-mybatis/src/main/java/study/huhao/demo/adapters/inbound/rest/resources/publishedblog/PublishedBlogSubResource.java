@@ -11,7 +11,7 @@ import java.util.UUID;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(value = "/published-blog/{id}", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/published-blogs/{id}", produces = APPLICATION_JSON_VALUE)
 public class PublishedBlogSubResource {
     private QueryPublishedBlogUseCase queryPublishedBlogUseCase;
 

@@ -14,7 +14,7 @@ import java.util.UUID;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(value = "/blog", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/blogs", produces = APPLICATION_JSON_VALUE)
 public class BlogResource {
 
     private final QueryBlogUseCase queryBlogUseCase;
@@ -33,7 +33,7 @@ public class BlogResource {
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> post(@RequestBody CreateBlogRequest data, UriComponentsBuilder uriComponentsBuilder) {
         Blog blog = editBlogUseCase.create(data.title, data.body, UUID.fromString(data.authorId));
-        UriComponents uriComponents = uriComponentsBuilder.path("/blog/{id}").buildAndExpand(blog.getId());
+        UriComponents uriComponents = uriComponentsBuilder.path("/blogs/{id}").buildAndExpand(blog.getId());
         return ResponseEntity.created(uriComponents.toUri()).body(BlogDto.of(blog));
     }
 }

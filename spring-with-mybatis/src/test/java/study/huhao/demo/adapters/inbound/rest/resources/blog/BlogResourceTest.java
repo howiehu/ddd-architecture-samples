@@ -19,7 +19,7 @@ import static study.huhao.demo.adapters.inbound.rest.resources.BaseResponseSpeci
 class BlogResourceTest extends ResourceTest {
 
     @Nested
-    @DisplayName("POST /blog")
+    @DisplayName("POST /blogs")
     class post {
 
         @Test
