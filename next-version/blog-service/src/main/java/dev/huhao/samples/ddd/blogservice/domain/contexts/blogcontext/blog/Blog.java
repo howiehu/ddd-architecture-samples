@@ -2,20 +2,45 @@ package dev.huhao.samples.ddd.blogservice.domain.contexts.blogcontext.blog;
 
 import dev.huhao.samples.ddd.blogservice.domain.concepts.AggregateRoot;
 import dev.huhao.samples.ddd.blogservice.domain.contexts.blogcontext.blog.exceptions.NoNeedToPublishException;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 import java.time.Instant;
 import java.util.UUID;
 
-@AllArgsConstructor
-@Getter
 public class Blog implements AggregateRoot {
     private final UUID id;
     private final UUID authorId;
     private final Instant createdAt;
     private Draft draft;
     private PublishedBlog published;
+
+    // 全参构造函数仅用于数据结构转换或持久化框架
+    public Blog(UUID id, UUID authorId, Instant createdAt, Draft draft, PublishedBlog published) {
+        this.id = id;
+        this.authorId = authorId;
+        this.createdAt = createdAt;
+        this.draft = draft;
+        this.published = published;
+    }
+
+    public UUID getId() {
+        return this.id;
+    }
+
+    public UUID getAuthorId() {
+        return this.authorId;
+    }
+
+    public Instant getCreatedAt() {
+        return this.createdAt;
+    }
+
+    public Draft getDraft() {
+        return this.draft;
+    }
+
+    public PublishedBlog getPublished() {
+        return this.published;
+    }
 
     Blog(String draftTitle, String draftBody, UUID authorId) {
         verifyAuthor(authorId);

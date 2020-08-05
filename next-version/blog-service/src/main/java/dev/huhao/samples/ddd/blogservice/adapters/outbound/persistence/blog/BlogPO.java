@@ -3,17 +3,10 @@ package dev.huhao.samples.ddd.blogservice.adapters.outbound.persistence.blog;
 import dev.huhao.samples.ddd.blogservice.domain.contexts.blogcontext.blog.Blog;
 import dev.huhao.samples.ddd.blogservice.domain.contexts.blogcontext.blog.Draft;
 import dev.huhao.samples.ddd.blogservice.domain.contexts.blogcontext.blog.PublishedBlog;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 import java.util.UUID;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@Getter
 public class BlogPO {
     private String id;
     private String authorId;
@@ -25,6 +18,63 @@ public class BlogPO {
     private String publishedBody;
     private Instant publishedAt;
     private Instant updatedAt;
+
+    // Mybatis 等持久化框架需要一个无参构造函数
+    BlogPO() {
+    }
+
+    BlogPO(String id, String authorId, Instant createdAt, String draftTitle, String draftBody, Instant draftSavedAt, String publishedTitle, String publishedBody, Instant publishedAt, Instant updatedAt) {
+        this.id = id;
+        this.authorId = authorId;
+        this.createdAt = createdAt;
+        this.draftTitle = draftTitle;
+        this.draftBody = draftBody;
+        this.draftSavedAt = draftSavedAt;
+        this.publishedTitle = publishedTitle;
+        this.publishedBody = publishedBody;
+        this.publishedAt = publishedAt;
+        this.updatedAt = updatedAt;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public String getAuthorId() {
+        return this.authorId;
+    }
+
+    public Instant getCreatedAt() {
+        return this.createdAt;
+    }
+
+    public String getDraftTitle() {
+        return this.draftTitle;
+    }
+
+    public String getDraftBody() {
+        return this.draftBody;
+    }
+
+    public Instant getDraftSavedAt() {
+        return this.draftSavedAt;
+    }
+
+    public String getPublishedTitle() {
+        return this.publishedTitle;
+    }
+
+    public String getPublishedBody() {
+        return this.publishedBody;
+    }
+
+    public Instant getPublishedAt() {
+        return this.publishedAt;
+    }
+
+    public Instant getUpdatedAt() {
+        return this.updatedAt;
+    }
 
     // The persistence object needs to reflect the table structure.
     // The domain model and persistence object may have much different.

@@ -59,9 +59,6 @@ dependencies {
     implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}"
     testImplementation "org.mybatis.spring.boot:mybatis-spring-boot-starter-test:${mybatisVersion}"
 
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-
 //    testImplementation "com.tngtech.archunit:archunit-junit5-api:${archunitVersion}"
 //    testRuntimeOnly "com.tngtech.archunit:archunit-junit5-engine:${archunitVersion}"
 }
