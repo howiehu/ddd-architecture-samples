@@ -12,7 +12,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 @MybatisTest
 //使用了 https://github.com/flyway/flyway-test-extensions 来实现测试时重置数据库
 @FlywayTest
-//由于在 application.properties 中配置了数据库信息，所以关闭自动配置测试数据库的功能
+//由于在 application.yml 中配置了数据库信息，所以关闭自动配置测试数据库的功能
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 /* 使用 flyway-test-extensions 的配置要求，由于覆盖了默认的 @TestExecutionListeners 配置，
    所以需要显式加入 DependencyInjectionTestExecutionListener.class，
