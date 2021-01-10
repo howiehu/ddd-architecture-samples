@@ -1,6 +1,5 @@
 package dev.huhao.samples.ddd.bff.adapters.inbound.graphql.mockserver;
 
-import dev.huhao.samples.ddd.protobuf.blog.Draft;
 import dev.huhao.samples.ddd.protobuf.blog.Draft.DraftDto;
 import dev.huhao.samples.ddd.protobuf.blog.Draft.GetDraftRequest;
 import dev.huhao.samples.ddd.protobuf.blog.DraftServiceGrpc;
