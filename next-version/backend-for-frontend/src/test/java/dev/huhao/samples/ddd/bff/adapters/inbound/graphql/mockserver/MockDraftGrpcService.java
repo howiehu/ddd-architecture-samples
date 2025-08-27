@@ -5,7 +5,7 @@ import dev.huhao.samples.ddd.protobuf.blog.Draft.GetDraftRequest;
 import dev.huhao.samples.ddd.protobuf.blog.DraftServiceGrpc;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
-import org.jetbrains.annotations.NotNull;
+import org.springframework.lang.NonNull;
 
 import static dev.huhao.samples.ddd.protobuf.blog.Draft.CreateDraftRequest;
 
@@ -23,7 +23,7 @@ class MockDraftGrpcService extends DraftServiceGrpc.DraftServiceImplBase {
         responseObserver.onCompleted();
     }
 
-    @NotNull
+    @NonNull
     private DraftDto buildStubDraftDto() {
         return DraftDto.newBuilder()
                 .setBlogId("95c06541-d58c-482e-9cff-5a0f2a696aac")

@@ -6,7 +6,7 @@ import dev.huhao.samples.ddd.blogservice.domain.contexts.blogcontext.blog.except
 import java.time.Instant;
 import java.util.UUID;
 
-public class Blog implements AggregateRoot {
+public class  Blog implements AggregateRoot {
     private final UUID id;
     private final UUID authorId;
     private final Instant createdAt;

@@ -6,15 +6,15 @@ buildscript {
 }
 
 plugins {
-    id 'org.springframework.boot' version '2.3.0.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'org.springframework.boot' version '3.2.1'
+    id 'io.spring.dependency-management' version '1.1.4'
     id 'java'
 }
 
 group = 'dev.huhao.samples.ddd'
 version = '1.0.0'
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_21
+targetCompatibility = JavaVersion.VERSION_21
 
 configurations {
     developmentOnly
@@ -32,7 +32,7 @@ repositories {
 }
 
 ext {
-    graphqlSpringBootStarterVersion = '7.0.1'
+    graphqlSpringBootStarterVersion = '11.1.0'
 }
 
 dependencies {
@@ -43,16 +43,15 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+    testImplementation 'org.springframework:spring-webflux'
+    testImplementation 'org.springframework.graphql:spring-graphql-test'
 
-    implementation "com.graphql-java-kickstart:graphql-spring-boot-starter:${graphqlSpringBootStarterVersion}"
-    testImplementation "com.graphql-java-kickstart:graphql-spring-boot-starter-test:${graphqlSpringBootStarterVersion}"
-    runtimeOnly "com.graphql-java-kickstart:graphiql-spring-boot-starter:${graphqlSpringBootStarterVersion}"
-    implementation 'com.graphql-java-kickstart:graphql-java-tools:6.0.2'
+    implementation 'org.springframework.boot:spring-boot-starter-graphql'
 
-    implementation 'net.devh:grpc-spring-boot-starter:2.8.0.RELEASE'
-    testImplementation 'io.grpc:grpc-testing:1.29.0'
+    implementation 'net.devh:grpc-spring-boot-starter:3.1.0.RELEASE'
+    testImplementation 'io.grpc:grpc-testing:1.61.1'
 
-    implementation 'com.google.guava:guava:29.0-jre'
+    implementation 'com.google.guava:guava:33.0.0-jre'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'

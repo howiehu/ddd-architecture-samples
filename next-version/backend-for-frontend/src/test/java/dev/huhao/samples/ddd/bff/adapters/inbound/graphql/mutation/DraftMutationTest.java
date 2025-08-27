@@ -1,36 +1,45 @@
 package dev.huhao.samples.ddd.bff.adapters.inbound.graphql.mutation;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.graphql.spring.boot.test.GraphQLResponse;
-import com.graphql.spring.boot.test.GraphQLTestTemplate;
+import org.springframework.graphql.test.tester.WebGraphQlTester;
 import dev.huhao.samples.ddd.bff.adapters.inbound.graphql.GraphQLIntegrationTestBase;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.util.ResourceUtils.CLASSPATH_URL_PREFIX;
-import static org.springframework.util.ResourceUtils.getFile;
 
 public class DraftMutationTest extends GraphQLIntegrationTestBase {
 
     @Autowired
-    private GraphQLTestTemplate graphQLTestTemplate;
-
-    @Autowired
-    private ObjectMapper mapper;
+    private WebGraphQlTester graphQlTester;
 
     @Test
-    void createDraft() throws IOException {
-        GraphQLResponse response = graphQLTestTemplate.postForResource("fixture/mutation/createDraft.graphql");
-
-        assertThat(response).isNotNull();
-        assertThat(response.isOk()).isTrue();
-
-        JsonNode expectedResult = mapper
-                .readTree(getFile(CLASSPATH_URL_PREFIX + "fixture/mutation/results/create-draft-result.json"));
-        assertThat(response.readTree()).isEqualTo(expectedResult);
+    void createDraft() {
+        
+        graphQlTester.document("""
+            mutation {
+                createDraft(
+                    title: "Hello"
+                    body: "Hello"
+                    authorId: "3e490af5-085b-48d7-9593-0ceed5fae7af"
+                ) {
+                    blogId
+                    title
+                    body
+                    createdAt
+                    savedAt
+                    author {
+                        userId
+                        nickname
+                    }
+                }
+            }
+            """)
+            .execute()
+            .path("createDraft.blogId").entity(String.class).isEqualTo("95c06541-d58c-482e-9cff-5a0f2a696aac")
+            .path("createDraft.title").entity(String.class).isEqualTo("Hello")
+            .path("createDraft.body").entity(String.class).isEqualTo("Hello")
+            .path("createDraft.author.userId").entity(String.class).isEqualTo("3e490af5-085b-48d7-9593-0ceed5fae7af")
+            .path("createDraft.author.nickname").entity(String.class).isEqualTo("Alex");
     }
 }

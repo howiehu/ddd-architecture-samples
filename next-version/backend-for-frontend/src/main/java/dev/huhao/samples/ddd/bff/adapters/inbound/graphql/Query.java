@@ -2,11 +2,12 @@ package dev.huhao.samples.ddd.bff.adapters.inbound.graphql;
 
 import dev.huhao.samples.ddd.bff.adapters.inbound.graphql.resolvers.blog.Draft;
 import dev.huhao.samples.ddd.bff.application.services.DraftService;
-import graphql.kickstart.tools.GraphQLQueryResolver;
-import org.springframework.stereotype.Component;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.stereotype.Controller;
 
-@Component
-public class Query implements GraphQLQueryResolver {
+@Controller
+public class Query {
 
     private final DraftService draftService;
 
@@ -14,7 +15,8 @@ public class Query implements GraphQLQueryResolver {
         this.draftService = draftService;
     }
 
-    Draft draft(String blogId) {
+    @QueryMapping
+    Draft draft(@Argument String blogId) {
         return draftService.getDraft(blogId);
     }
 }

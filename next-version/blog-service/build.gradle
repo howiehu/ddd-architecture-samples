@@ -6,15 +6,15 @@ buildscript {
 }
 
 plugins {
-    id 'org.springframework.boot' version '2.3.0.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'org.springframework.boot' version '3.2.1'
+    id 'io.spring.dependency-management' version '1.1.4'
     id 'java'
 }
 
 group = 'dev.huhao.samples.ddd'
 version = '1.0.0'
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_21
+targetCompatibility = JavaVersion.VERSION_21
 
 configurations {
     developmentOnly
@@ -32,7 +32,7 @@ repositories {
 }
 
 ext {
-    mybatisVersion = '2.1.3'
+    mybatisVersion = '3.0.3'
 //    archunitVersion = '0.13.1'
 }
 
@@ -46,15 +46,15 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 
-    implementation 'net.devh:grpc-spring-boot-starter:2.8.0.RELEASE'
-    testImplementation 'io.grpc:grpc-testing:1.29.0'
+    implementation 'net.devh:grpc-spring-boot-starter:3.1.0.RELEASE'
+    testImplementation 'io.grpc:grpc-testing:1.61.1'
 
-    implementation 'com.google.guava:guava:29.0-jre'
+    implementation 'com.google.guava:guava:33.0.0-jre'
 
     runtimeOnly 'com.h2database:h2'
 
     implementation 'org.flywaydb:flyway-core'
-    testImplementation 'org.flywaydb.flyway-test-extensions:flyway-spring-test:6.4.0'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}"
     testImplementation "org.mybatis.spring.boot:mybatis-spring-boot-starter-test:${mybatisVersion}"

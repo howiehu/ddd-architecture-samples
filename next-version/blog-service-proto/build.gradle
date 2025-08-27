@@ -6,7 +6,7 @@ buildscript {
 }
 
 plugins {
-    id 'com.google.protobuf' version '0.8.12'
+    id 'com.google.protobuf' version '0.9.4'
     id 'java-library'
     id 'eclipse'
     id 'idea'
@@ -14,8 +14,8 @@ plugins {
 
 group = 'dev.huhao.samples.ddd'
 version = '1.0.0'
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_21
+targetCompatibility = JavaVersion.VERSION_21
 
 repositories {
     mavenCentral()
@@ -23,14 +23,15 @@ repositories {
 }
 
 ext {
-    protobufVersion = '1.29.0'
-    protocVersion = '3.12.0'
+    protobufVersion = '1.61.1'
+    protocVersion = '3.25.2'
 }
 
 dependencies {
     implementation "io.grpc:grpc-netty-shaded:${protobufVersion}"
     implementation "io.grpc:grpc-protobuf:${protobufVersion}"
     implementation "io.grpc:grpc-stub:${protobufVersion}"
+    implementation 'javax.annotation:javax.annotation-api:1.3.2'
 }
 
 protobuf {

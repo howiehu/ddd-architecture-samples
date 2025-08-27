@@ -10,7 +10,7 @@ public class GlobalInterceptorConfiguration {
 
     @Bean
     public GlobalServerInterceptorConfigurer globalInterceptorConfigurerAdapter() {
-        return registry -> registry.addServerInterceptors(new GlobalExceptionHandlerInterceptor());
+        return registry -> registry.add(new GlobalExceptionHandlerInterceptor());
     }
 
 }

@@ -1,8 +1,7 @@
 package dev.huhao.samples.ddd.bff.adapters.inbound.graphql;
 
-import graphql.kickstart.tools.GraphQLSubscriptionResolver;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
-@Component
-public class Subscription implements GraphQLSubscriptionResolver {
+@Controller
+public class Subscription {
 }
